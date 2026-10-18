@@ -41,9 +41,36 @@ export function speak(text, { voiceURI, rate = 0.9, onend, onstart } = {}) {
   u.onstart = () => onstart?.();
   u.onend = () => { lastError = ''; onend?.(); };
   u.onerror = e => { lastError = e.error || 'error'; onend?.(); };
+  keep.push(u); keep = keep.slice(-5);
   synth.resume?.(); // Chrome a volte resta in pausa dopo un cambio di scheda
   synth.speak(u);
   return true;
 }
 
 export function stop() { if (synth?.speaking || synth?.pending) synth.cancel(); }
+
+// Diagnostica: prova la sintesi in modi diversi e riporta cosa succede (per capire i problemi su iPhone).
+let keep = []; // tiene vive le frasi: alcuni browser le perdono prima di leggerle
+export function diagnose(mode, log) {
+  if (!synth) { log('speechSynthesis assente'); return; }
+  const all = synth.getVoices();
+  const bg = all.filter(isBg);
+  const t0 = performance.now();
+  const at = () => `${Math.round(performance.now() - t0)} ms`;
+  let text = 'Здравей! Казвам се Мила.', v = null, lang = 'bg-BG';
+  if (mode.startsWith('voice:')) v = bg[+mode.slice(6)] || null;
+  if (mode === 'en') { text = 'Hello, this is a test.'; lang = 'en-US'; v = all.find(x => x.lang?.startsWith('en')) || null; }
+  log(`— prova «${mode}»: voce=${v ? `${v.name} (${v.lang}, ${v.localService ? 'locale' : 'online'}, ${v.voiceURI})` : 'nessuna, solo lingua ' + lang}`);
+  log(`  prima: speaking=${synth.speaking} pending=${synth.pending} paused=${synth.paused} sicuro=${window.isSecureContext}`);
+  if (synth.speaking || synth.pending) synth.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  if (v) u.voice = v;
+  u.lang = v?.lang || lang;
+  u.volume = 1; u.rate = 1;
+  u.onstart = () => log(`  ${at()}: è partita`);
+  u.onend = () => log(`  ${at()}: finita`);
+  u.onerror = e => log(`  ${at()}: ERRORE ${e.error}`);
+  keep.push(u); keep = keep.slice(-5);
+  synth.speak(u);
+  setTimeout(() => log(`  dopo 3 s: speaking=${synth.speaking} pending=${synth.pending} paused=${synth.paused}`), 3000);
+}

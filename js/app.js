@@ -24,7 +24,7 @@ const UI = {
     wordsTitle: 'Le parole del capitolo 1', wordsNote: 'La vocale rossa e sottolineata è quella da dire più forte. Nei testi bulgari normali non si segna.',
     review: 'Testi bulgari in revisione: da far controllare a un madrelingua.', reviewAi: 'Testi bulgari controllati con l’AI, in attesa di conferma da un madrelingua.',
     sHelpLang: 'Lingua degli aiuti', sName: 'Il tuo nome', sGuide: 'La tua guida', sTranslit: 'Traslitterazione (lettere latine sotto il cirillico)',
-    sVoice: 'Voce bulgara', sVoicePick: 'Scegli la voce', sRate: 'Velocità', sTest: 'Prova la voce', sSounds: 'Suoni', sVibrate: 'Vibrazione', sVibrateNo: 'Vibrazione non disponibile su questo dispositivo',
+    sVoice: 'Voce bulgara', sVoicePick: 'Scegli la voce', sRate: 'Velocità', sTest: 'Prova la voce', diag: 'Diagnostica della voce', diagNote: 'Tocca un pulsante alla volta, poi copia il testo che compare e mandalo a chi sviluppa il gioco.', diagLang: 'Solo lingua bulgara', sSounds: 'Suoni', sVibrate: 'Vibrazione', sVibrateNo: 'Vibrazione non disponibile su questo dispositivo',
     sForms: 'Lettere in stile bulgaro moderno', sFormsNote: 'Molti libri e marchi bulgari usano queste forme; i cartelli spesso no. All’inizio è più facile la forma classica.',
     sDisplay: 'Lettura e suoni', sBig: 'Testo più grande', sMotion: 'Riduci le animazioni', sData: 'I tuoi dati', sDataNote: 'Il viaggio è salvato solo in questo browser. Nessun dato viene inviato.',
     sReset: 'Cancella i progressi', sResetQ: 'Vuoi davvero cancellare nome e progressi da questo dispositivo?', sSave: 'Salva', saved: 'Salvato',
@@ -50,7 +50,7 @@ const UI = {
     wordsTitle: 'Chapter 1 words', wordsNote: 'The red, underlined vowel is the stressed one. Normal Bulgarian texts don’t mark it.',
     review: 'Bulgarian texts under review: to be checked by a native speaker.', reviewAi: 'Bulgarian texts checked with AI, awaiting confirmation by a native speaker.',
     sHelpLang: 'Help language', sName: 'Your name', sGuide: 'Your guide', sTranslit: 'Transliteration (Latin letters under Cyrillic)',
-    sVoice: 'Bulgarian voice', sVoicePick: 'Choose the voice', sRate: 'Speed', sTest: 'Test the voice', sSounds: 'Sounds', sVibrate: 'Vibration', sVibrateNo: 'Vibration not available on this device',
+    sVoice: 'Bulgarian voice', sVoicePick: 'Choose the voice', sRate: 'Speed', sTest: 'Test the voice', diag: 'Voice diagnostics', diagNote: 'Tap one button at a time, then copy the text that appears and send it to the game developer.', diagLang: 'Bulgarian language only', sSounds: 'Sounds', sVibrate: 'Vibration', sVibrateNo: 'Vibration not available on this device',
     sForms: 'Modern Bulgarian letter shapes', sFormsNote: 'Many Bulgarian books and brands use these shapes; signs often don’t. The classic shapes are easier at first.',
     sDisplay: 'Reading and sounds', sBig: 'Larger text', sMotion: 'Reduce animations', sData: 'Your data', sDataNote: 'Your journey is saved in this browser only. No data is sent anywhere.',
     sReset: 'Delete progress', sResetQ: 'Do you really want to delete your name and progress from this device?', sSave: 'Save', saved: 'Saved',
@@ -402,6 +402,15 @@ function renderSettings() {
         <p class="muted small">${T('voicesFound')}: ${vs.length ? vs.map(v => esc(v.name)).join(', ') : '0'} (${voice.allVoicesCount()})</p>
         <label class="field"><span>${T('sRate')}: <output id="rate-out">${Math.round(S.rate * 100)}%</output></span><input type="range" id="s-rate" min="0.6" max="1.2" step="0.05" value="${S.rate}"></label>
         <button class="btn small ghost" data-say="Здравей! Казвам се Мила." ${voice.hasSpeech() ? '' : 'disabled'}>🔊 ${T('sTest')}</button>
+        <details class="diag"><summary>🔧 ${T('diag')}</summary>
+          <p class="muted small">${T('diagNote')}</p>
+          <div class="row wrap">
+            ${vs.map((v, i) => `<button class="btn small ghost" data-diag="voice:${i}">${esc(v.name)} ${i + 1}</button>`).join('')}
+            <button class="btn small ghost" data-diag="lang">${T('diagLang')}</button>
+            <button class="btn small ghost" data-diag="en">English</button>
+          </div>
+          <pre id="diag-log" class="diag-log" aria-live="polite"></pre>
+        </details>
       </fieldset>
       <fieldset><legend>${T('sDisplay')}</legend>
         ${toggle('translit', T('sTranslit'))}
@@ -423,6 +432,12 @@ function renderSettings() {
   app.querySelectorAll('[data-setguide]').forEach(b => b.addEventListener('click', () => { S.guide = b.dataset.setguide; save(); go('settings'); }));
   app.querySelectorAll('[data-toggle]').forEach(c => c.addEventListener('change', () => { S[c.dataset.toggle] = c.checked; save(); applyPrefs(); }));
   $('#s-voice')?.addEventListener('change', e => { S.voiceURI = e.target.value; save(); });
+  const diagLog = $('#diag-log');
+  const dlog = line => { diagLog.textContent += line + '\n'; };
+  app.querySelectorAll('[data-diag]').forEach(b => b.addEventListener('click', () => {
+    if (!diagLog.textContent) dlog(`${navigator.userAgent.replace(/^Mozilla\/5.0 /, '')}\nvoci totali: ${voice.allVoicesCount()}, bulgare: ${voice.bulgarianVoices().length}`);
+    voice.diagnose(b.dataset.diag, dlog);
+  }));
   $('#s-rate').addEventListener('input', e => { S.rate = +e.target.value; $('#rate-out').textContent = Math.round(S.rate * 100) + '%'; save(); });
   attachKeyboard($('.kb-toggle'), $('.kb-slot'), $('#s-namebg'));
   $('#s-savename').addEventListener('click', () => {
