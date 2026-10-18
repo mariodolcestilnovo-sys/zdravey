@@ -31,3 +31,14 @@
 - Prova tecnica AI (online e sul dispositivo) per le frasi libere.
 - Repository GitHub: da creare quando Mario lo chiede (nome proposto `zdravey`).
 - Capitoli 2–10.
+
+## 2026-10-18 — Revisione AI del bulgaro, capitolo 1
+
+**Fatto**
+- Sessione separata «revisore di bulgaro»: controllate tutte le frasi di [DA-CONTROLLARE.md](DA-CONTROLLARE.md)
+  con il contesto di `js/content.js`. Risultato in [REVISIONE-AI-cap1.md](REVISIONE-AI-cap1.md).
+- Esito: nessun errore di grammatica, accento o traslitterazione; una sola risposta giusta in ogni domanda.
+  4 piccole correzioni proposte nelle spiegazioni (gesto della testa, posto di «се», «Лека нощ»,
+  frase sulla Мартеница), alcune alternative facoltative e 10 dubbi per un madrelingua.
+- `js/content.js` non modificato: le correzioni le decide e applica la sessione principale.
+  `REVIEW_STATUS` resta `pending` finché non vengono applicate.
