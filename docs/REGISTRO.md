@@ -61,3 +61,24 @@
 
 **Da fare**
 - Prova su telefono vero; i 10 dubbi a un madrelingua; prova tecnica AI; capitoli 2–10.
+
+## 2026-10-18 — Richieste di Mario dopo la prima prova sul telefono
+
+**Fatto**
+- Lettere latine (Aa) accese di default; si spengono dalle impostazioni. Anche per chi aveva già giocato.
+- Traduzioni dei fumetti e dei cartelli già aperte nei capitoli 1–10 (nuova opzione nelle impostazioni).
+  Restano chiuse solo dove la traduzione è la risposta (attività 1) e nell'ascolto (attività 4).
+- Tastiera fonetica stile QWERTY (disposizione «tradizionale», come su Mac e Windows): я=q, в=w, ъ=y,
+  ж=v, ч=`, ш=[, щ=], ю=\. Lettera latina in piccolo su ogni tasto. Con la tastiera aperta, sul computer
+  si può scrivere anche con la tastiera vera.
+- Voce: ora parla anche se il browser non elenca le voci bulgare (usa lingua bg-BG); niente `cancel()`
+  subito prima di parlare (su Safari può ammutolire); dopo 2,5 s senza voce compare un consiglio
+  (volume, silenzioso, voce scaricata). Nelle impostazioni si vede quali voci bulgare trova il telefono.
+
+**Verificato**
+- Browser, formato telefono: giocatore «vecchio» con lettere latine spente → al ricaricamento accese;
+  partita completa 15/15 senza errori; traduzioni aperte; tastiera a schermo e tastiera vera.
+- Sul Mac la voce Daria parla. **Non verificato su iPhone**: serve la prova di Mario.
+
+**Da fare**
+- Mario: riprovare la voce sul telefono e leggere la riga «Voci bulgare trovate» nelle impostazioni.

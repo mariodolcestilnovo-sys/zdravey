@@ -98,7 +98,8 @@ const t = (it, en) => ({ it, en });
 // 15 attività: 5 Scopri, 5 Prova, 5 Usa.
 export const activities1 = [
   // — Scopri —
-  { phase: 0, kind: 'choice', who: 'mila', bg: 'Здравей!', bgHelp: t('Ciao!', 'Hi!'),
+  // hideTr: la traduzione del fumetto è la risposta, quindi resta chiusa.
+  { phase: 0, kind: 'choice', who: 'mila', bg: 'Здравей!', bgHelp: t('Ciao!', 'Hi!'), hideTr: true,
     title: t('Il primo saluto', 'The first greeting'),
     prompt: t('Mila ti saluta. Che cosa vuol dire [[Здравей]]?', 'Mila greets you. What does [[Здравей]] mean?'),
     options: [t('Ciao!', 'Hi!'), t('Grazie!', 'Thank you!'), t('Arrivederci!', 'Goodbye!')], answer: 0,

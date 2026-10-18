@@ -256,6 +256,9 @@ textarea { resize: vertical; min-height: 90px; }
   flex: 1; min-width: 0; min-height: 44px; padding: 0; font: inherit; font-weight: 700; font-size: 1.05em;
   background: #fff; color: var(--ink); border: 0; border-radius: 8px; box-shadow: 0 2px 0 #c9bfb4; cursor: pointer;
 }
+.key { position: relative; display: grid; place-items: center; }
+.key small { position: absolute; top: 1px; right: 3px; font-size: .55em; font-weight: 600; color: #a0958b; line-height: 1; }
+.key[aria-pressed="true"] { background: #fde7e3; }
 .key:active { transform: translateY(2px); box-shadow: none; }
 .key.wide { flex: 1.6; }
 .key.wider { flex: 3.5; }

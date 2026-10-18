@@ -7,7 +7,7 @@ Progetto separato da Dolce Stilnovo, ispirato alle meccaniche del suo Prototipo 
 ([elenco](docs/DA-CONTROLLARE.md)). Non pubblicato online.
 
 ## Cosa c'è
-- Benvenuto: lingua degli aiuti, nome (anche in cirillico, con tastiera sullo schermo), scelta della guida.
+- Benvenuto: lingua degli aiuti, nome (anche in cirillico, con tastiera fonetica QWERTY sullo schermo), scelta della guida.
 - Capitolo 1 «Здравей, София!»: 5 scene, 3 spiegazioni della guida, 15 attività
   (Scopri / Prova / Usa), finale e calamita per il frigo.
 - Attività: scelta, abbinamento, riordino di parole, composizione con lettere, lettura di cartelli,
@@ -15,7 +15,8 @@ Progetto separato da Dolce Stilnovo, ispirato alle meccaniche del suo Prototipo 
 - Errori: si riprova subito, «Proviamo insieme» è facoltativo.
 - Frigo con 10 posti, lista delle parole con vocale accentata, impostazioni.
 - Cirillico: font Sofia Sans (OFL) con forme classiche predefinite e forme bulgare moderne a scelta;
-  traslitterazione ufficiale facoltativa (Aa); voce bulgara del dispositivo quando c'è.
+  traslitterazione ufficiale (Aa, accesa di default); traduzioni aperte nei capitoli 1–10;
+  voce bulgara del dispositivo quando c'è.
 - Salvataggio solo nel browser (`localStorage`). Nessun account, nessun dato inviato.
 
 ## Provare in locale

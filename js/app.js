@@ -13,6 +13,8 @@ const UI = {
     next: 'Avanti', back: 'Indietro', start: 'Iniziamo!', chooseGuide: 'Scegli la tua guida', guideNote: 'La guida ti spiega le parole nuove. Puoi cambiarla quando vuoi.',
     cont: 'Continua', check: 'Controlla', correct: 'Giusto!', notYet: 'Non ancora: riprova!', together: 'Proviamo insieme', listen: 'Ascolta', stopVoice: 'Ferma', showText: 'Mostra il testo', translate: 'Traduci',
     noVoice: 'Questo dispositivo non ha una voce bulgara: leggi il testo. Il gioco funziona lo stesso.',
+    noVoiceHelp: 'Non si sente niente? Alza il volume, togli il silenzioso e controlla che la voce bulgara sia scaricata. Puoi sempre leggere il testo.',
+    voiceOff: 'La voce è spenta: puoi accenderla nelle impostazioni.', voicesFound: 'Voci bulgare trovate', showTrLabel: 'Traduzioni già aperte (capitoli 1–10)',
     activity: 'Attività', of: 'di', help: 'Aiuto della guida', keyboard: 'Tastiera cirillica', example: 'Mostra un esempio', send: 'Invia a Mila', sent: 'Messaggio inviato!', yourMsg: 'Il tuo messaggio',
     aiSlot: 'Consiglio automatico: in arrivo. Stiamo provando un’AI gratuita che potrà darti un suggerimento sulle frasi libere.',
     reward: 'Nuova calamita!', toFridge: 'Vai al frigo', toJourney: 'Torna al viaggio',
@@ -37,6 +39,8 @@ const UI = {
     next: 'Next', back: 'Back', start: 'Let’s start!', chooseGuide: 'Choose your guide', guideNote: 'Your guide explains new words. You can change guide any time.',
     cont: 'Continue', check: 'Check', correct: 'Correct!', notYet: 'Not yet: try again!', together: 'Let’s do it together', listen: 'Listen', stopVoice: 'Stop', showText: 'Show the text', translate: 'Translate',
     noVoice: 'This device has no Bulgarian voice: read the text. The game still works.',
+    noVoiceHelp: 'Can’t hear anything? Turn the volume up, switch off silent mode and check the Bulgarian voice is downloaded. You can always read the text.',
+    voiceOff: 'The voice is off: you can turn it on in Settings.', voicesFound: 'Bulgarian voices found', showTrLabel: 'Translations already open (chapters 1–10)',
     activity: 'Activity', of: 'of', help: 'Guide’s help', keyboard: 'Cyrillic keyboard', example: 'Show an example', send: 'Send to Mila', sent: 'Message sent!', yourMsg: 'Your message',
     aiSlot: 'Automatic tip: coming soon. We’re testing a free AI that could give you a hint on free sentences.',
     reward: 'New magnet!', toFridge: 'Go to the fridge', toJourney: 'Back to the journey',
@@ -58,7 +62,7 @@ const UI = {
 // ───────── Salvataggio locale ─────────
 const KEY = 'zdravey.v1';
 const DEFAULTS = {
-  lang: null, name: '', nameBg: '', guide: null, translit: false,
+  lang: null, name: '', nameBg: '', guide: null, translit: true, showTr: true,
   voiceOn: true, voiceURI: '', rate: 0.9, sounds: true, vibrate: true, bigText: false, reduceMotion: false,
   bgForms: false, tipsSeen: false, progress: {}, magnets: []
 };
@@ -67,6 +71,8 @@ function loadState() {
   catch { return { ...DEFAULTS }; }
 }
 let S = loadState();
+// Versione 2: lettere latine e traduzioni visibili di default (richiesta di Mario).
+if ((S.prefsV || 1) < 2) { S.translit = true; S.showTr = true; S.prefsV = 2; save(); }
 function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch { /* memoria non disponibile: si gioca lo stesso */ } }
 
 // ───────── Utilità ─────────
@@ -134,9 +140,12 @@ function confetti(n = 22) {
 document.addEventListener('click', e => {
   const b = e.target.closest('[data-say]');
   if (!b) return;
-  if (!S.voiceOn || !voice.bulgarianVoices().length) { toast(T('noVoice')); return; }
+  if (!S.voiceOn) { toast(T('voiceOff')); return; }
+  if (!voice.hasSpeech()) { toast(T('noVoice')); return; }
   b.classList.add('speaking');
-  voice.speak(b.dataset.say, { voiceURI: S.voiceURI, rate: S.rate, onend: () => b.classList.remove('speaking') });
+  let started = false;
+  voice.speak(b.dataset.say, { voiceURI: S.voiceURI, rate: S.rate, onstart: () => { started = true; }, onend: () => b.classList.remove('speaking') });
+  setTimeout(() => { if (!started) { b.classList.remove('speaking'); toast(T('noVoiceHelp')); } }, 2500);
 });
 let toastTimer;
 function toast(msg) {
@@ -253,32 +262,54 @@ function renderWelcome(stepN = 0) {
 }
 
 // ───────── Tastiera cirillica sullo schermo ─────────
-const KB_ROWS = ['АБВГДЕЖЗИЙ', 'КЛМНОПРСТУ', 'ФХЦЧШЩЪЬЮЯ'];
+// Tastiera fonetica bulgara (stile QWERTY, «tradizionale»): ogni lettera sta sul tasto latino che le somiglia.
+const KB_ROWS = [
+  [['q', 'я'], ['w', 'в'], ['e', 'е'], ['r', 'р'], ['t', 'т'], ['y', 'ъ'], ['u', 'у'], ['i', 'и'], ['o', 'о'], ['p', 'п']],
+  [['a', 'а'], ['s', 'с'], ['d', 'д'], ['f', 'ф'], ['g', 'г'], ['h', 'х'], ['j', 'й'], ['k', 'к'], ['l', 'л'], ['[', 'ш']],
+  [['z', 'з'], ['x', 'ь'], ['c', 'ц'], ['v', 'ж'], ['b', 'б'], ['n', 'н'], ['m', 'м'], ['`', 'ч'], [']', 'щ'], ['\\', 'ю']]
+];
+const PHONETIC = Object.fromEntries(KB_ROWS.flat());
 function attachKeyboard(toggle, slot, input, onType) {
   let upper = true;
   const draw = () => {
     slot.innerHTML = `<div class="kb" role="group" aria-label="${T('keyboard')}">
-      ${KB_ROWS.map(r => `<div class="kb-row">${[...r].map(ch => { const c = upper ? ch : ch.toLowerCase(); return `<button type="button" class="key" lang="bg" data-k="${c}">${c}</button>`; }).join('')}</div>`).join('')}
+      ${KB_ROWS.map(r => `<div class="kb-row">${r.map(([lat, ch]) => { const c = upper ? ch.toUpperCase() : ch; return `<button type="button" class="key" data-k="${c}"><span lang="bg">${c}</span><small aria-hidden="true">${esc(lat)}</small></button>`; }).join('')}</div>`).join('')}
       <div class="kb-row">
-        <button type="button" class="key wide" data-act="case" aria-label="Aa">${upper ? 'аб' : 'АБ'}</button>
+        <button type="button" class="key wide" data-act="case" aria-label="${upper ? 'абв' : 'АБВ'}">⇧</button>
         ${['!', '?', ',', '.'].map(p => `<button type="button" class="key" data-k="${p}">${p}</button>`).join('')}
-        <button type="button" class="key wider" data-k=" " aria-label="spazio">␣</button>
+        <button type="button" class="key wider" data-k=" " aria-label="␣">␣</button>
         <button type="button" class="key wide" data-act="del" aria-label="⌫">⌫</button>
       </div></div>`;
+    slot.querySelector('[data-act="case"]').setAttribute('aria-pressed', upper);
+  };
+  const insert = k => {
+    const start = input.selectionStart ?? input.value.length, end = input.selectionEnd ?? input.value.length;
+    input.value = input.value.slice(0, start) + k + input.value.slice(end); input.setSelectionRange(start + k.length, start + k.length);
+    onType?.(); input.dispatchEvent(new Event('input'));
   };
   slot.addEventListener('click', e => {
     const b = e.target.closest('button'); if (!b) return;
     if (b.dataset.act === 'case') { upper = !upper; draw(); return; }
-    const start = input.selectionStart ?? input.value.length, end = input.selectionEnd ?? input.value.length;
     if (b.dataset.act === 'del') {
+      const start = input.selectionStart ?? input.value.length, end = input.selectionEnd ?? input.value.length;
       const from = start === end ? Math.max(0, start - 1) : start;
       input.value = input.value.slice(0, from) + input.value.slice(end); input.setSelectionRange(from, from);
+      onType?.(); input.dispatchEvent(new Event('input'));
     } else {
-      const k = b.dataset.k;
-      input.value = input.value.slice(0, start) + k + input.value.slice(end); input.setSelectionRange(start + k.length, start + k.length);
-      if (upper && /[А-Я]/.test(k)) { upper = false; draw(); }
+      insert(b.dataset.k);
+      if (upper && /[А-Я]/.test(b.dataset.k)) { upper = false; draw(); }
     }
-    sfx.tap(); onType?.(); input.dispatchEvent(new Event('input'));
+    sfx.tap();
+  });
+  // Con la tastiera aperta, anche la tastiera vera del computer scrive in cirillico fonetico.
+  input.addEventListener('keydown', e => {
+    if (toggle.getAttribute('aria-expanded') !== 'true' || e.ctrlKey || e.metaKey || e.altKey) return;
+    const ch = PHONETIC[e.key.toLowerCase()] ?? (e.key === '~' ? 'ч' : e.key === '{' ? 'ш' : e.key === '}' ? 'щ' : e.key === '|' ? 'ю' : undefined);
+    if (!ch) return;
+    e.preventDefault();
+    const shifted = e.key !== e.key.toLowerCase() || '~{}|'.includes(e.key);
+    insert(shifted ? ch.toUpperCase() : ch);
+    if (upper) { upper = false; draw(); }
   });
   toggle.addEventListener('click', () => {
     const open = toggle.getAttribute('aria-expanded') !== 'true';
@@ -367,12 +398,14 @@ function renderSettings() {
       </fieldset>
       <fieldset><legend>${T('sVoice')}</legend>
         ${toggle('voiceOn', T('sVoice'))}
-        ${vs.length ? `<label class="field"><span>${T('sVoicePick')}</span><select id="s-voice">${vs.map(v => `<option value="${esc(v.voiceURI)}" ${v.voiceURI === S.voiceURI ? 'selected' : ''}>${esc(v.name)}</option>`).join('')}</select></label>` : `<p class="note">${T('noVoice')}</p>`}
+        ${vs.length ? `<label class="field"><span>${T('sVoicePick')}</span><select id="s-voice">${vs.map(v => `<option value="${esc(v.voiceURI)}" ${v.voiceURI === S.voiceURI ? 'selected' : ''}>${esc(v.name)}</option>`).join('')}</select></label>` : `<p class="note">${T('noVoiceHelp')}</p>`}
+        <p class="muted small">${T('voicesFound')}: ${vs.length ? vs.map(v => esc(v.name)).join(', ') : '0'} (${voice.allVoicesCount()})</p>
         <label class="field"><span>${T('sRate')}: <output id="rate-out">${Math.round(S.rate * 100)}%</output></span><input type="range" id="s-rate" min="0.6" max="1.2" step="0.05" value="${S.rate}"></label>
-        <button class="btn small ghost" data-say="Здравей! Казвам се Мила." ${vs.length ? '' : 'disabled'}>🔊 ${T('sTest')}</button>
+        <button class="btn small ghost" data-say="Здравей! Казвам се Мила." ${voice.hasSpeech() ? '' : 'disabled'}>🔊 ${T('sTest')}</button>
       </fieldset>
       <fieldset><legend>${T('sDisplay')}</legend>
         ${toggle('translit', T('sTranslit'))}
+        ${toggle('showTr', T('showTrLabel'))}
         ${toggle('bgForms', T('sForms'))}
         <p class="muted small forms-demo"><span lang="bg">д л и т</span> → ${T('sFormsNote')}</p>
         ${toggle('sounds', T('sSounds'))}
@@ -440,13 +473,14 @@ function speakerHTML(who) {
   const key = who === 'guide' ? S.guide : who;
   return `<div class="avatar">${avatars[key] || avatars.narrator}</div>`;
 }
+const trOpen = item => (S.showTr && current.ch <= 10 && !item?.hideTr ? 'open' : '');
 function bubble(item) {
   // item: { who, bg, bgHelp|it/en }
   const tr = item.bgHelp ? help(item.bgHelp) : item[L()];
   return `<div class="speaker">${speakerHTML(item.who)}
     <div class="bubble">
       <p class="bg-line">${bg(item.bg)} ${speakBtn(item.bg)}</p>
-      ${tr ? `<details class="tr"><summary>${T('translate')}</summary><p>${esc(fillName(tr))}</p></details>` : ''}
+      ${tr ? `<details class="tr" ${trOpen(item)}><summary>${T('translate')}</summary><p>${esc(fillName(tr))}</p></details>` : ''}
     </div></div>`;
 }
 
@@ -464,7 +498,7 @@ function renderStep() {
     app.innerHTML = `${head}<section class="card scene">
       ${x.who === 'narrator'
         ? `<div class="speaker">${speakerHTML('narrator')}<div class="bubble narr"><h2 class="sr-only">${T('journey')}</h2><p>${rich(x)}</p></div></div>
-           ${x.sign ? `<div class="sign">${bg(x.sign)} ${speakBtn(x.sign)}<details class="tr"><summary>${T('translate')}</summary><p>${esc(help(x.signHelp))}</p></details></div>` : ''}`
+           ${x.sign ? `<div class="sign">${bg(x.sign)} ${speakBtn(x.sign)}<details class="tr" ${trOpen(x)}><summary>${T('translate')}</summary><p>${esc(help(x.signHelp))}</p></details></div>` : ''}`
         : `<h2 class="sr-only">Мила</h2>${bubble(x)}`}
       <button class="btn cont">${T('cont')}</button></section>`;
     $('.cont').addEventListener('click', advance);
@@ -543,7 +577,7 @@ function renderActivity(head, i) {
   if (a.kind === 'choice' || a.kind === 'read' || a.kind === 'listen') {
     let pre = '';
     if (a.kind === 'listen') {
-      const can = S.voiceOn && voice.bulgarianVoices().length;
+      const can = S.voiceOn && voice.hasSpeech();
       pre = `<div class="speaker">${speakerHTML(a.who)}<div class="bubble">
           <button class="btn listen-btn" data-say="${esc(a.say)}" ${can ? '' : 'hidden'}>🔊 ${T('listen')}</button>
           <details class="tr" ${can ? '' : 'open'}><summary>${T('showText')}</summary><p class="bg-line">${bg(a.say)}</p><p class="muted">${esc(help(a.bgHelp))}</p></details>
