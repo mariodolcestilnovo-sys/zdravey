@@ -91,3 +91,9 @@
 - Aggiunto `navigator.audioSession.type = 'playback'` prima di parlare (dove esiste): la voce dovrebbe
   sentirsi anche in silenzioso. La diagnostica ora mostra anche lo stato di audioSession.
 - Mac: invariato, funziona. **iPhone: da riprovare.**
+- Mario: con il silenzioso tolto la voce si sente → confermato che il problema è il silenzioso.
+- `audioSession = 'playback'` da solo non basta per la voce. Aggiunto il «trucco dell'audio muto»: mentre la
+  voce parla suona in loop un file audio silenzioso (generato nel browser, 0,5 s), che dovrebbe portare
+  la pagina in modalità riproduzione anche in silenzioso. Mac: funziona, voce invariata. **iPhone: da provare.**
+- Piano B se non basta: file audio registrati per ogni frase (attenzione: le voci Apple sono solo per
+  uso personale; per il gioco pubblico serve una voce con licenza libera o un madrelingua).
