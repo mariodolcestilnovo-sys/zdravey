@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#c8102e">
+  <title>Здравей! – La sfida della Мартеница</title>
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip" href="#app">Vai al contenuto / Skip to content</a>
+  <header id="topbar" hidden>
+    <div class="brand"><span class="brand-name" lang="bg">Здравей!</span><span id="brand-sub" class="brand-sub"></span></div>
+    <div class="tools">
+      <button id="translit-btn" class="icon-btn" aria-pressed="false"><span aria-hidden="true">Aa</span></button>
+      <button id="settings-btn" class="icon-btn"><span aria-hidden="true">⚙</span></button>
+    </div>
+  </header>
+  <div class="martenitsa-line" aria-hidden="true"></div>
+  <main id="app" tabindex="-1"></main>
+  <p id="review-note" class="review-note" hidden></p>
+  <nav id="nav" hidden>
+    <button data-view="journey"><b aria-hidden="true">🗺</b><span></span></button>
+    <button data-view="fridge"><b aria-hidden="true">🧲</b><span></span></button>
+    <button data-view="words"><b aria-hidden="true">📖</b><span></span></button>
+    <button data-view="settings"><b aria-hidden="true">⚙</b><span></span></button>
+  </nav>
+  <div id="toast" role="status" aria-live="polite" hidden></div>
+  <dialog id="dialog"><div id="dialog-body"></div><button id="dialog-close" class="btn"></button></dialog>
+  <noscript>Per giocare serve JavaScript. / JavaScript is required to play.</noscript>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
