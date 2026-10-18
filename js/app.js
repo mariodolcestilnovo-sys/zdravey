@@ -20,7 +20,7 @@ const UI = {
     play: 'Gioca', resume: 'Continua', replay: 'Rigioca', soon: 'In preparazione', done: 'Completato',
     fridgeTitle: 'Il tuo frigo', fridgeEmpty: 'Le calamite grigie arriveranno con i prossimi capitoli.',
     wordsTitle: 'Le parole del capitolo 1', wordsNote: 'La vocale rossa e sottolineata è quella da dire più forte. Nei testi bulgari normali non si segna.',
-    review: 'Testi bulgari in revisione: da far controllare a un madrelingua.',
+    review: 'Testi bulgari in revisione: da far controllare a un madrelingua.', reviewAi: 'Testi bulgari controllati con l’AI, in attesa di conferma da un madrelingua.',
     sHelpLang: 'Lingua degli aiuti', sName: 'Il tuo nome', sGuide: 'La tua guida', sTranslit: 'Traslitterazione (lettere latine sotto il cirillico)',
     sVoice: 'Voce bulgara', sVoicePick: 'Scegli la voce', sRate: 'Velocità', sTest: 'Prova la voce', sSounds: 'Suoni', sVibrate: 'Vibrazione', sVibrateNo: 'Vibrazione non disponibile su questo dispositivo',
     sForms: 'Lettere in stile bulgaro moderno', sFormsNote: 'Molti libri e marchi bulgari usano queste forme; i cartelli spesso no. All’inizio è più facile la forma classica.',
@@ -44,7 +44,7 @@ const UI = {
     play: 'Play', resume: 'Continue', replay: 'Play again', soon: 'Coming soon', done: 'Completed',
     fridgeTitle: 'Your fridge', fridgeEmpty: 'The grey magnets will come with the next chapters.',
     wordsTitle: 'Chapter 1 words', wordsNote: 'The red, underlined vowel is the stressed one. Normal Bulgarian texts don’t mark it.',
-    review: 'Bulgarian texts under review: to be checked by a native speaker.',
+    review: 'Bulgarian texts under review: to be checked by a native speaker.', reviewAi: 'Bulgarian texts checked with AI, awaiting confirmation by a native speaker.',
     sHelpLang: 'Help language', sName: 'Your name', sGuide: 'Your guide', sTranslit: 'Transliteration (Latin letters under Cyrillic)',
     sVoice: 'Bulgarian voice', sVoicePick: 'Choose the voice', sRate: 'Speed', sTest: 'Test the voice', sSounds: 'Sounds', sVibrate: 'Vibration', sVibrateNo: 'Vibration not available on this device',
     sForms: 'Modern Bulgarian letter shapes', sFormsNote: 'Many Bulgarian books and brands use these shapes; signs often don’t. The classic shapes are easier at first.',
@@ -144,6 +144,8 @@ function toast(msg) {
   clearTimeout(toastTimer); toastTimer = setTimeout(() => { el.hidden = true; }, 3500);
 }
 
+const reviewText = () => T(REVIEW_STATUS === 'ai-checked' ? 'reviewAi' : 'review');
+
 // ───────── Struttura generale ─────────
 let view = 'journey';
 function applyPrefs() {
@@ -156,8 +158,8 @@ function applyPrefs() {
   const tb = $('#translit-btn'); tb.setAttribute('aria-pressed', S.translit); tb.title = T('sTranslit'); tb.setAttribute('aria-label', T('sTranslit'));
   $('#settings-btn').setAttribute('aria-label', T('settings'));
   $('#brand-sub').textContent = T('subtitle');
-  $('#review-note').textContent = '⚠ ' + T('review');
-  $('#review-note').hidden = REVIEW_STATUS !== 'pending';
+  $('#review-note').textContent = '⚠ ' + reviewText();
+  $('#review-note').hidden = REVIEW_STATUS === 'native-approved';
   const nav = $('#nav'); nav.setAttribute('aria-label', T('menu'));
   nav.querySelectorAll('button').forEach(b => {
     b.querySelector('span').textContent = T(b.dataset.view);
@@ -212,13 +214,13 @@ function renderWelcome(stepN = 0) {
         </div>
       </section>`;
     const nameIn = $('#name-in'), bgIn = $('#namebg-in');
-    let touched = !!S.nameBg && S.nameBg !== toCyrillic(S.name);
-    nameIn.addEventListener('input', () => { if (!touched) bgIn.value = toCyrillic(nameIn.value.trim()); });
+    let touched = !!S.nameBg && S.nameBg !== toCyrillic(S.name, L());
+    nameIn.addEventListener('input', () => { if (!touched) bgIn.value = toCyrillic(nameIn.value.trim(), L()); });
     bgIn.addEventListener('input', () => { touched = true; });
     attachKeyboard($('.kb-toggle'), $('.kb-slot'), bgIn, () => { touched = true; });
     $('#b-back').addEventListener('click', () => renderWelcome(0));
     $('#b-next').addEventListener('click', () => {
-      S.name = nameIn.value.trim(); S.nameBg = bgIn.value.trim() || toCyrillic(S.name); save(); renderWelcome(2);
+      S.name = nameIn.value.trim(); S.nameBg = bgIn.value.trim() || toCyrillic(S.name, L()); save(); renderWelcome(2);
     });
     nameIn.focus();
   } else {
@@ -382,7 +384,7 @@ function renderSettings() {
         <p>🔒 ${T('sDataNote')}</p>
         <button class="btn small danger" id="s-reset">${T('sReset')}</button>
       </fieldset>
-      <p class="muted small">⚠ ${T('review')}</p>
+      <p class="muted small">⚠ ${reviewText()}</p>
     </section>`;
   app.querySelectorAll('[data-setlang]').forEach(b => b.addEventListener('click', () => { S.lang = b.dataset.setlang; save(); go('settings'); }));
   app.querySelectorAll('[data-setguide]').forEach(b => b.addEventListener('click', () => { S.guide = b.dataset.setguide; save(); go('settings'); }));
@@ -391,7 +393,7 @@ function renderSettings() {
   $('#s-rate').addEventListener('input', e => { S.rate = +e.target.value; $('#rate-out').textContent = Math.round(S.rate * 100) + '%'; save(); });
   attachKeyboard($('.kb-toggle'), $('.kb-slot'), $('#s-namebg'));
   $('#s-savename').addEventListener('click', () => {
-    S.name = $('#s-name').value.trim(); S.nameBg = $('#s-namebg').value.trim() || toCyrillic(S.name); save(); toast('✓ ' + T('saved'));
+    S.name = $('#s-name').value.trim(); S.nameBg = $('#s-namebg').value.trim() || toCyrillic(S.name, L()); save(); toast('✓ ' + T('saved'));
   });
   $('#s-reset').addEventListener('click', () => {
     if (!confirm(T('sResetQ'))) return;

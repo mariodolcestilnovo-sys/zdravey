@@ -34,6 +34,7 @@ words1.forEach(([w, tl, m]) => {
 const eq = (a, b) => { if (a !== b) fail(`atteso «${b}», ottenuto «${a}»`); };
 eq(toLatin('Здравей'), 'Zdravey'); eq(toLatin('София'), 'Sofia'); eq(toLatin('Щастие'), 'Shtastie'); eq(toLatin('Благодаря'), 'Blagodarya');
 eq(toCyrillic('Mario'), 'Марио'); eq(toCyrillic('Sasha'), 'Саша');
+for (const [la, bg] of [['Giovanni', 'Джовани'], ['Chiara', 'Киара'], ['Francesca', 'Франческа'], ['Gianluca', 'Джанлука'], ['Giulia', 'Джулия'], ['Luca', 'Лука'], ['Maria', 'Мария'], ['Hugo', 'Уго'], ['Gnocchi', 'Ноки']]) eq(toCyrillic(la, 'it'), bg);
 
 console.log(errors ? `\n${errors} problemi` : '✓ contenuti del capitolo 1 in ordine');
 process.exit(errors ? 1 : 0);

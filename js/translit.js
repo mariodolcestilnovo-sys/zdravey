@@ -27,16 +27,27 @@ const pairs = [
   ['u', 'у'], ['v', 'в'], ['w', 'у'], ['x', 'кс'], ['y', 'й'], ['z', 'з']
 ];
 
-export function toCyrillic(name) {
-  const src = name.normalize('NFD').replace(/[̀-ͯ]/g, '');
+// Regole italiane (usate quando gli aiuti sono in italiano): Giovanni → Джовани, Chiara → Киара.
+const italian = [
+  ['sci', 'ши'], ['sce', 'ше'], ['gli', 'ли'], ['gn', 'н'],
+  ['chi', 'ки'], ['che', 'ке'], ['ghi', 'ги'], ['ghe', 'ге'],
+  ['gia', 'джа'], ['gio', 'джо'], ['giu', 'джу'], ['gie', 'дже'], ['gi', 'джи'], ['ge', 'дже'],
+  ['cia', 'ча'], ['cio', 'чо'], ['ciu', 'чу'], ['cie', 'че'], ['ci', 'чи'], ['ce', 'че'], ['h', '']
+];
+
+export function toCyrillic(name, lang = 'en') {
+  let src = name.normalize('NFD').replace(/[̀-ͯ]/g, '');
+  if (lang === 'it') src = src.replace(/([a-z])\1/gi, '$1'); // doppie semplificate: Anna → Ана
+  const rules = lang === 'it' ? [...italian, ...pairs] : pairs;
   let out = '', i = 0;
   while (i < src.length) {
     const rest = src.slice(i).toLowerCase();
-    const hit = pairs.find(([lat]) => rest.startsWith(lat));
+    const hit = rules.find(([lat]) => rest.startsWith(lat));
     if (!hit) { out += src[i]; i++; continue; }
     const upper = src[i] !== src[i].toLowerCase();
-    out += upper ? hit[1].charAt(0).toUpperCase() + hit[1].slice(1) : hit[1];
+    out += upper && hit[1] ? hit[1].charAt(0).toUpperCase() + hit[1].slice(1) : hit[1];
     i += hit[0].length;
   }
-  return out;
+  // Se la prima lettera era muta (H iniziale), la maiuscola passa alla successiva.
+  return /^[A-Z]/.test(src) ? out.charAt(0).toUpperCase() + out.slice(1) : out;
 }

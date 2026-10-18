@@ -1,6 +1,6 @@
 # Frasi bulgare da controllare
 
-Stato attuale: **da far controllare a un madrelingua** (`REVIEW_STATUS = 'pending'` in `js/content.js`).
+Stato attuale: **controllate con AI (vedi REVISIONE-AI-cap1.md), da confermare con un madrelingua** (`REVIEW_STATUS = 'ai-checked'` in `js/content.js`).
 Passaggi previsti: da controllare → controllata da AI (sessione separata) → approvata da madrelingua (facoltativo, prima della pubblicazione).
 
 File generato con `node tools/list-bulgarian.mjs`: non modificarlo a mano. Le correzioni vanno in `js/content.js`.
@@ -65,6 +65,7 @@ Il nome del giocatore è mostrato come «Марио».
 | Attività 9 | Здравейте |  | |
 | Attività 9 | Чао |  | |
 | Attività 9 | Лека нощ |  | |
+| Attività 9 | Добър ден |  | |
 | Attività 9 opzione giusta | Здравейте! |  | |
 | Attività 9 opzione | Чао! |  | |
 | Attività 9 opzione | Лека нощ! |  | |
@@ -90,10 +91,12 @@ Il nome del giocatore è mostrato come «Марио».
 | Attività 14 | Чао! До утре! | Ciao! A domani! | |
 | Attività 14 | Чао! |  | |
 | Attività 14 | Довиждане! |  | |
+| Attività 14 | утре |  | |
+| Attività 14 | утро |  | |
 | Attività 14 opzione giusta | Чао! |  | |
 | Attività 14 opzione | Добро утро! |  | |
 | Attività 14 opzione | Как се казваш? |  | |
-| Attività 15 (esempio) | Здравей! Аз съм Марио. Благодаря! |  | |
+| Attività 15 (esempio) | Здравей! Аз съм Марио. Благодаря, Мила! |  | |
 | Finale 1 | Браво, Марио! Това е първият магнит за твоя хладилник. | Bravo, {name}! Questa è la prima calamita per il tuo frigo. | |
 | Parole (accento e traslitterazione) | Здраве́й — zdravéy | Ciao (a una persona) | |
 | Parole (accento e traslitterazione) | Здраве́йте — zdravéyte | Salve / Buongiorno (cortese o a più persone) | |

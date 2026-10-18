@@ -2,7 +2,7 @@
 // finché Mario non cambia lo stato in REVIEW_STATUS.
 // Convenzioni: [[...]] dentro i testi di aiuto = testo bulgaro; {name} = nome del giocatore in cirillico.
 
-export const REVIEW_STATUS = 'pending'; // pending → ai-checked → native-approved
+export const REVIEW_STATUS = 'ai-checked'; // pending → ai-checked → native-approved
 
 export const phases = [
   { it: 'Scopri', en: 'Discover' },
@@ -70,8 +70,8 @@ export const teaching1 = [
     en: '[[Здравей]] = hi, to one person you know or someone your age. [[Здравейте]] = hello: polite, or to several people. [[Да]] = yes, [[Не]] = no. Six letters are “friends”, just like ours: [[А К М О Т Е]]. With them you can already read [[МАМА]] and [[ТАТКО]] (dad)!'
   },
   {
-    it: '[[Казвам се Мила]] = mi chiamo Mila. [[Как се казваш?]] = come ti chiami? [[Аз съм…]] = io sono… Il saluto cambia con l’ora: [[Добро утро]] la mattina, [[Добър ден]] durante il giorno, [[Добър вечер]] la sera, [[Лека нощ]] prima di dormire.',
-    en: '[[Казвам се Мила]] = my name is Mila. [[Как се казваш?]] = what’s your name? [[Аз съм…]] = I am… Greetings change with the time: [[Добро утро]] in the morning, [[Добър ден]] during the day, [[Добър вечер]] in the evening, [[Лека нощ]] before sleep.'
+    it: '[[Казвам се Мила]] = mi chiamo Mila. [[Как се казваш?]] = come ti chiami? [[Аз съм…]] = io sono… Il saluto cambia con l’ora: [[Добро утро]] la mattina, [[Добър ден]] durante il giorno, [[Добър вечер]] la sera, [[Лека нощ]] quando ci si saluta la sera tardi, mai arrivando.',
+    en: '[[Казвам се Мила]] = my name is Mila. [[Как се казваш?]] = what’s your name? [[Аз съм…]] = I am… Greetings change with the time: [[Добро утро]] in the morning, [[Добър ден]] during the day, [[Добър вечер]] in the evening, [[Лека нощ]] when parting late in the evening, never on arrival.'
   },
   {
     it: '[[Как си?]] = come stai? Rispondi [[Добре, благодаря!]] = bene, grazie! Quando vai via: [[Чао!]] tra amici, [[Довиждане!]] in modo cortese. Sui cartelli: [[ИЗХОД]] = uscita, [[ВХОД]] = entrata.',
@@ -84,7 +84,7 @@ export const intro1 = [
   { who: 'narrator', it: 'Atterri all’aeroporto di Sofia. Da oggi vivi qui! All’uscita una ragazza tiene un cartello bianco e rosso.', en: 'You land at Sofia airport. From today you live here! At the exit, a girl holds a white and red sign.', sign: 'ДОБРЕ ДОШЛИ!', signHelp: { it: 'Benvenuti!', en: 'Welcome!' } },
   { who: 'mila', bg: 'Здравей! Аз съм Мила, твоята съседка.', it: 'Ciao! Sono Mila, la tua vicina di casa.', en: 'Hi! I’m Mila, your neighbour.' },
   { who: 'mila', bg: 'Твоят хладилник е празен!', it: 'Il tuo frigo è vuoto!', en: 'Your fridge is empty!' },
-  { who: 'narrator', it: 'Mila ti lancia una sfida: riempire il frigo di calamite da tutta la Bulgaria entro il 1° marzo, il giorno della Мартеница. Quel giorno arriva sua nonna Ruzha!', en: 'Mila sets you a challenge: fill the fridge with magnets from all over Bulgaria by 1 March, Martenitsa day. That’s when her granny Ruzha arrives!' },
+  { who: 'narrator', it: 'Mila ti lancia una sfida: riempire il frigo di calamite da tutta la Bulgaria entro il 1° marzo, il giorno di [[Баба Марта]], quando ci si regala la [[мартеница]], il braccialetto bianco e rosso. Quel giorno arriva sua nonna Ruzha!', en: 'Mila sets you a challenge: fill the fridge with magnets from all over Bulgaria by 1 March, [[Баба Марта]] day, when people give each other a [[мартеница]], the white and red bracelet. That’s when her granny Ruzha arrives!' },
   { who: 'mila', bg: 'До първи март – пълен хладилник! Става ли?', it: 'Entro il primo marzo, frigo pieno! Ci stai?', en: 'By the first of March, a full fridge! Deal?' }
 ];
 
@@ -124,16 +124,16 @@ export const activities1 = [
 
   { phase: 0, kind: 'choice', who: 'guide',
     title: t('Il gesto della testa', 'The head gesture'),
-    prompt: t('Chiedi a Mila se è stanca. Lei muove la testa su e giù e dice [[Не]]. Che cosa intende?', 'You ask Mila if she’s tired. She nods up and down and says [[Не]]. What does she mean?'),
+    prompt: t('Chiedi a Mila se è stanca. Lei alza il mento con un piccolo scatto e dice [[Не]]. Che cosa intende?', 'You ask Mila if she’s tired. She tosses her chin up and says [[Не]]. What does she mean?'),
     options: [t('No', 'No'), t('Sì', 'Yes'), t('Forse', 'Maybe')], answer: 0,
-    explain: t('[[Не]] = no. In Bulgaria, tradizionalmente, la testa su e giù vuol dire «no» e scuoterla di lato vuol dire «sì». Ascolta sempre la parola!', '[[Не]] = no. Traditionally in Bulgaria, nodding means “no” and shaking the head means “yes”. Always listen to the word!') },
+    explain: t('[[Не]] = no. In Bulgaria, tradizionalmente, il «no» è un piccolo scatto della testa all’indietro (il mento va in su); il «sì» è un dondolio della testa da una spalla all’altra. Molti bulgari, soprattutto in città, usano anche i gesti come i nostri: ascolta sempre la parola!', '[[Не]] = no. Traditionally in Bulgaria, “no” is a short upward toss of the head (chin up); “yes” is a wobble of the head from side to side. Many Bulgarians, especially in cities, also use Western gestures: always listen to the word!') },
 
   // — Prova —
   { phase: 1, kind: 'order',
     title: t('La frase di Mila', 'Mila’s sentence'),
     prompt: t('Comincia con [[Казвам]] e ricomponi la frase: «Mi chiamo Mila».', 'Start with [[Казвам]] and rebuild the sentence: “My name is Mila”.'),
     answer: ['Казвам', 'се', 'Мила.'],
-    explain: t('[[Казвам се Мила]]: il verbo viene prima, poi [[се]], poi il nome.', '[[Казвам се Мила]]: the verb comes first, then [[се]], then the name.') },
+    explain: t('[[Казвам се Мила]]. [[се]] non può mai stare all’inizio della frase: quando la frase comincia con il verbo, [[се]] va subito dopo.', '[[Казвам се Мила]]. [[се]] can never start a sentence: when the sentence begins with the verb, [[се]] comes right after it.') },
 
   { phase: 1, kind: 'letters', who: 'mila', bg: 'Ти ли си {name}?', bgHelp: t('Sei tu {name}?', 'Are you {name}?'),
     title: t('Sei proprio tu?', 'Is it really you?'),
@@ -151,7 +151,7 @@ export const activities1 = [
     title: t('Il controllo passaporti', 'Passport control'),
     prompt: t('L’agente del controllo passaporti ti guarda. Salutalo in modo cortese.', 'The passport officer looks at you. Greet him politely.'),
     options: ['Здравейте!', 'Чао!', 'Лека нощ!'], answer: 0,
-    explain: t('[[Здравейте]] è cortese, con il Lei. [[Чао]] è da amici e [[Лека нощ]] si dice prima di dormire.', '[[Здравейте]] is polite. [[Чао]] is for friends and [[Лека нощ]] is said before sleep.') },
+    explain: t('[[Здравейте]] è cortese, con il Lei. [[Чао]] è da amici e [[Лека нощ]] si dice salutandosi la sera tardi, non arrivando. Anche [[Добър ден]] va benissimo con un funzionario.', '[[Здравейте]] is polite. [[Чао]] is for friends and [[Лека нощ]] is said when parting late in the evening, not on arrival. [[Добър ден]] also works well with an official.') },
 
   { phase: 1, kind: 'match',
     title: t('I saluti del giorno', 'Greetings through the day'),
@@ -182,11 +182,11 @@ export const activities1 = [
     title: t('Sotto casa', 'Outside home'),
     prompt: t('Siete arrivati sotto casa e Mila ti saluta. Che cosa rispondi?', 'You’ve arrived home and Mila says goodbye. What do you answer?'),
     options: ['Чао!', 'Добро утро!', 'Как се казваш?'], answer: 0,
-    explain: t('Tra amici, quando vai via, dici [[Чао!]]. In modo cortese: [[Довиждане!]]', 'With friends, when you leave, say [[Чао!]]. Politely: [[Довиждане!]]') },
+    explain: t('Tra amici, quando vai via, dici [[Чао!]]. In modo cortese: [[Довиждане!]] Attento: [[утре]] = domani, [[утро]] = mattina.', 'With friends, when you leave, say [[Чао!]]. Politely: [[Довиждане!]] Careful: [[утре]] = tomorrow, [[утро]] = morning.') },
 
   { phase: 2, kind: 'free',
     title: t('Il messaggio per Mila', 'A message for Mila'),
     prompt: t('Scrivi a Mila un breve messaggio: un saluto, il tuo nome e un grazie. Puoi usare la tastiera cirillica.', 'Write Mila a short message: a greeting, your name and a thank you. You can use the Cyrillic keyboard.'),
-    example: 'Здравей! Аз съм {name}. Благодаря!',
+    example: 'Здравей! Аз съм {name}. Благодаря, Мила!',
     explain: t('Hai scritto il tuo primo messaggio in bulgaro! Questa prova libera non viene corretta e il testo non viene salvato.', 'You wrote your first message in Bulgarian! This free task is not marked and the text is not saved.') }
 ];

@@ -42,3 +42,22 @@
   frase sulla Мартеница), alcune alternative facoltative e 10 dubbi per un madrelingua.
 - `js/content.js` non modificato: le correzioni le decide e applica la sessione principale.
   `REVIEW_STATUS` resta `pending` finché non vengono applicate.
+
+## 2026-10-18 — Correzioni dalla revisione AI
+
+**Fatto**
+- Applicate in `js/content.js` le 4 correzioni della revisione: gesto della testa (il «no» è uno scatto
+  del mento in su; anche la consegna dell'attività 5), posto di «се», «Лека нощ» (solo salutandosi la sera),
+  frase su Баба Марта e мартеница nell'introduzione.
+- Applicati anche alcuni facoltativi: «Добър ден» con un funzionario, утре/утро nell'attività 14,
+  esempio «Благодаря, Мила!». Non applicati: «Хладилникът ти» (dubbio 3, decide il madrelingua).
+- Nomi in cirillico: regole italiane quando gli aiuti sono in italiano (Giovanni → Джовани, Chiara → Киара).
+- `REVIEW_STATUS` = `ai-checked`; l'avviso nel gioco ora dice «controllati con l'AI, in attesa di conferma
+  da un madrelingua». I 10 dubbi restano in [REVISIONE-AI-cap1.md](REVISIONE-AI-cap1.md).
+
+**Verificato**
+- `node tests/content.test.mjs` (con nuovi casi per i nomi italiani) e rigenerato DA-CONTROLLARE.md.
+- Browser, formato telefono: nuovo giocatore «Giovanni», partita completa fino alla calamita, nessun errore.
+
+**Da fare**
+- Prova su telefono vero; i 10 dubbi a un madrelingua; prova tecnica AI; capitoli 2–10.

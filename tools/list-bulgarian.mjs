@@ -28,7 +28,7 @@ const seen = new Set();
 const unique = rows.filter(r => { const k = r[0].split(' (')[0] + r[1]; if (seen.has(k)) return false; seen.add(k); return true; });
 const md = `# Frasi bulgare da controllare
 
-Stato attuale: **da far controllare a un madrelingua** (\`REVIEW_STATUS = '${C.REVIEW_STATUS}'\` in \`js/content.js\`).
+Stato attuale: **${{ pending: 'da far controllare a un madrelingua', 'ai-checked': 'controllate con AI (vedi REVISIONE-AI-cap1.md), da confermare con un madrelingua', 'native-approved': 'approvate da un madrelingua' }[C.REVIEW_STATUS]}** (\`REVIEW_STATUS = '${C.REVIEW_STATUS}'\` in \`js/content.js\`).
 Passaggi previsti: da controllare → controllata da AI (sessione separata) → approvata da madrelingua (facoltativo, prima della pubblicazione).
 
 File generato con \`node tools/list-bulgarian.mjs\`: non modificarlo a mano. Le correzioni vanno in \`js/content.js\`.
