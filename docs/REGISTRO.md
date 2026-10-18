@@ -97,3 +97,24 @@
   la pagina in modalità riproduzione anche in silenzioso. Mac: funziona, voce invariata. **iPhone: da provare.**
 - Piano B se non basta: file audio registrati per ogni frase (attenzione: le voci Apple sono solo per
   uso personale; per il gioco pubblico serve una voce con licenza libera o un madrelingua).
+
+## 2026-10-18 — Piano B: frasi registrate
+
+**Fatto**
+- Voce libera **Piper «dimitar»** (bulgaro, maschile; licenza MIT, dati CC0; modello 63 MB, solo per
+  registrare, non è nel gioco). Registrate le 43 frasi del capitolo 1 in `audio/` (556 KB, AAC).
+- Il gioco suona prima il file registrato; se manca (frasi con il nome del giocatore) usa la voce del
+  dispositivo. Interruttore nelle impostazioni; pulsante «Frase registrata» nella diagnostica.
+- Server di prova: risposte «a pezzi» (Range/206), necessarie a Safari su iPhone per l'audio.
+- `tests/audio.test.mjs`: ogni frase ascoltabile ha il suo file.
+
+**Verificato**
+- Mac, indirizzo Wi‑Fi: il file parte e finisce; nel capitolo il 🔊 scarica il file giusto (206).
+  Partita completa senza errori. `content.test` e `audio.test` passano.
+
+**Da verificare / decidere**
+- iPhone in silenzioso: da provare (Mario).
+- Qualità della voce dimitar: da ascoltare (accenti tonici possibili errori).
+- Licenza: la voce è stata addestrata partendo dalla voce inglese «lessac» di Piper; prima di un uso
+  commerciale va controllata anche la licenza di quella base. Per il prototipo va bene.
+- Alternativa migliore per il futuro: registrazioni di un madrelingua.

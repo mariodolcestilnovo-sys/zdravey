@@ -28,6 +28,19 @@ Poi apri http://localhost:8091.
 Per provarlo sul telefono con il Wi‑Fi di casa: `node tools/serve.mjs 8093 --lan`, poi sul telefono
 apri l'indirizzo che compare (es. http://192.168.1.3:8093). Funziona solo dentro la rete di casa.
 
+## Audio delle frasi
+Le frasi bulgare sono registrate in `audio/` (file .m4a) con **Piper**, programma libero che funziona
+offline, e la voce bulgara «dimitar» (pacchetto rhasspy/piper-voices, licenza MIT; dati di
+addestramento CC0). Su iPhone i file si sentono anche in silenzioso, a differenza della voce del browser.
+Le frasi con il nome del giocatore usano la voce del dispositivo. Per rifare l'audio dopo aver cambiato
+le frasi (serve un Python con `piper-tts` e il modello scaricato):
+```sh
+node tools/audio-texts.mjs > testi.json
+python tools/make_audio.py testi.json bg_BG-dimitar-medium.onnx CARTELLA/espeak-ng-data
+node tests/audio.test.mjs
+```
+Nota: la cartella `espeak-ng-data` deve stare in un percorso corto (es. `~/.cache/zdv/`).
+
 ## Controlli
 ```sh
 node tests/content.test.mjs        # struttura dei contenuti e traslitterazione

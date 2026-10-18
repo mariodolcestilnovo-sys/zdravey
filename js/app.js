@@ -24,7 +24,7 @@ const UI = {
     wordsTitle: 'Le parole del capitolo 1', wordsNote: 'La vocale rossa e sottolineata è quella da dire più forte. Nei testi bulgari normali non si segna.',
     review: 'Testi bulgari in revisione: da far controllare a un madrelingua.', reviewAi: 'Testi bulgari controllati con l’AI, in attesa di conferma da un madrelingua.',
     sHelpLang: 'Lingua degli aiuti', sName: 'Il tuo nome', sGuide: 'La tua guida', sTranslit: 'Traslitterazione (lettere latine sotto il cirillico)',
-    sVoice: 'Voce bulgara', sVoicePick: 'Scegli la voce', sRate: 'Velocità', sTest: 'Prova la voce', diag: 'Diagnostica della voce', diagNote: 'Tocca un pulsante alla volta, poi copia il testo che compare e mandalo a chi sviluppa il gioco.', diagLang: 'Solo lingua bulgara', sSounds: 'Suoni', sVibrate: 'Vibrazione', sVibrateNo: 'Vibrazione non disponibile su questo dispositivo',
+    sVoice: 'Voce bulgara', sVoicePick: 'Scegli la voce', sRate: 'Velocità', sTest: 'Prova la voce', diag: 'Diagnostica della voce', diagNote: 'Tocca un pulsante alla volta, poi copia il testo che compare e mandalo a chi sviluppa il gioco.', diagLang: 'Solo lingua bulgara', diagFile: 'Frase registrata', sClips: 'Usa le frasi registrate (si sentono anche in silenzioso)', sClipsNote: n => `${n} frasi registrate con una voce libera (Dimitar, Piper). Le frasi con il tuo nome usano la voce del dispositivo.`, sSounds: 'Suoni', sVibrate: 'Vibrazione', sVibrateNo: 'Vibrazione non disponibile su questo dispositivo',
     sForms: 'Lettere in stile bulgaro moderno', sFormsNote: 'Molti libri e marchi bulgari usano queste forme; i cartelli spesso no. All’inizio è più facile la forma classica.',
     sDisplay: 'Lettura e suoni', sBig: 'Testo più grande', sMotion: 'Riduci le animazioni', sData: 'I tuoi dati', sDataNote: 'Il viaggio è salvato solo in questo browser. Nessun dato viene inviato.',
     sReset: 'Cancella i progressi', sResetQ: 'Vuoi davvero cancellare nome e progressi da questo dispositivo?', sSave: 'Salva', saved: 'Salvato',
@@ -50,7 +50,7 @@ const UI = {
     wordsTitle: 'Chapter 1 words', wordsNote: 'The red, underlined vowel is the stressed one. Normal Bulgarian texts don’t mark it.',
     review: 'Bulgarian texts under review: to be checked by a native speaker.', reviewAi: 'Bulgarian texts checked with AI, awaiting confirmation by a native speaker.',
     sHelpLang: 'Help language', sName: 'Your name', sGuide: 'Your guide', sTranslit: 'Transliteration (Latin letters under Cyrillic)',
-    sVoice: 'Bulgarian voice', sVoicePick: 'Choose the voice', sRate: 'Speed', sTest: 'Test the voice', diag: 'Voice diagnostics', diagNote: 'Tap one button at a time, then copy the text that appears and send it to the game developer.', diagLang: 'Bulgarian language only', sSounds: 'Sounds', sVibrate: 'Vibration', sVibrateNo: 'Vibration not available on this device',
+    sVoice: 'Bulgarian voice', sVoicePick: 'Choose the voice', sRate: 'Speed', sTest: 'Test the voice', diag: 'Voice diagnostics', diagNote: 'Tap one button at a time, then copy the text that appears and send it to the game developer.', diagLang: 'Bulgarian language only', diagFile: 'Recorded sentence', sClips: 'Use recorded sentences (audible even in silent mode)', sClipsNote: n => `${n} sentences recorded with a free voice (Dimitar, Piper). Sentences with your name use the device voice.`, sSounds: 'Sounds', sVibrate: 'Vibration', sVibrateNo: 'Vibration not available on this device',
     sForms: 'Modern Bulgarian letter shapes', sFormsNote: 'Many Bulgarian books and brands use these shapes; signs often don’t. The classic shapes are easier at first.',
     sDisplay: 'Reading and sounds', sBig: 'Larger text', sMotion: 'Reduce animations', sData: 'Your data', sDataNote: 'Your journey is saved in this browser only. No data is sent anywhere.',
     sReset: 'Delete progress', sResetQ: 'Do you really want to delete your name and progress from this device?', sSave: 'Save', saved: 'Saved',
@@ -63,7 +63,7 @@ const UI = {
 const KEY = 'zdravey.v1';
 const DEFAULTS = {
   lang: null, name: '', nameBg: '', guide: null, translit: true, showTr: true,
-  voiceOn: true, voiceURI: '', rate: 0.9, sounds: true, vibrate: true, bigText: false, reduceMotion: false,
+  voiceOn: true, useClips: true, voiceURI: '', rate: 0.9, sounds: true, vibrate: true, bigText: false, reduceMotion: false,
   bgForms: false, tipsSeen: false, progress: {}, magnets: []
 };
 function loadState() {
@@ -158,6 +158,7 @@ const reviewText = () => T(REVIEW_STATUS === 'ai-checked' ? 'reviewAi' : 'review
 // ───────── Struttura generale ─────────
 let view = 'journey';
 function applyPrefs() {
+  voice.setUseClips(S.useClips !== false);
   document.documentElement.lang = L();
   document.title = 'Здравей! – ' + T('subtitle');
   document.body.classList.toggle('translit', S.translit);
@@ -398,6 +399,8 @@ function renderSettings() {
       </fieldset>
       <fieldset><legend>${T('sVoice')}</legend>
         ${toggle('voiceOn', T('sVoice'))}
+        ${toggle('useClips', T('sClips'))}
+        <p class="muted small">${T('sClipsNote')(voice.clipCount())}</p>
         ${vs.length ? `<label class="field"><span>${T('sVoicePick')}</span><select id="s-voice">${vs.map(v => `<option value="${esc(v.voiceURI)}" ${v.voiceURI === S.voiceURI ? 'selected' : ''}>${esc(v.name)}</option>`).join('')}</select></label>` : `<p class="note">${T('noVoiceHelp')}</p>`}
         <p class="muted small">${T('voicesFound')}: ${vs.length ? vs.map(v => esc(v.name)).join(', ') : '0'} (${voice.allVoicesCount()})</p>
         <label class="field"><span>${T('sRate')}: <output id="rate-out">${Math.round(S.rate * 100)}%</output></span><input type="range" id="s-rate" min="0.6" max="1.2" step="0.05" value="${S.rate}"></label>
@@ -408,6 +411,7 @@ function renderSettings() {
             ${vs.map((v, i) => `<button class="btn small ghost" data-diag="voice:${i}">${esc(v.name)} ${i + 1}</button>`).join('')}
             <button class="btn small ghost" data-diag="lang">${T('diagLang')}</button>
             <button class="btn small ghost" data-diag="en">English</button>
+            <button class="btn small ghost" data-diag="file">${T('diagFile')}</button>
           </div>
           <pre id="diag-log" class="diag-log" aria-live="polite"></pre>
         </details>

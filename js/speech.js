@@ -59,6 +59,29 @@ if (synth) {
   [300, 1000, 2500, 5000].forEach(ms => setTimeout(load, ms));
 }
 
+// Frasi registrate (audio/index.json, voce libera Piper «dimitar»): su iPhone si sentono anche in silenzioso.
+let clips = {};
+export let useClips = true;
+export const setUseClips = on => { useClips = on; };
+export const clipCount = () => Object.keys(clips).length;
+if (typeof fetch !== 'undefined') fetch('audio/index.json').then(r => (r.ok ? r.json() : {})).then(j => { clips = j; }).catch(() => {});
+const norm = t => t.replace(/\u0301/g, '').replace(/[«»]/g, '').trim();
+let player;
+function playClip(text, rate, onstart, onend) {
+  const file = clips[norm(text)];
+  if (!useClips || !file || typeof Audio === 'undefined') return false;
+  if (synth?.speaking || synth?.pending) synth.cancel();
+  if (!player) { player = new Audio(); player.preload = 'auto'; player.setAttribute('playsinline', ''); }
+  player.pause();
+  player.onplaying = () => { player.onplaying = null; onstart?.(); };
+  player.onended = player.onerror = () => { player.onended = player.onerror = null; onend?.(); };
+  player.src = 'audio/' + file;
+  player.playbackRate = Math.min(1.2, Math.max(0.6, rate));
+  const p = player.play();
+  p?.catch?.(() => onend?.());
+  return true;
+}
+
 export const bulgarianVoices = () => load();
 export const hasSpeech = () => !!synth;
 export const onVoices = fn => { listeners.add(fn); fn(voices); };
@@ -68,6 +91,7 @@ export const allVoicesCount = () => synth?.getVoices().length || 0;
 // Parla anche se l'elenco delle voci è vuoto: con lang="bg-BG" il sistema sceglie da solo
 // la voce bulgara installata (succede su alcuni iPhone).
 export function speak(text, { voiceURI, rate = 0.9, onend, onstart } = {}) {
+  if (playClip(text, rate, onstart, onend)) return true;
   if (!synth) return false;
   load();
   wakeAudio();
@@ -87,11 +111,20 @@ export function speak(text, { voiceURI, rate = 0.9, onend, onstart } = {}) {
   return true;
 }
 
-export function stop() { if (synth?.speaking || synth?.pending) synth.cancel(); }
+export function stop() { player?.pause(); if (synth?.speaking || synth?.pending) synth.cancel(); }
 
 // Diagnostica: prova la sintesi in modi diversi e riporta cosa succede (per capire i problemi su iPhone).
 let keep = []; // tiene vive le frasi: alcuni browser le perdono prima di leggerle
 export function diagnose(mode, log) {
+  if (mode === 'file') {
+    const t0 = performance.now(), at = () => `${Math.round(performance.now() - t0)} ms`;
+    log(`— prova «file registrato»: frasi registrate=${clipCount()}`);
+    const was = useClips; useClips = true;
+    const ok = playClip('Здравей! Казвам се Мила.', 1, () => log(`  ${at()}: è partita`), () => log(`  ${at()}: finita`));
+    useClips = was;
+    if (!ok) log('  nessun file per questa frase');
+    return;
+  }
   if (!synth) { log('speechSynthesis assente'); return; }
   const all = synth.getVoices();
   const bg = all.filter(isBg);
