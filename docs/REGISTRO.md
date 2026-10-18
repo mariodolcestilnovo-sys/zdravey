@@ -82,3 +82,12 @@
 
 **Da fare**
 - Mario: riprovare la voce sul telefono e leggere la riga «Voci bulgare trovate» nelle impostazioni.
+
+## 2026-10-18 — Voce muta su iPhone
+
+- Diagnostica sul telefono di Mario (iPhone, iOS 27, Chrome): la voce Daria parte e finisce in ~1,9 s,
+  quindi la sintesi funziona ma il suono non esce. Causa probabile: modalità silenziosa (l'audio web
+  su iPhone la rispetta).
+- Aggiunto `navigator.audioSession.type = 'playback'` prima di parlare (dove esiste): la voce dovrebbe
+  sentirsi anche in silenzioso. La diagnostica ora mostra anche lo stato di audioSession.
+- Mac: invariato, funziona. **iPhone: da riprovare.**

@@ -4,6 +4,12 @@ let voices = [];
 let lastError = '';
 const listeners = new Set();
 
+// Su iPhone (Safari e Chrome) l'audio delle pagine segue l'interruttore del silenzioso.
+// Con audioSession «playback» la voce si sente anche in silenzioso, come un video.
+function wakeAudio() {
+  try { if (navigator.audioSession && navigator.audioSession.type !== 'playback') navigator.audioSession.type = 'playback'; } catch { /* non supportato */ }
+}
+
 const isBg = v => v.lang && v.lang.toLowerCase().replace('_', '-').startsWith('bg');
 function load() {
   if (!synth) return voices;
@@ -31,6 +37,7 @@ export const allVoicesCount = () => synth?.getVoices().length || 0;
 export function speak(text, { voiceURI, rate = 0.9, onend, onstart } = {}) {
   if (!synth) return false;
   load();
+  wakeAudio();
   // Su Safari un cancel() seguito subito da speak() può restare muto: annulla solo se serve.
   if (synth.speaking || synth.pending) synth.cancel();
   const u = new SpeechSynthesisUtterance(text.replace(/[«»]/g, ''));
@@ -61,7 +68,8 @@ export function diagnose(mode, log) {
   if (mode.startsWith('voice:')) v = bg[+mode.slice(6)] || null;
   if (mode === 'en') { text = 'Hello, this is a test.'; lang = 'en-US'; v = all.find(x => x.lang?.startsWith('en')) || null; }
   log(`— prova «${mode}»: voce=${v ? `${v.name} (${v.lang}, ${v.localService ? 'locale' : 'online'}, ${v.voiceURI})` : 'nessuna, solo lingua ' + lang}`);
-  log(`  prima: speaking=${synth.speaking} pending=${synth.pending} paused=${synth.paused} sicuro=${window.isSecureContext}`);
+  wakeAudio();
+  log(`  prima: speaking=${synth.speaking} pending=${synth.pending} paused=${synth.paused} sicuro=${window.isSecureContext} audioSession=${navigator.audioSession ? navigator.audioSession.type : 'assente'}`);
   if (synth.speaking || synth.pending) synth.cancel();
   const u = new SpeechSynthesisUtterance(text);
   if (v) u.voice = v;
