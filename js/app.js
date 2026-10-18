@@ -13,6 +13,7 @@ const UI = {
     next: 'Avanti', back: 'Indietro', start: 'Iniziamo!', chooseGuide: 'Scegli la tua guida', guideNote: 'La guida ti spiega le parole nuove. Puoi cambiarla quando vuoi.',
     cont: 'Continua', check: 'Controlla', correct: 'Giusto!', notYet: 'Non ancora: riprova!', together: 'Proviamo insieme', listen: 'Ascolta', stopVoice: 'Ferma', showText: 'Mostra il testo', translate: 'Traduci',
     noVoice: 'Questo dispositivo non ha una voce bulgara: leggi il testo. Il gioco funziona lo stesso.',
+    iosSafari: 'Su iPhone, con il silenzioso attivo, la voce si sente solo in Safari. In questo browser togli il silenzioso oppure apri il gioco con Safari.',
     noVoiceHelp: 'Non si sente niente? Alza il volume, togli il silenzioso e controlla che la voce bulgara sia scaricata. Puoi sempre leggere il testo.',
     voiceOff: 'La voce è spenta: puoi accenderla nelle impostazioni.', voicesFound: 'Voci bulgare trovate', showTrLabel: 'Traduzioni già aperte (capitoli 1–10)',
     activity: 'Attività', of: 'di', help: 'Aiuto della guida', keyboard: 'Tastiera cirillica', example: 'Mostra un esempio', send: 'Invia a Mila', sent: 'Messaggio inviato!', yourMsg: 'Il tuo messaggio',
@@ -24,7 +25,7 @@ const UI = {
     wordsTitle: 'Le parole del capitolo 1', wordsNote: 'La vocale rossa e sottolineata è quella da dire più forte. Nei testi bulgari normali non si segna.',
     review: 'Testi bulgari in revisione: da far controllare a un madrelingua.', reviewAi: 'Testi bulgari controllati con l’AI, in attesa di conferma da un madrelingua.',
     sHelpLang: 'Lingua degli aiuti', sName: 'Il tuo nome', sGuide: 'La tua guida', sTranslit: 'Traslitterazione (lettere latine sotto il cirillico)',
-    sVoice: 'Voce bulgara', sVoicePick: 'Scegli la voce', sRate: 'Velocità', sTest: 'Prova la voce', diag: 'Diagnostica della voce', diagNote: 'Tocca un pulsante alla volta, poi copia il testo che compare e mandalo a chi sviluppa il gioco.', diagLang: 'Solo lingua bulgara', diagFile: 'Frase registrata', sClips: 'Usa le frasi registrate (si sentono anche in silenzioso)', sClipsNote: n => `${n} frasi registrate con una voce libera (Dimitar, Piper). Le frasi con il tuo nome usano la voce del dispositivo.`, sSounds: 'Suoni', sVibrate: 'Vibrazione', sVibrateNo: 'Vibrazione non disponibile su questo dispositivo',
+    sVoice: 'Voce bulgara', sVoicePick: 'Scegli la voce', sRate: 'Velocità', sTest: 'Prova la voce', diag: 'Diagnostica della voce', diagNote: 'Tocca un pulsante alla volta, poi copia il testo che compare e mandalo a chi sviluppa il gioco.', diagLang: 'Solo lingua bulgara', diagFile: 'Frase registrata', sClips: 'Usa le frasi registrate (si sentono anche in silenzioso)', sClipsNote: n => `${n} frasi registrate con una voce maschile libera (Dimitar, Piper). Mila, le frasi con il tuo nome e i dispositivi senza registrazione usano la voce del dispositivo, se c’è.`, sSounds: 'Suoni', sVibrate: 'Vibrazione', sVibrateNo: 'Vibrazione non disponibile su questo dispositivo',
     sForms: 'Lettere in stile bulgaro moderno', sFormsNote: 'Molti libri e marchi bulgari usano queste forme; i cartelli spesso no. All’inizio è più facile la forma classica.',
     sDisplay: 'Lettura e suoni', sBig: 'Testo più grande', sMotion: 'Riduci le animazioni', sData: 'I tuoi dati', sDataNote: 'Il viaggio è salvato solo in questo browser. Nessun dato viene inviato.',
     sReset: 'Cancella i progressi', sResetQ: 'Vuoi davvero cancellare nome e progressi da questo dispositivo?', sSave: 'Salva', saved: 'Salvato',
@@ -39,6 +40,7 @@ const UI = {
     next: 'Next', back: 'Back', start: 'Let’s start!', chooseGuide: 'Choose your guide', guideNote: 'Your guide explains new words. You can change guide any time.',
     cont: 'Continue', check: 'Check', correct: 'Correct!', notYet: 'Not yet: try again!', together: 'Let’s do it together', listen: 'Listen', stopVoice: 'Stop', showText: 'Show the text', translate: 'Translate',
     noVoice: 'This device has no Bulgarian voice: read the text. The game still works.',
+    iosSafari: 'On iPhone, in silent mode the voice only plays in Safari. In this browser switch off silent mode, or open the game in Safari.',
     noVoiceHelp: 'Can’t hear anything? Turn the volume up, switch off silent mode and check the Bulgarian voice is downloaded. You can always read the text.',
     voiceOff: 'The voice is off: you can turn it on in Settings.', voicesFound: 'Bulgarian voices found', showTrLabel: 'Translations already open (chapters 1–10)',
     activity: 'Activity', of: 'of', help: 'Guide’s help', keyboard: 'Cyrillic keyboard', example: 'Show an example', send: 'Send to Mila', sent: 'Message sent!', yourMsg: 'Your message',
@@ -50,7 +52,7 @@ const UI = {
     wordsTitle: 'Chapter 1 words', wordsNote: 'The red, underlined vowel is the stressed one. Normal Bulgarian texts don’t mark it.',
     review: 'Bulgarian texts under review: to be checked by a native speaker.', reviewAi: 'Bulgarian texts checked with AI, awaiting confirmation by a native speaker.',
     sHelpLang: 'Help language', sName: 'Your name', sGuide: 'Your guide', sTranslit: 'Transliteration (Latin letters under Cyrillic)',
-    sVoice: 'Bulgarian voice', sVoicePick: 'Choose the voice', sRate: 'Speed', sTest: 'Test the voice', diag: 'Voice diagnostics', diagNote: 'Tap one button at a time, then copy the text that appears and send it to the game developer.', diagLang: 'Bulgarian language only', diagFile: 'Recorded sentence', sClips: 'Use recorded sentences (audible even in silent mode)', sClipsNote: n => `${n} sentences recorded with a free voice (Dimitar, Piper). Sentences with your name use the device voice.`, sSounds: 'Sounds', sVibrate: 'Vibration', sVibrateNo: 'Vibration not available on this device',
+    sVoice: 'Bulgarian voice', sVoicePick: 'Choose the voice', sRate: 'Speed', sTest: 'Test the voice', diag: 'Voice diagnostics', diagNote: 'Tap one button at a time, then copy the text that appears and send it to the game developer.', diagLang: 'Bulgarian language only', diagFile: 'Recorded sentence', sClips: 'Use recorded sentences (audible even in silent mode)', sClipsNote: n => `${n} sentences recorded with a free male voice (Dimitar, Piper). Mila, sentences with your name and missing recordings use the device voice, if there is one.`, sSounds: 'Sounds', sVibrate: 'Vibration', sVibrateNo: 'Vibration not available on this device',
     sForms: 'Modern Bulgarian letter shapes', sFormsNote: 'Many Bulgarian books and brands use these shapes; signs often don’t. The classic shapes are easier at first.',
     sDisplay: 'Reading and sounds', sBig: 'Larger text', sMotion: 'Reduce animations', sData: 'Your data', sDataNote: 'Your journey is saved in this browser only. No data is sent anywhere.',
     sReset: 'Delete progress', sResetQ: 'Do you really want to delete your name and progress from this device?', sSave: 'Save', saved: 'Saved',
@@ -97,8 +99,11 @@ function rich(o) {
   const s = fillName(help(o));
   return esc(s).replace(/\[\[(.+?)\]\]/g, (_, b) => `<span class="bg" lang="bg">${b}</span><span class="tl inline" aria-hidden="true">(${esc(toLatin(b.replace(/&#39;/g, "'")))})</span>`);
 }
-function speakBtn(text) {
-  return `<button class="icon-btn speak" data-say="${esc(fillName(text))}" aria-label="${T('listen')}" title="${T('listen')}">🔊</button>`;
+// Personaggi femminili: per loro si preferisce la voce femminile del dispositivo (le frasi registrate sono maschili).
+const FEMALE = new Set(['mila', 'desi', 'ruzha']);
+const isIOSOtherBrowser = /CriOS|FxiOS|EdgiOS|OPiOS/.test(navigator.userAgent);
+function speakBtn(text, who = '') {
+  return `<button class="icon-btn speak" data-say="${esc(fillName(text))}" data-who="${who}" aria-label="${T('listen')}" title="${T('listen')}">🔊</button>`;
 }
 
 // ───────── Suoni, vibrazione, coriandoli ─────────
@@ -106,7 +111,9 @@ let actx;
 function tone(freqs, dur = 0.12, type = 'sine', gap = 0.09) {
   if (!S.sounds) return;
   try {
+    voice.playbackSession(); // prima di creare l'audio degli effetti (iPhone)
     actx ||= new (window.AudioContext || window.webkitAudioContext)();
+    window.__sfxCtx = actx;
     freqs.forEach((f, i) => {
       const o = actx.createOscillator(), g = actx.createGain(), t0 = actx.currentTime + i * gap;
       o.type = type; o.frequency.value = f;
@@ -144,7 +151,8 @@ document.addEventListener('click', e => {
   if (!voice.hasSpeech()) { toast(T('noVoice')); return; }
   b.classList.add('speaking');
   let started = false;
-  voice.speak(b.dataset.say, { voiceURI: S.voiceURI, rate: S.rate, onstart: () => { started = true; }, onend: () => b.classList.remove('speaking') });
+  if (isIOSOtherBrowser && !S.iosBrowserTold) { S.iosBrowserTold = true; save(); setTimeout(() => toast(T('iosSafari')), 2600); }
+  voice.speak(b.dataset.say, { female: FEMALE.has(b.dataset.who), voiceURI: S.voiceURI, rate: S.rate, onstart: () => { started = true; }, onend: () => b.classList.remove('speaking') });
   setTimeout(() => { if (!started) { b.classList.remove('speaking'); toast(T('noVoiceHelp')); } }, 2500);
 });
 let toastTimer;
@@ -401,10 +409,11 @@ function renderSettings() {
         ${toggle('voiceOn', T('sVoice'))}
         ${toggle('useClips', T('sClips'))}
         <p class="muted small">${T('sClipsNote')(voice.clipCount())}</p>
+        ${isIOSOtherBrowser ? `<p class="note small">📱 ${T('iosSafari')}</p>` : ''}
         ${vs.length ? `<label class="field"><span>${T('sVoicePick')}</span><select id="s-voice">${vs.map(v => `<option value="${esc(v.voiceURI)}" ${v.voiceURI === S.voiceURI ? 'selected' : ''}>${esc(v.name)}</option>`).join('')}</select></label>` : `<p class="note">${T('noVoiceHelp')}</p>`}
         <p class="muted small">${T('voicesFound')}: ${vs.length ? vs.map(v => esc(v.name)).join(', ') : '0'} (${voice.allVoicesCount()})</p>
         <label class="field"><span>${T('sRate')}: <output id="rate-out">${Math.round(S.rate * 100)}%</output></span><input type="range" id="s-rate" min="0.6" max="1.2" step="0.05" value="${S.rate}"></label>
-        <button class="btn small ghost" data-say="Здравей! Казвам се Мила." ${voice.hasSpeech() ? '' : 'disabled'}>🔊 ${T('sTest')}</button>
+        <button class="btn small ghost" data-say="Здравей! Казвам се Мила." data-who="mila" ${voice.hasSpeech() ? '' : 'disabled'}>🔊 ${T('sTest')}</button>
         <details class="diag"><summary>🔧 ${T('diag')}</summary>
           <p class="muted small">${T('diagNote')}</p>
           <div class="row wrap">
@@ -498,7 +507,7 @@ function bubble(item) {
   const tr = item.bgHelp ? help(item.bgHelp) : item[L()];
   return `<div class="speaker">${speakerHTML(item.who)}
     <div class="bubble">
-      <p class="bg-line">${bg(item.bg)} ${speakBtn(item.bg)}</p>
+      <p class="bg-line">${bg(item.bg)} ${speakBtn(item.bg, item.who === 'guide' ? S.guide : item.who)}</p>
       ${tr ? `<details class="tr" ${trOpen(item)}><summary>${T('translate')}</summary><p>${esc(fillName(tr))}</p></details>` : ''}
     </div></div>`;
 }
@@ -598,7 +607,7 @@ function renderActivity(head, i) {
     if (a.kind === 'listen') {
       const can = S.voiceOn && voice.hasSpeech();
       pre = `<div class="speaker">${speakerHTML(a.who)}<div class="bubble">
-          <button class="btn listen-btn" data-say="${esc(a.say)}" ${can ? '' : 'hidden'}>🔊 ${T('listen')}</button>
+          <button class="btn listen-btn" data-say="${esc(a.say)}" data-who="${a.who || ''}" ${can ? '' : 'hidden'}>🔊 ${T('listen')}</button>
           <details class="tr" ${can ? '' : 'open'}><summary>${T('showText')}</summary><p class="bg-line">${bg(a.say)}</p><p class="muted">${esc(help(a.bgHelp))}</p></details>
           ${can ? '' : `<p class="note small">${T('noVoice')}</p>`}
         </div></div>`;

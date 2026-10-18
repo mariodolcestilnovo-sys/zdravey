@@ -118,3 +118,16 @@
 - Licenza: la voce è stata addestrata partendo dalla voce inglese «lessac» di Piper; prima di un uso
   commerciale va controllata anche la licenza di quella base. Per il prototipo va bene.
 - Alternativa migliore per il futuro: registrazioni di un madrelingua.
+
+## 2026-10-18 — Silenzioso: Safari sì, Chrome no · voce femminile per Mila
+
+- Mario: in silenzioso le frasi registrate si sentono in **Safari**, non in **Chrome** su iPhone
+  (dipende dall'app Chrome, non modificabile da una pagina web). Avviso una tantum e nota nelle
+  impostazioni per chi usa Chrome/Firefox/Edge su iPhone: «usa Safari o togli il silenzioso».
+- Dimitar è maschile: le frasi dei personaggi femminili (Mila; in futuro Desi, Ruzha) usano la voce del
+  dispositivo (Daria su Apple) se c'è, altrimenti il file di Dimitar. Il resto resta a Dimitar.
+- Aggiunta la richiesta di modalità «riproduzione» all'avvio e prima degli effetti sonori; diagnostica
+  con più dati (audioSession, tempo di riproduzione).
+- Mac: cartello → file Dimitar, fumetto di Mila → Daria (verificato).
+- **Da provare (Mario):** Safari in silenzioso, fumetto di Mila (voce Daria del dispositivo).
+- Idea per dopo: registrazioni di una madrelingua per Mila, oppure una voce femminile libera quando ci sarà.

@@ -6,8 +6,13 @@ const listeners = new Set();
 
 // Su iPhone (Safari e Chrome) l'audio delle pagine segue l'interruttore del silenzioso.
 // Con audioSession «playback» la voce si sente anche in silenzioso, come un video.
-function wakeAudio() {
+export function playbackSession() {
   try { if (navigator.audioSession && navigator.audioSession.type !== 'playback') navigator.audioSession.type = 'playback'; } catch { /* non supportato */ }
+}
+// Subito al caricamento, prima che qualunque suono possa mettere la pagina in modalità «sottofondo».
+if (typeof navigator !== 'undefined') playbackSession();
+function wakeAudio() {
+  playbackSession();
   startSilence();
 }
 
@@ -70,6 +75,7 @@ let player;
 function playClip(text, rate, onstart, onend) {
   const file = clips[norm(text)];
   if (!useClips || !file || typeof Audio === 'undefined') return false;
+  playbackSession();
   if (synth?.speaking || synth?.pending) synth.cancel();
   if (!player) { player = new Audio(); player.preload = 'auto'; player.setAttribute('playsinline', ''); }
   player.pause();
@@ -90,8 +96,10 @@ export const allVoicesCount = () => synth?.getVoices().length || 0;
 
 // Parla anche se l'elenco delle voci è vuoto: con lang="bg-BG" il sistema sceglie da solo
 // la voce bulgara installata (succede su alcuni iPhone).
-export function speak(text, { voiceURI, rate = 0.9, onend, onstart } = {}) {
-  if (playClip(text, rate, onstart, onend)) return true;
+export function speak(text, { voiceURI, rate = 0.9, onend, onstart, female = false } = {}) {
+  // Personaggi femminili: prima la voce del dispositivo (di solito femminile), il file registrato solo se manca.
+  const deviceFirst = female && load().length > 0;
+  if (!deviceFirst && playClip(text, rate, onstart, onend)) return true;
   if (!synth) return false;
   load();
   wakeAudio();
@@ -119,6 +127,9 @@ export function diagnose(mode, log) {
   if (mode === 'file') {
     const t0 = performance.now(), at = () => `${Math.round(performance.now() - t0)} ms`;
     log(`— prova «file registrato»: frasi registrate=${clipCount()}`);
+    playbackSession();
+    log(`  audioSession=${navigator.audioSession ? navigator.audioSession.type + '/' + (navigator.audioSession.state || '?') : 'assente'} effetti=${window.__sfxCtx ? window.__sfxCtx.state : 'mai creati'}`);
+    setTimeout(() => log(`  dopo 1 s: tempo=${player ? player.currentTime.toFixed(2) : '-'} s, volume=${player?.volume}, muto=${player?.muted}, pausa=${player?.paused}`), 1000);
     const was = useClips; useClips = true;
     const ok = playClip('Здравей! Казвам се Мила.', 1, () => log(`  ${at()}: è partita`), () => log(`  ${at()}: finita`));
     useClips = was;
