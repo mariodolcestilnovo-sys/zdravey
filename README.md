@@ -24,6 +24,9 @@ node tools/serve.mjs 8091
 ```
 Poi apri http://localhost:8091.
 
+Per provarlo sul telefono con il Wi‑Fi di casa: `node tools/serve.mjs 8093 --lan`, poi sul telefono
+apri l'indirizzo che compare (es. http://192.168.1.3:8093). Funziona solo dentro la rete di casa.
+
 ## Controlli
 ```sh
 node tests/content.test.mjs        # struttura dei contenuti e traslitterazione
