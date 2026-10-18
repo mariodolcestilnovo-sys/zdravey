@@ -131,3 +131,15 @@
 - Mac: cartello → file Dimitar, fumetto di Mila → Daria (verificato).
 - **Da provare (Mario):** Safari in silenzioso, fumetto di Mila (voce Daria del dispositivo).
 - Idea per dopo: registrazioni di una madrelingua per Mila, oppure una voce femminile libera quando ci sarà.
+
+## 2026-10-18 — Solo Daria, pulsante «indietro»
+
+- Mario (Safari, iPhone): in silenzioso si sente solo il file di Dimitar e non sempre; Daria si sente solo
+  senza silenzioso. Decisione di Mario: **tutte le frasi con la voce del dispositivo (Daria)**.
+  Dimitar resta solo come riserva automatica se il dispositivo non ha voce bulgara, o se scelto nelle
+  impostazioni. Su iPhone, al primo ascolto, un avviso: «togli il silenzioso per sentire la voce».
+- Pulsante ← in alto nel capitolo: torna al passo precedente (scena, spiegazione o attività).
+- Corretto: se la guida non risultava salvata la spiegazione andava in errore (ora c'è Pencho di riserva).
+- Verificato (Mac): cartello letto da Daria, nessun file Dimitar; partita completa con due «indietro»,
+  tutte le spiegazioni presenti, calamita, nessun errore in console.
+- Android: non provato (rimandato da Mario).

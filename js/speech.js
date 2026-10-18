@@ -66,15 +66,15 @@ if (synth) {
 
 // Frasi registrate (audio/index.json, voce libera Piper «dimitar»): su iPhone si sentono anche in silenzioso.
 let clips = {};
-export let useClips = true;
+export let useClips = false;
 export const setUseClips = on => { useClips = on; };
 export const clipCount = () => Object.keys(clips).length;
 if (typeof fetch !== 'undefined') fetch('audio/index.json').then(r => (r.ok ? r.json() : {})).then(j => { clips = j; }).catch(() => {});
 const norm = t => t.replace(/\u0301/g, '').replace(/[«»]/g, '').trim();
 let player;
-function playClip(text, rate, onstart, onend) {
+function playClip(text, rate, onstart, onend, force = false) {
   const file = clips[norm(text)];
-  if (!useClips || !file || typeof Audio === 'undefined') return false;
+  if ((!useClips && !force) || !file || typeof Audio === 'undefined') return false;
   playbackSession();
   if (synth?.speaking || synth?.pending) synth.cancel();
   if (!player) { player = new Audio(); player.preload = 'auto'; player.setAttribute('playsinline', ''); }
@@ -97,9 +97,11 @@ export const allVoicesCount = () => synth?.getVoices().length || 0;
 // Parla anche se l'elenco delle voci è vuoto: con lang="bg-BG" il sistema sceglie da solo
 // la voce bulgara installata (succede su alcuni iPhone).
 export function speak(text, { voiceURI, rate = 0.9, onend, onstart, female = false } = {}) {
-  // Personaggi femminili: prima la voce del dispositivo (di solito femminile), il file registrato solo se manca.
-  const deviceFirst = female && load().length > 0;
-  if (!deviceFirst && playClip(text, rate, onstart, onend)) return true;
+  // Di norma parla la voce del dispositivo (Daria su Apple). Le frasi registrate (Dimitar, maschile) si usano
+  // se scelte nelle impostazioni (tranne per i personaggi femminili) o come riserva se manca la voce bulgara.
+  const hasDevice = load().length > 0;
+  if (useClips && !(female && hasDevice) && playClip(text, rate, onstart, onend)) return true;
+  if (!hasDevice && playClip(text, rate, onstart, onend, true)) return true;
   if (!synth) return false;
   load();
   wakeAudio();

@@ -181,7 +181,10 @@ details.tr p { margin: 4px 0 0; }
 .sign.phone::before { content: '📞'; display: block; font-size: .8em; margin-bottom: 6px; }
 
 /* ── Capitolo ── */
-.ch-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.ch-head { display: flex; gap: 10px; align-items: center; margin-bottom: 6px; }
+.ch-head .ch-title { flex: 1; }
+#back-btn { font-size: 1.2em; }
+#back-btn:disabled { opacity: .35; }
 .ch-title { font-weight: 800; color: var(--muted); }
 .dots { display: flex; gap: 4px; margin: 0 0 12px; }
 .dots i { flex: 1; height: 8px; border-radius: 4px; background: #dccfc2; }
