@@ -22,6 +22,12 @@ Progetto separato da Dolce Stilnovo, ispirato alle meccaniche del suo Prototipo 
 - Musica di sottofondo originale in stile tradizionale bulgaro, generata dal browser (`js/music.js`):
   5 temi per ambiente (Пътят, Градът, Домът, Пазарът, Празникът) in 7/8, 2/4, 5/8 e 11/8, ognuno
   intro–A–B–bridge–controtema–bridge–A–B–conclusione. Nessun file e nessun diritto di terzi.
+- Comandi ♫ (pannello audio: tutto l'audio, musica, effetti, voce con volume in %, stile musicale) e ⚙
+  sempre visibili, anche nel benvenuto. Tutorial guidato con faretto, test di orientamento facoltativo.
+- Avanti automatico dopo la risposta giusta (10 s, pausa/Continua); esercizio conservato se si esce;
+  «Proviamo insieme» con aiuti a gradini che non svelano la risposta; Pausa/Riprendi/Stop negli ascolti.
+- Accessibilità: modalità lettore di schermo, testo grande, contrasto alto, pulsanti grandi, mancini.
+- Barra in basso a scomparsa sul telefono; «Condividi il frigo» (immagine formato storia); © 2026 Zario.
 - Salvataggio solo nel browser (`localStorage`). Nessun account, nessun dato inviato.
 
 ## Aggiornare la versione online
