@@ -424,3 +424,8 @@ body.translit .no-tl .tl { display: none !important; }
 .tour-row { display: flex; gap: 8px; align-items: center; margin-top: 10px; }
 .tour-gap { flex: 1; }
 body.calm .tour-spot { transition: none; }
+
+/* Barra in basso a scomparsa */
+nav#nav { transition: transform .25s ease; }
+nav#nav.away { transform: translateY(110%); }
+body.calm nav#nav { transition: none; }

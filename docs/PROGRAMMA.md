@@ -12,7 +12,7 @@ prova e si pubblica solo quando dice «pubblica».
 | 4 | Nessuna risposta regalata: segni d'errore persistenti, «Proviamo insieme» con indizi a gradini | fatto (in locale) |
 | 5 | Pausa / Riprendi / Stop negli ascolti | fatto (in locale) |
 | 6 | Tutorial guidato con faretto al primo gioco, saltabile e rivedibile | fatto (in locale) |
-| 7 | Barra in basso che si ritira scorrendo; torna scorrendo su e si vede tutta in fondo alla pagina | da fare |
+| 7 | Barra in basso che si ritira scorrendo; torna scorrendo su e si vede tutta in fondo alla pagina | fatto (in locale) |
 | 8 | Test di orientamento facoltativo prima di iniziare | da fare |
 | 9 | Accessibilità: alto contrasto, bersagli grandi, mancini, modalità lettore di schermo | da fare |
 | 10 | Condividi il frigo: immagine formato «storia» per i social | da fare |

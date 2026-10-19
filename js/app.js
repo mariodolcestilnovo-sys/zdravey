@@ -395,6 +395,21 @@ function attachKeyboard(toggle, slot, input, onType) {
   });
 }
 
+// ───────── Barra in basso che si ritira (solo telefono) ─────────
+// Scorrendo verso il basso si nasconde, scorrendo verso l'alto torna; in fondo alla pagina si vede sempre tutta.
+{
+  let lastY = window.scrollY;
+  const narrow = matchMedia('(max-width: 719px)');
+  window.addEventListener('scroll', () => {
+    const nav = $('#nav'), y = window.scrollY;
+    const atBottom = window.innerHeight + y >= document.documentElement.scrollHeight - 4;
+    if (!narrow.matches || S.screenReader || tourOpen() || atBottom || y < 60) nav.classList.remove('away');
+    else if (y > lastY + 6) nav.classList.add('away');
+    else if (y < lastY - 6) nav.classList.remove('away');
+    lastY = y;
+  }, { passive: true });
+}
+
 // ───────── Tutorial guidato ─────────
 function runTour() {
   if (tourOpen() || view !== 'journey') return;
