@@ -255,3 +255,8 @@
   forte del bordone; eco più presente; тъпан morbido su ogni gruppo del ritmo, senza bacchetta; tempo solo
   leggermente più lento (×1,25); volume ambient 85%. Bordone invariato. Fuori dal gioco nessun cambiamento.
   Verificato (Mac): cap. 4 → tema «casa» ambient, sezioni in ordine, nessun errore. Ascolto: Mario. Solo locale.
+- 2026-10-19 — Ambient rifatto secondo Mario («martellante» era la melodia, non il ritmo): niente eco;
+  bordone pieno e un po' più presente; тъпан con il ritmo completo di ogni tema (colpi gravi + «pa» della
+  bacchetta, all'80%); melodia solo accennata, una nota lunga e morbida per battuta (nessuna nell'intro);
+  tempo leggermente rallentato (×1,25). Fuori dal gioco invariato. Verificato (Mac): cap. 1 ambient con
+  sezioni in ordine, frigo con tema normale, nessun errore. Ascolto: Mario. Solo locale.
