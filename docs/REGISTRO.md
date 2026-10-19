@@ -260,3 +260,4 @@
   bacchetta, all'80%); melodia solo accennata, una nota lunga e morbida per battuta (nessuna nell'intro);
   tempo leggermente rallentato (×1,25). Fuori dal gioco invariato. Verificato (Mac): cap. 1 ambient con
   sezioni in ordine, frigo con tema normale, nessun errore. Ascolto: Mario. Solo locale.
+- 2026-10-19 — Pubblicato su GitHub Pages su richiesta di Mario («pubblica»): musica ambient e volume al 5%.
