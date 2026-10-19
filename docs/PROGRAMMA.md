@@ -8,7 +8,7 @@ prova e si pubblica solo quando dice «pubblica».
 | 0 | Punti di ripristino (fotografia della versione online prima dei cambiamenti; elenco in BACKUPS.md) | fatto |
 | 1 | Comandi ♫ e ⚙ sempre presenti dalla prima schermata; pannello audio con musica, effetti e voce (interruttore + volume in %) e scelta dello stile musicale (automatico per ambiente o tema fisso) | fatto (in locale) |
 | 2 | Avanti automatico dopo la risposta giusta: 10 s, conto alla rovescia, pausa/play, «Continua»; si ferma con guida, menu, voce, app in background; disattivabile | fatto (in locale) |
-| 3 | Non perdere il punto: uscendo verso frigo/parole/impostazioni l'esercizio si ritrova com'era | da fare |
+| 3 | Non perdere il punto: uscendo verso frigo/parole/impostazioni l'esercizio si ritrova com'era | fatto (in locale) |
 | 4 | Nessuna risposta regalata: segni d'errore persistenti, «Proviamo insieme» con indizi a gradini | da fare |
 | 5 | Pausa / Riprendi / Stop negli ascolti | da fare |
 | 6 | Tutorial guidato con faretto al primo gioco, saltabile e rivedibile | da fare |

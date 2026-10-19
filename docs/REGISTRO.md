@@ -279,3 +279,10 @@
   messaggio libero. Opzione nelle impostazioni (attiva). Numeri nascosti al lettore di schermo (frase fissa).
   Verificato (browser): 3 s → «7», pausa ferma, guida → ▶, avanzamento all'attività 2; nessun conto dopo un
   errore, nel messaggio libero o con l'opzione spenta; capitoli 1, 5, 10 completi senza errori. Solo in locale.
+- 2026-10-19 — Passo 3, non perdere il punto: uscendo da un esercizio verso viaggio, frigo, parole o impostazioni
+  la pagina viene «parcheggiata» com'è (risposte parziali, testo, tastiera, riscontro) e rimessa al ritorno; in
+  quelle pagine c'è «↩ Torna all'esercizio» (vale anche «Continua» dal viaggio). Il conto alla rovescia torna in
+  pausa. Se nel frattempo si cambia lingua, l'esercizio riparte pulito nella lingua nuova.
+  Verificato (browser): parole riordinate a metà → frigo → parole → ritorno, intatte; conto alla rovescia in pausa
+  da 8 s e poi avanti; testo libero con tastiera aperta intatto dopo le impostazioni; cap. 3 e 8 completi con
+  una deviazione nel frigo; nessun errore. Solo in locale.

@@ -400,3 +400,6 @@ body.translit .no-tl .tl { display: none !important; }
 .auto-bar i { display: block; height: 100%; width: 100%; background: var(--ok); transition: width .1s linear; }
 .auto-text { font-size: .9em; color: var(--muted); white-space: nowrap; }
 .auto.paused .auto-bar i { background: #9fb8a9; }
+
+/* Non perdere il punto */
+.back-to-game { width: 100%; margin: 0 0 12px; }

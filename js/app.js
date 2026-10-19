@@ -17,7 +17,7 @@ const UI = {
     iosSilent: 'Su iPhone la voce non si sente con il silenzioso attivo: toglilo per ascoltare.',
     noVoiceHelp: 'Non si sente niente? Alza il volume, togli il silenzioso e controlla che la voce bulgara sia scaricata. Puoi sempre leggere il testo.',
     voiceOff: 'La voce è spenta: puoi accenderla nelle impostazioni.', voicesFound: 'Voci bulgare trovate', showTrLabel: 'Traduzioni già aperte (capitoli 1–10)',
-    activity: 'Attività', of: 'di', help: 'Aiuto della guida', keyboard: 'Tastiera cirillica', example: 'Mostra un esempio', send: 'Invia', sent: 'Messaggio inviato!', prevStep: 'Torna indietro', nextCh: 'Capitolo', yourMsg: 'Il tuo messaggio',
+    activity: 'Attività', of: 'di', help: 'Aiuto della guida', keyboard: 'Tastiera cirillica', example: 'Mostra un esempio', send: 'Invia', sent: 'Messaggio inviato!', prevStep: 'Torna indietro', backToGame: 'Torna all’esercizio', nextCh: 'Capitolo', yourMsg: 'Il tuo messaggio',
     aiSlot: 'Consiglio automatico: in arrivo. Stiamo provando un’AI gratuita che potrà darti un suggerimento sulle frasi libere.',
     reward: 'Nuova calamita!', toFridge: 'Vai al frigo', toJourney: 'Torna al viaggio',
     challenge: (n, tot) => `Riempi il frigo entro il 1° marzo: ${n} di ${tot} calamite.`,
@@ -44,7 +44,7 @@ const UI = {
     iosSilent: 'On iPhone the voice can’t be heard in silent mode: switch it off to listen.',
     noVoiceHelp: 'Can’t hear anything? Turn the volume up, switch off silent mode and check the Bulgarian voice is downloaded. You can always read the text.',
     voiceOff: 'The voice is off: you can turn it on in Settings.', voicesFound: 'Bulgarian voices found', showTrLabel: 'Translations already open (chapters 1–10)',
-    activity: 'Activity', of: 'of', help: 'Guide’s help', keyboard: 'Cyrillic keyboard', example: 'Show an example', send: 'Send', sent: 'Message sent!', prevStep: 'Go back', nextCh: 'Chapter', yourMsg: 'Your message',
+    activity: 'Activity', of: 'of', help: 'Guide’s help', keyboard: 'Cyrillic keyboard', example: 'Show an example', send: 'Send', sent: 'Message sent!', prevStep: 'Go back', backToGame: 'Back to the exercise', nextCh: 'Chapter', yourMsg: 'Your message',
     aiSlot: 'Automatic tip: coming soon. We’re testing a free AI that could give you a hint on free sentences.',
     reward: 'New magnet!', toFridge: 'Go to the fridge', toJourney: 'Back to the journey',
     challenge: (n, tot) => `Fill the fridge by 1 March: ${n} of ${tot} magnets.`,
@@ -220,14 +220,46 @@ document.addEventListener('keydown', () => syncMusic(), { once: true });
 $('#nav').addEventListener('click', e => { const b = e.target.closest('button[data-view]'); if (b) go(b.dataset.view); });
 
 function go(v) {
+  if (view === 'chapter' && v !== 'chapter') parkChapter();
   stopAuto();
   voice.stop();
   view = v; applyPrefs();
   // Ogni ambiente ha il suo tema; dentro i capitoli la musica è «ambient» per concentrarsi.
   syncTheme();
-  ({ journey: renderJourney, fridge: renderFridge, words: renderWords, settings: renderSettings, chapter: renderStep })[v]();
-  window.scrollTo(0, 0);
-  const h = $('h1, h2', app); if (h) { h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); }
+  const restored = v === 'chapter' && restoreChapter();
+  if (!restored) ({ journey: renderJourney, fridge: renderFridge, words: renderWords, settings: renderSettings, chapter: renderStep })[v]();
+  if (v !== 'chapter') addBackToGame();
+  window.scrollTo(0, restored ? restored.scroll : 0);
+  const target = restored?.focus?.isConnected ? restored.focus : $('h1, h2', app);
+  if (target) { if (!restored?.focus) target.setAttribute('tabindex', '-1'); target.focus({ preventScroll: true }); }
+}
+
+// ───────── Non perdere il punto ─────────
+// Uscendo da un esercizio verso viaggio, frigo, parole o impostazioni, la pagina dell'esercizio viene «parcheggiata»
+// così com'è (risposte parziali, riscontro, pulsanti) e rimessa al suo posto al ritorno.
+let parked = null;
+function parkChapter() {
+  const focus = app.contains(document.activeElement) ? document.activeElement : null;
+  const frag = document.createDocumentFragment();
+  while (app.firstChild) frag.appendChild(app.firstChild);
+  parked = { ch: current.ch, step: current.step, lang: S.lang, frag, focus, scroll: window.scrollY, autoLeft: auto ? auto.left : null };
+}
+function restoreChapter() {
+  const p = parked;
+  if (!p || p.ch !== current.ch || p.step !== current.step || p.lang !== S.lang) { parked = null; return null; }
+  parked = null;
+  app.replaceChildren(p.frag);
+  const el = $('.feedback .auto', app);
+  if (el && p.autoLeft != null) startAuto(el, p.autoLeft, false); // il conto alla rovescia aspetta in pausa
+  return p;
+}
+function addBackToGame() {
+  if (!parked) return;
+  const b = document.createElement('button');
+  b.className = 'btn back-to-game';
+  b.textContent = '↩ ' + T('backToGame');
+  b.addEventListener('click', () => { current = { ch: parked.ch, step: parked.step }; go('chapter'); });
+  app.prepend(b);
 }
 
 // ───────── Benvenuto ─────────
@@ -509,7 +541,7 @@ function renderSettings() {
   $('#s-reset').addEventListener('click', () => {
     if (!confirm(T('sResetQ'))) return;
     try { localStorage.removeItem(KEY); } catch { /* niente */ }
-    S = { ...DEFAULTS }; view = 'journey'; renderWelcome(0);
+    S = { ...DEFAULTS }; view = 'journey'; parked = null; renderWelcome(0);
   });
 }
 // ───────── Pannello audio (♫): tutto l'audio, musica, effetti, voce, stile ─────────
@@ -696,10 +728,10 @@ function drawAuto() {
   b.setAttribute('aria-label', running ? T('autoPause') : T('autoPlay')); b.title = b.getAttribute('aria-label');
   el.classList.toggle('paused', !running);
 }
-function startAuto(el) {
+function startAuto(el, left = AUTO_SECONDS, running = true) {
   stopAuto();
-  auto = { left: AUTO_SECONDS, running: true, held: false, el, timer: null };
-  el.querySelector('.auto-btn').addEventListener('click', () => { if (auto) { auto.running = !auto.running; drawAuto(); } });
+  auto = { left, running, held: false, el, timer: null };
+  el.querySelector('.auto-btn').onclick = () => { if (auto) { auto.running = !auto.running; drawAuto(); } };
   auto.timer = setInterval(() => {
     if (!auto) return;
     if (!auto.el.isConnected) { stopAuto(); return; }
@@ -860,7 +892,7 @@ function toastFlash(el) { el?.classList.add('glow'); setTimeout(() => el?.classL
 
 // ───────── Avvio ─────────
 if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-voice.onVoices(() => { if (view === 'settings' && S.lang && S.guide) renderSettings(); });
+voice.onVoices(() => { if (view === 'settings' && S.lang && S.guide) { renderSettings(); addBackToGame(); } });
 document.addEventListener('visibilitychange', () => { if (document.hidden) { voice.stop(); music.stop(); } else if (S.music && music.wasStarted()) music.start(); });
 if (!S.lang || !S.guide) renderWelcome(S.lang ? 1 : 0);
 else go('journey');
