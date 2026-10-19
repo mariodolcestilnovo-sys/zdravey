@@ -5,6 +5,10 @@ import * as voice from './speech.js';
 import * as music from './music.js';
 import { startTour, tourOpen } from './tour.js';
 import { placement, suggestChapter } from './placement.js';
+import { fridgeImage, shareOrDownload } from './share.js';
+
+const SITE = 'mariodolcestilnovo-sys.github.io/zdravey';
+const COPYRIGHT = '© 2026 Zario';
 
 // ───────── Testi dell'interfaccia ─────────
 const UI = {
@@ -24,7 +28,7 @@ const UI = {
     reward: 'Nuova calamita!', toFridge: 'Vai al frigo', toJourney: 'Torna al viaggio',
     challenge: (n, tot) => `Riempi il frigo entro il 1° marzo: ${n} di ${tot} calamite.`,
     play: 'Gioca', resume: 'Continua', replay: 'Rigioca', soon: 'In preparazione', done: 'Completato',
-    fridgeTitle: 'Il tuo frigo', fridgeEmpty: 'Le calamite grigie arriveranno con i prossimi capitoli.', fridgeFull: 'Frigo pieno! Hai finito il percorso A1.1: complimenti!',
+    fridgeTitle: 'Il tuo frigo', fridgeEmpty: 'Le calamite grigie si conquistano finendo i capitoli.', shareBtn: 'Condividi il frigo', shareGo: 'Condividi o salva l’immagine', shareLine1: (n, t) => `Ho conquistato ${n} calamite su ${t}!`, shareLine2: 'Imparo il bulgaro giocando', shareAlt: n => `Il mio frigo con ${n} calamite`, shareNote: 'L’immagine è creata sul tuo dispositivo, in formato «storia» per i social. Non contiene il tuo nome.', shareSaved: 'Immagine salvata', fridgeFull: 'Frigo pieno! Hai finito il percorso A1.1: complimenti!',
     wordsTitle: 'Le parole', wordsNote: 'La vocale rossa e sottolineata è quella da dire più forte. Nei testi bulgari normali non si segna.',
     review: 'Testi bulgari in revisione: da far controllare a un madrelingua.', reviewAi: 'Testi bulgari controllati con l’AI, in attesa di conferma da un madrelingua.',
     sHelpLang: 'Lingua degli aiuti', sName: 'Il tuo nome', sGuide: 'La tua guida', sTranslit: 'Traslitterazione (lettere latine sotto il cirillico)',
@@ -51,7 +55,7 @@ const UI = {
     reward: 'New magnet!', toFridge: 'Go to the fridge', toJourney: 'Back to the journey',
     challenge: (n, tot) => `Fill the fridge by 1 March: ${n} of ${tot} magnets.`,
     play: 'Play', resume: 'Continue', replay: 'Play again', soon: 'Coming soon', done: 'Completed',
-    fridgeTitle: 'Your fridge', fridgeEmpty: 'The grey magnets will come with the next chapters.', fridgeFull: 'The fridge is full! You’ve finished level A1.1: congratulations!',
+    fridgeTitle: 'Your fridge', fridgeEmpty: 'You win the grey magnets by finishing the chapters.', shareBtn: 'Share the fridge', shareGo: 'Share or save the image', shareLine1: (n, t) => `I’ve won ${n} of ${t} magnets!`, shareLine2: 'Learning Bulgarian through play', shareAlt: n => `My fridge with ${n} magnets`, shareNote: 'The image is created on your device, in “story” format for social media. It does not include your name.', shareSaved: 'Image saved', fridgeFull: 'The fridge is full! You’ve finished level A1.1: congratulations!',
     wordsTitle: 'Words', wordsNote: 'The red, underlined vowel is the stressed one. Normal Bulgarian texts don’t mark it.',
     review: 'Bulgarian texts under review: to be checked by a native speaker.', reviewAi: 'Bulgarian texts checked with AI, awaiting confirmation by a native speaker.',
     sHelpLang: 'Help language', sName: 'Your name', sGuide: 'Your guide', sTranslit: 'Transliteration (Latin letters under Cyrillic)',
@@ -201,6 +205,8 @@ function applyPrefs() {
   // ♫ e ⚙ ci sono sempre, anche nel benvenuto; la barra in basso solo dopo la scelta della guida.
   $('#topbar').hidden = false;
   $('#nav').hidden = !S.lang || !S.guide;
+  // Firma: nelle schermate iniziali, nel viaggio e nelle impostazioni (e nell'immagine da condividere).
+  const cp = $('#copyright'); cp.textContent = COPYRIGHT; cp.hidden = !(onboarding() || view === 'journey' || view === 'settings');
 }
 
 $('#translit-btn').addEventListener('click', () => { S.translit = !S.translit; save(); applyPrefs(); });
@@ -510,8 +516,29 @@ function renderFridge() {
         }).join('')}
       </div>
       <p class="muted center">${S.magnets.length >= chapters.length ? T('fridgeFull') : T('fridgeEmpty')}</p>
+      <button class="btn share-btn" id="share-fridge">📤 ${T('shareBtn')}</button>
     </section>`;
   app.querySelectorAll('[data-open]').forEach(b => b.addEventListener('click', () => openChapter(+b.dataset.open)));
+  $('#share-fridge').addEventListener('click', shareFridge);
+}
+
+// ───────── Condividi il frigo ─────────
+async function shareFridge() {
+  const btn = $('#share-fridge'); btn.disabled = true;
+  try {
+    const n = S.magnets.length;
+    const blob = await fridgeImage(chapters, S.magnets, {
+      subtitle: T('subtitle'), line1: T('shareLine1')(n, chapters.length), line2: T('shareLine2'),
+      url: SITE, copyright: COPYRIGHT
+    });
+    const url = URL.createObjectURL(blob);
+    openDialog(`<h2>📤 ${T('shareBtn')}</h2><img class="share-preview" src="${url}" alt="${esc(T('shareAlt')(n))}">
+      <button class="btn" id="share-go">${T('shareGo')}</button><p class="muted small">${T('shareNote')}</p>`);
+    $('#share-go').addEventListener('click', async () => {
+      const r = await shareOrDownload(blob, 'zdravey-frigo.png', 'Здравей!', `${T('shareLine1')(n, chapters.length)} https://${SITE}/`);
+      if (r === 'downloaded') toast('✓ ' + T('shareSaved'));
+    });
+  } finally { btn.disabled = false; }
 }
 
 // ───────── Parole ─────────

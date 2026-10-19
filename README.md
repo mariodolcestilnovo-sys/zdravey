@@ -1,5 +1,7 @@
 # Здравей! – La sfida della Мартеница
 
+© 2026 Zario.
+
 Gioco web per imparare il bulgaro (A1), con aiuti in italiano o inglese.
 Progetto separato da Dolce Stilnovo, ispirato alle meccaniche del suo Prototipo 2.
 

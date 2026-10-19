@@ -15,8 +15,8 @@ prova e si pubblica solo quando dice «pubblica».
 | 7 | Barra in basso che si ritira scorrendo; torna scorrendo su e si vede tutta in fondo alla pagina | fatto (in locale) |
 | 8 | Test di orientamento facoltativo prima di iniziare | fatto (in locale) |
 | 9 | Accessibilità: alto contrasto, bersagli grandi, mancini, modalità lettore di schermo | fatto (in locale) |
-| 10 | Condividi il frigo: immagine formato «storia» per i social | da fare |
-| 11 | Firma «© 2026 Zario» (nome online di Mario) su schermate iniziali, viaggio, impostazioni, immagine condivisa | da fare |
+| 10 | Condividi il frigo: immagine formato «storia» per i social | fatto (in locale) |
+| 11 | Firma «© 2026 Zario» (nome online di Mario) su schermate iniziali, viaggio, impostazioni, immagine condivisa | fatto (in locale) |
 | Dopo | Account e salvataggio online (Google, email con doppia password, recupero): progetto separato, servizio gratuito nuovo, massima attenzione ai dati personali | da pianificare |
 
 Non servono inviti a una scuola: non esiste una scuola di bulgaro collegata.

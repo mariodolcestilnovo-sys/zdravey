@@ -459,3 +459,9 @@ body.lefty .opt-wrap, body.lefty .listen-row, body.lefty .ch-head, body.lefty .a
 body.lefty .bg-line { flex-direction: row-reverse; justify-content: flex-end; }
 /* Lettore di schermo: niente barra a scomparsa */
 body.sr nav#nav.away { transform: none; }
+
+/* Condividi il frigo */
+.share-btn { display: flex; margin: 8px auto 0; }
+.share-preview { display: block; width: 100%; max-height: 55vh; object-fit: contain; border-radius: 12px; margin: 6px 0 10px; background: #fbf7f2; }
+
+.copyright { max-width: 680px; margin: 0 auto 16px; padding: 0 16px; text-align: center; font-size: .8em; color: var(--muted); }
