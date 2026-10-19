@@ -28,6 +28,11 @@ Progetto separato da Dolce Stilnovo, ispirato alle meccaniche del suo Prototipo 
   «Proviamo insieme» con aiuti a gradini che non svelano la risposta; Pausa/Riprendi/Stop negli ascolti.
 - Accessibilità: modalità lettore di schermo, testo grande, contrasto alto, pulsanti grandi, mancini.
 - Barra in basso a scomparsa sul telefono; «Condividi il frigo» (immagine formato storia); © 2026 Zario.
+- Ripasso di 5 minuti con le parole che stanno per essere dimenticate (memoria a emivita, `js/memory.js`);
+  gli errori tornano a fine capitolo più difficili; scrittura in cirillico con correzione tollerante (`js/check.js`)
+  e «Più difficile: scrivo io»; «Ripeti ad alta voce»; glossario, ascolto lento, valutazioni esportabili.
+- Abitudine gentile (`js/habit.js`): fili della Мартеница (giorni di fila con 2 riposi al mese), 3 obiettivi del
+  giorno, calamite di stagione del calendario bulgaro; riepilogo di fine capitolo e calamita dorata senza aiuti.
 - Salvataggio solo nel browser (`localStorage`). Nessun account, nessun dato inviato.
 
 ## Aggiornare la versione online
@@ -60,6 +65,7 @@ Nota: la cartella `espeak-ng-data` deve stare in un percorso corto (es. `~/.cach
 node tests/content.test.mjs        # struttura dei contenuti e traslitterazione
 node tools/list-bulgarian.mjs      # rigenera docs/DA-CONTROLLARE.md
 node tests/music.test.mjs          # battute e struttura dei 5 temi
+node tests/check.test.mjs          # correzione tollerante e memoria delle parole
 ```
 
 ## File
