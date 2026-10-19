@@ -246,3 +246,7 @@
 - Opzione nelle impostazioni «Musica rilassata durante gli esercizi» (attiva di default).
 - Verificato (Mac, locale): frigo → tema normale; cap. 3 e 9 → tema giusto in ambient; struttura rispettata;
   nessun errore. **Non ancora pubblicato** (si pubblica quando Mario dice «pubblica»).
+- 2026-10-19 — Volume musica: parte al **5%** come nell'altra app (anche per chi era rimasto al vecchio 20%
+  predefinito; chi l'aveva regolato a mano lo mantiene). Cursore nelle impostazioni a passi dell'1%,
+  separato dalla voce. Verificato: 20 → 5 al ricaricamento, voce Daria a volume pieno mentre suona la musica,
+  cursore ricordato. Solo in locale, non pubblicato.

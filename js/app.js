@@ -66,7 +66,7 @@ const UI = {
 const KEY = 'zdravey.v1';
 const DEFAULTS = {
   lang: null, name: '', nameBg: '', guide: null, translit: true, showTr: true,
-  music: true, musicVol: 20, musicCalm: true, voiceOn: true, useClips: false, voiceURI: '', rate: 0.9, sounds: true, vibrate: true, bigText: false, reduceMotion: false,
+  music: true, musicVol: 5, musicCalm: true, voiceOn: true, useClips: false, voiceURI: '', rate: 0.9, sounds: true, vibrate: true, bigText: false, reduceMotion: false,
   bgForms: false, tipsSeen: false, progress: {}, magnets: []
 };
 function loadState() {
@@ -78,6 +78,8 @@ let S = loadState();
 if ((S.prefsV || 1) < 2) { S.translit = true; S.showTr = true; S.prefsV = 2; save(); }
 // Versione 3: voce del dispositivo per tutte le frasi; Dimitar solo se scelto o come riserva.
 if (S.prefsV < 3) { S.useClips = false; S.prefsV = 3; save(); }
+// Versione 4: la musica parte al 5% (come nell'altra app); chi aveva scelto un volume lo mantiene.
+if (S.prefsV < 4) { if (S.musicVol === 20 || S.musicVol == null) S.musicVol = 5; S.prefsV = 4; save(); }
 function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch { /* memoria non disponibile: si gioca lo stesso */ } }
 
 // ───────── Utilità ─────────
@@ -434,7 +436,7 @@ function renderSettings() {
       <fieldset><legend>${T('sMusic')}</legend>
         ${toggle('music', T('sMusicOn'))}
         ${toggle('musicCalm', T('sMusicCalm'))}
-        <label class="field"><span>${T('sMusicVol')}: <output id="mvol-out">${S.musicVol}%</output></span><input type="range" id="s-mvol" min="0" max="100" step="5" value="${S.musicVol}"></label>
+        <label class="field"><span>${T('sMusicVol')}: <output id="mvol-out">${S.musicVol}%</output></span><input type="range" id="s-mvol" min="0" max="100" step="1" value="${S.musicVol}"></label>
         <p class="muted small">${T('sMusicNote')}</p>
       </fieldset>
       <fieldset><legend>${T('sVoice')}</legend>
