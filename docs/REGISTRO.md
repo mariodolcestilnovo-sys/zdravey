@@ -300,3 +300,4 @@
   voce spenta dal pannello, tutorial saltato, test rifiutato), 10 capitoli completi con un errore e gli aiuti in
   ogni attività (140 aiuti) e una deviazione per capitolo, 10 calamite, nessun errore, nessuno sconfinamento.
   content/music/audio test passano. **Non ancora pubblicato** (in attesa di «pubblica»).
+- 2026-10-19 — Pubblicato su GitHub Pages su richiesta di Mario («pubblica»): programma di miglioramenti, passi 1–11.
