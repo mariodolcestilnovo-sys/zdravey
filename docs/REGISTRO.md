@@ -224,3 +224,15 @@
 - Verificato nel browser: cambio tema tra Viaggio e capitoli 1, 4, 6, 9; giro completo del tema della città
   nell'ordine esatto, poi di nuovo intro. Nessun errore. Ascolto: Mario.
 - 2026-10-19 — Frigo: aggiunta la maniglia anche sullo sportello di sotto (richiesta di Mario). Verificato nel browser.
+
+## 2026-10-19 — Versione di prova online (GitHub Pages)
+
+- Scelta di Mario: repository **pubblico** `mariodolcestilnovo-sys/zdravey` + GitHub Pages (gratuito).
+- Prima di caricare: nessun segreto nei file; l'indirizzo e-mail con il nome del Mac di Mario (2 commit delle
+  sessioni di revisione) sostituito con l'indirizzo anonimo di GitHub; impostato quello anonimo per i
+  prossimi commit in questa cartella. Aggiunti `.nojekyll` e `robots.txt` (non indicizzare).
+- Sito: https://mariodolcestilnovo-sys.github.io/zdravey/ — ogni push su `main` lo aggiorna.
+- Verificato online (browser, formato telefono): pagina, codice e audio rispondono; `.git` non accessibile;
+  nuovo giocatore dal benvenuto, 10 capitoli completi, 10 calamite, font caricato, HTTPS, nessun errore.
+- Il plugin GitHub dell'app Claude resta non funzionante (manca la chiave GITHUB_PERSONAL_ACCESS_TOKEN):
+  non serve, si usa `gh` dal terminale.

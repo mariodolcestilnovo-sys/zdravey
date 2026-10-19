@@ -3,7 +3,7 @@
 Gioco web per imparare il bulgaro (A1), con aiuti in italiano o inglese.
 Progetto separato da Dolce Stilnovo, ispirato alle meccaniche del suo Prototipo 2.
 
-**Stato:** percorso A1.1 completo e giocabile in locale: 10 capitoli, 150 attività. Testi bulgari controllati con l'AI e approvati da Mario ([elenco](docs/DA-CONTROLLARE.md)). Non pubblicato online.
+**Stato:** percorso A1.1 completo e giocabile in locale: 10 capitoli, 150 attività. Testi bulgari controllati con l'AI e approvati da Mario ([elenco](docs/DA-CONTROLLARE.md)). **Versione di prova online:** https://mariodolcestilnovo-sys.github.io/zdravey/ (GitHub Pages, non indicizzata).
 
 ## Cosa c'è
 - Benvenuto: lingua degli aiuti, nome (anche in cirillico, con tastiera fonetica QWERTY sullo schermo), scelta della guida.
@@ -21,6 +21,9 @@ Progetto separato da Dolce Stilnovo, ispirato alle meccaniche del suo Prototipo 
   5 temi per ambiente (Пътят, Градът, Домът, Пазарът, Празникът) in 7/8, 2/4, 5/8 e 11/8, ognuno
   intro–A–B–bridge–controtema–bridge–A–B–conclusione. Nessun file e nessun diritto di terzi.
 - Salvataggio solo nel browser (`localStorage`). Nessun account, nessun dato inviato.
+
+## Aggiornare la versione online
+Ogni `git push` sul ramo `main` ripubblica il sito in 1–2 minuti (GitHub Pages).
 
 ## Provare in locale
 ```sh
