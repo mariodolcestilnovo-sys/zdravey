@@ -4,6 +4,7 @@ import { toLatin, toCyrillic } from './translit.js';
 import * as voice from './speech.js';
 import * as music from './music.js';
 import { startTour, tourOpen } from './tour.js';
+import { placement, suggestChapter } from './placement.js';
 
 // ───────── Testi dell'interfaccia ─────────
 const UI = {
@@ -18,7 +19,7 @@ const UI = {
     iosSilent: 'Su iPhone la voce non si sente con il silenzioso attivo: toglilo per ascoltare.',
     noVoiceHelp: 'Non si sente niente? Alza il volume, togli il silenzioso e controlla che la voce bulgara sia scaricata. Puoi sempre leggere il testo.',
     voiceOff: 'La voce è spenta: puoi accenderla nelle impostazioni.', voicesFound: 'Voci bulgare trovate', showTrLabel: 'Traduzioni già aperte (capitoli 1–10)',
-    activity: 'Attività', of: 'di', help: 'Aiuto della guida', keyboard: 'Tastiera cirillica', example: 'Mostra un esempio', send: 'Invia', sent: 'Messaggio inviato!', prevStep: 'Torna indietro', tourTitle: 'Tutorial', tourSkip: 'Salta', tourDone: 'Iniziamo!', tourAgain: 'Rivedi il tutorial', tour1: r => `Ti mostro i comandi in un minuto. La tua guida, ${r}, ti accompagna in tutto il viaggio.`, tour2: 'Questa è la sfida: riempire il frigo di calamite entro il 1° marzo. La barra mostra quante ne hai.', tour3: 'Ogni capitolo è una tappa della storia, con 15 attività. Puoi sceglierli liberamente.', tour4: 'Il frigo: qui finiscono le calamite che conquisti. Toccane una per rigiocare quel capitolo.', tour5: 'Le parole di ogni capitolo, con la pronuncia e la vocale accentata.', tour6: 'L’audio: musica, effetti e voce, ognuno con il suo volume. Qui puoi anche spegnere tutto.', tour7: 'Aa mostra o nasconde le lettere latine sotto il cirillico.', tour8: 'Le impostazioni: lingua, nome, guida, lettura… e qui puoi rivedere questo tutorial.', tour9: 'Negli esercizi trovi anche 💡 per la spiegazione della guida e ← per tornare indietro. Ora tocca a te: premi «Gioca»!', lPause: 'Pausa', lResume: 'Riprendi', lStop: 'Stop', backToGame: 'Torna all’esercizio', nextCh: 'Capitolo', yourMsg: 'Il tuo messaggio',
+    activity: 'Attività', of: 'di', help: 'Aiuto della guida', keyboard: 'Tastiera cirillica', example: 'Mostra un esempio', send: 'Invia', sent: 'Messaggio inviato!', prevStep: 'Torna indietro', plTitle: 'Test di orientamento', plOffer: 'Sai già un po’ di bulgaro? Fai il test di orientamento: 11 domande, circa 2 minuti. Ti suggerisce da quale capitolo partire.', plYes: 'Fai il test', plNo: 'No, grazie', plQ: (i, n) => `Domanda ${i} di ${n}`, plNote: 'Non è un esame: serve solo a orientarti. Puoi sempre scegliere qualsiasi capitolo.', plGo: n => `Vai al capitolo ${n}`, plResult: (n, title) => `Ti consigliamo di partire dal capitolo ${n}: «${title}».`, plAll: 'Complimenti: conosci già le basi di tutti i 10 capitoli! Scegli liberamente da dove ripassare.', plDontKnow: 'Non lo so', tourTitle: 'Tutorial', tourSkip: 'Salta', tourDone: 'Iniziamo!', tourAgain: 'Rivedi il tutorial', tour1: r => `Ti mostro i comandi in un minuto. La tua guida, ${r}, ti accompagna in tutto il viaggio.`, tour2: 'Questa è la sfida: riempire il frigo di calamite entro il 1° marzo. La barra mostra quante ne hai.', tour3: 'Ogni capitolo è una tappa della storia, con 15 attività. Puoi sceglierli liberamente.', tour4: 'Il frigo: qui finiscono le calamite che conquisti. Toccane una per rigiocare quel capitolo.', tour5: 'Le parole di ogni capitolo, con la pronuncia e la vocale accentata.', tour6: 'L’audio: musica, effetti e voce, ognuno con il suo volume. Qui puoi anche spegnere tutto.', tour7: 'Aa mostra o nasconde le lettere latine sotto il cirillico.', tour8: 'Le impostazioni: lingua, nome, guida, lettura… e qui puoi rivedere questo tutorial.', tour9: 'Negli esercizi trovi anche 💡 per la spiegazione della guida e ← per tornare indietro. Ora tocca a te: premi «Gioca»!', lPause: 'Pausa', lResume: 'Riprendi', lStop: 'Stop', backToGame: 'Torna all’esercizio', nextCh: 'Capitolo', yourMsg: 'Il tuo messaggio',
     aiSlot: 'Consiglio automatico: in arrivo. Stiamo provando un’AI gratuita che potrà darti un suggerimento sulle frasi libere.',
     reward: 'Nuova calamita!', toFridge: 'Vai al frigo', toJourney: 'Torna al viaggio',
     challenge: (n, tot) => `Riempi il frigo entro il 1° marzo: ${n} di ${tot} calamite.`,
@@ -45,7 +46,7 @@ const UI = {
     iosSilent: 'On iPhone the voice can’t be heard in silent mode: switch it off to listen.',
     noVoiceHelp: 'Can’t hear anything? Turn the volume up, switch off silent mode and check the Bulgarian voice is downloaded. You can always read the text.',
     voiceOff: 'The voice is off: you can turn it on in Settings.', voicesFound: 'Bulgarian voices found', showTrLabel: 'Translations already open (chapters 1–10)',
-    activity: 'Activity', of: 'of', help: 'Guide’s help', keyboard: 'Cyrillic keyboard', example: 'Show an example', send: 'Send', sent: 'Message sent!', prevStep: 'Go back', tourTitle: 'Tutorial', tourSkip: 'Skip', tourDone: 'Let’s go!', tourAgain: 'Replay the tutorial', tour1: r => `I’ll show you the controls in a minute. Your guide, ${r}, is with you for the whole journey.`, tour2: 'This is the challenge: fill the fridge with magnets by 1 March. The bar shows how many you have.', tour3: 'Each chapter is a step of the story, with 15 activities. You can pick them freely.', tour4: 'The fridge: the magnets you win end up here. Tap one to replay that chapter.', tour5: 'The words of every chapter, with pronunciation and the stressed vowel.', tour6: 'Audio: music, effects and voice, each with its own volume. You can also turn everything off here.', tour7: 'Aa shows or hides Latin letters under the Cyrillic.', tour8: 'Settings: language, name, guide, reading… and you can replay this tutorial here.', tour9: 'In the exercises you’ll also find 💡 for your guide’s explanation and ← to go back. Now it’s your turn: press “Play”!', lPause: 'Pause', lResume: 'Resume', lStop: 'Stop', backToGame: 'Back to the exercise', nextCh: 'Chapter', yourMsg: 'Your message',
+    activity: 'Activity', of: 'of', help: 'Guide’s help', keyboard: 'Cyrillic keyboard', example: 'Show an example', send: 'Send', sent: 'Message sent!', prevStep: 'Go back', plTitle: 'Placement test', plOffer: 'Do you already know some Bulgarian? Take the placement test: 11 questions, about 2 minutes. It suggests which chapter to start from.', plYes: 'Take the test', plNo: 'No, thanks', plQ: (i, n) => `Question ${i} of ${n}`, plNote: 'It’s not an exam: it only helps you find your place. You can always pick any chapter.', plGo: n => `Go to chapter ${n}`, plResult: (n, title) => `We suggest starting from chapter ${n}: “${title}”.`, plAll: 'Well done: you already know the basics of all 10 chapters! Pick freely where to review.', plDontKnow: 'I don’t know', tourTitle: 'Tutorial', tourSkip: 'Skip', tourDone: 'Let’s go!', tourAgain: 'Replay the tutorial', tour1: r => `I’ll show you the controls in a minute. Your guide, ${r}, is with you for the whole journey.`, tour2: 'This is the challenge: fill the fridge with magnets by 1 March. The bar shows how many you have.', tour3: 'Each chapter is a step of the story, with 15 activities. You can pick them freely.', tour4: 'The fridge: the magnets you win end up here. Tap one to replay that chapter.', tour5: 'The words of every chapter, with pronunciation and the stressed vowel.', tour6: 'Audio: music, effects and voice, each with its own volume. You can also turn everything off here.', tour7: 'Aa shows or hides Latin letters under the Cyrillic.', tour8: 'Settings: language, name, guide, reading… and you can replay this tutorial here.', tour9: 'In the exercises you’ll also find 💡 for your guide’s explanation and ← to go back. Now it’s your turn: press “Play”!', lPause: 'Pause', lResume: 'Resume', lStop: 'Stop', backToGame: 'Back to the exercise', nextCh: 'Chapter', yourMsg: 'Your message',
     aiSlot: 'Automatic tip: coming soon. We’re testing a free AI that could give you a hint on free sentences.',
     reward: 'New magnet!', toFridge: 'Go to the fridge', toJourney: 'Back to the journey',
     challenge: (n, tot) => `Fill the fridge by 1 March: ${n} of ${tot} magnets.`,
@@ -228,7 +229,7 @@ function go(v) {
   // Ogni ambiente ha il suo tema; dentro i capitoli la musica è «ambient» per concentrarsi.
   syncTheme();
   const restored = v === 'chapter' && restoreChapter();
-  if (!restored) ({ journey: renderJourney, fridge: renderFridge, words: renderWords, settings: renderSettings, chapter: renderStep })[v]();
+  if (!restored) ({ journey: renderJourney, fridge: renderFridge, words: renderWords, settings: renderSettings, chapter: renderStep, placement: renderPlacement })[v]();
   if (v !== 'chapter') addBackToGame();
   if (v === 'journey' && !S.tourSeen) setTimeout(runTour, 250);
   window.scrollTo(0, restored ? restored.scroll : 0);
@@ -440,6 +441,7 @@ function renderJourney() {
         <div><h1>${T('journey')}</h1><p>${T('challenge')(won, chapters.length)}</p>
           <div class="meter" role="img" aria-label="${won}/${chapters.length}"><i style="width:${won / chapters.length * 100}%"></i></div></div>
       </div>
+      ${!S.placementDone && !S.placementNo && !Object.keys(S.progress).length ? `<div class="card pl-offer"><p>🧭 ${T('plOffer')}</p><div class="row"><button class="btn ghost" id="pl-no">${T('plNo')}</button><button class="btn" id="pl-yes">${T('plYes')}</button></div></div>` : ''}
       <ol class="chapters">
         ${chapters.map(c => {
           const p = chapterProgress(c.id), ready = !!chapterData[c.id];
@@ -455,6 +457,37 @@ function renderJourney() {
       </ol>
     </section>`;
   app.querySelectorAll('[data-open]').forEach(b => b.addEventListener('click', () => openChapter(+b.dataset.open)));
+  $('#pl-yes')?.addEventListener('click', () => { pq = { i: 0, answers: [] }; go('placement'); });
+  $('#pl-no')?.addEventListener('click', () => { S.placementNo = true; save(); go('journey'); });
+}
+
+// ───────── Test di orientamento ─────────
+let pq = { i: 0, answers: [] };
+function renderPlacement() {
+  const n = placement.length;
+  if (pq.i >= n) {
+    S.placementDone = true; save();
+    const ch = suggestChapter(pq.answers), c = chapters.find(x => x.id === ch);
+    app.innerHTML = `<section class="card placement">
+      <h1>🧭 ${T('plTitle')}</h1>
+      <p class="pl-result">${ch ? `${T('plResult')(ch, c[L()])}` + `<br>${bg(c.bg)}` : T('plAll')}</p>
+      <p class="muted small">${T('plNote')}</p>
+      <div class="row">${ch ? `<button class="btn" id="pl-go">${T('plGo')(ch)}</button>` : ''}<button class="btn ghost" id="pl-back">${T('toJourney')}</button></div>
+    </section>`;
+    $('#pl-go')?.addEventListener('click', () => openChapter(ch));
+    $('#pl-back').addEventListener('click', () => go('journey'));
+    return;
+  }
+  const q = placement[pq.i];
+  const order = shuffle(q.options.map((_, k) => k));
+  app.innerHTML = `<section class="card placement act no-tl">
+    <p class="phase-tag p0">🧭 ${T('plQ')(pq.i + 1, n)}</p>
+    <h2 class="prompt">${rich(q.prompt)}</h2>
+    <div class="options">${order.map(k => `<div class="opt-wrap"><button class="opt" data-k="${k}">${q.latin ? `<span>${esc(q.options[k])}</span>` : typeof q.options[k] === 'string' ? bg(q.options[k]) : `<span>${esc(help(q.options[k]))}</span>`}</button></div>`).join('')}
+      <div class="opt-wrap"><button class="opt dont-know" data-k="-1"><span>🤷 ${T('plDontKnow')}</span></button></div></div>
+    <p class="muted small">${T('plNote')}</p>
+  </section>`;
+  app.querySelectorAll('.opt').forEach(b => b.addEventListener('click', () => { pq.answers[pq.i] = +b.dataset.k; pq.i++; sfx.tap(); go('placement'); }));
 }
 
 // ───────── Frigo ─────────
@@ -549,6 +582,7 @@ function renderSettings() {
         ${vibOk ? toggle('vibrate', T('sVibrate')) : `<p class="muted small">${T('sVibrateNo')}</p>`}
         ${toggle('autoAdvance', T('sAuto'))}
         <button class="btn small ghost" id="s-tour">🔦 ${T('tourAgain')}</button>
+        <button class="btn small ghost" id="s-placement">🧭 ${T('plTitle')}</button>
         ${toggle('bigText', T('sBig'))}
         ${toggle('reduceMotion', T('sMotion'))}
       </fieldset>
@@ -570,6 +604,7 @@ function renderSettings() {
   }));
   bindAudioPanel(app.querySelector('.audio-panel'));
   $('#s-tour')?.addEventListener('click', () => { S.tourSeen = false; save(); go('journey'); });
+  $('#s-placement')?.addEventListener('click', () => { pq = { i: 0, answers: [] }; go('placement'); });
   $('#s-back-welcome')?.addEventListener('click', () => { view = 'journey'; renderWelcome(welcomeStep); });
   $('#s-rate').addEventListener('input', e => { S.rate = +e.target.value; $('#rate-out').textContent = Math.round(S.rate * 100) + '%'; save(); });
   attachKeyboard($('.kb-toggle'), $('.kb-slot'), $('#s-namebg'));

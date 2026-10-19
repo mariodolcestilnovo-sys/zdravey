@@ -429,3 +429,10 @@ body.calm .tour-spot { transition: none; }
 nav#nav { transition: transform .25s ease; }
 nav#nav.away { transform: translateY(110%); }
 body.calm nav#nav { transition: none; }
+
+/* Test di orientamento */
+.pl-offer { margin-top: 12px; }
+.pl-offer p { margin-top: 0; }
+.placement .prompt { font-size: 1.15em; }
+.opt.dont-know { background: #f5efe7; }
+.pl-result { font-size: 1.1em; }

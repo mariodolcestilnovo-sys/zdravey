@@ -48,6 +48,12 @@ for (const c of chapters) {
   });
 }
 
+import { placement } from '../js/placement.js';
+placement.forEach((q, i) => {
+  if (!(q.answer >= 0 && q.answer < q.options.length)) fail(`test di orientamento ${i + 1}: risposta fuori dalle opzioni`);
+  both(q.prompt, `test di orientamento ${i + 1}`);
+  if (!chapterData[q.ch]) fail(`test di orientamento ${i + 1}: capitolo ${q.ch} inesistente`);
+});
 const eq = (a, b) => { if (a !== b) fail(`atteso «${b}», ottenuto «${a}»`); };
 eq(toLatin('Здравей'), 'Zdravey'); eq(toLatin('София'), 'Sofia'); eq(toLatin('Щастие'), 'Shtastie'); eq(toLatin('Благодаря'), 'Blagodarya');
 eq(toCyrillic('Mario'), 'Марио'); eq(toCyrillic('Sasha'), 'Саша');
