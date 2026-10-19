@@ -273,3 +273,9 @@
 - Verificato (browser, telefono): pannello dal benvenuto; spegni/riaccendi tutto; volume voce 60% applicato
   alla voce; stile «festa» fisso e ritorno ad automatico; ⚙ dal benvenuto e dal nome con ritorno; nessun errore.
   Solo in locale.
+- 2026-10-19 — Passo 2, avanti automatico: dopo una risposta giusta al primo colpo, conto alla rovescia di 10 s
+  con barra, ⏸/▶ e «Continua» immediato. Pausa (ripartenza solo con ▶) se si apre un pannello o la guida o se
+  l'app va in background; mentre parla la voce il conto si ferma e poi riprende. Niente conto dopo errori e nel
+  messaggio libero. Opzione nelle impostazioni (attiva). Numeri nascosti al lettore di schermo (frase fissa).
+  Verificato (browser): 3 s → «7», pausa ferma, guida → ▶, avanzamento all'attività 2; nessun conto dopo un
+  errore, nel messaggio libero o con l'opzione spenta; capitoli 1, 5, 10 completi senza errori. Solo in locale.

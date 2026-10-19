@@ -28,7 +28,7 @@ const UI = {
     sHelpLang: 'Lingua degli aiuti', sName: 'Il tuo nome', sGuide: 'La tua guida', sTranslit: 'Traslitterazione (lettere latine sotto il cirillico)',
     sVoice: 'Voce bulgara', sVoicePick: 'Scegli la voce', sRate: 'Velocità', sTest: 'Prova la voce', diag: 'Diagnostica della voce', diagNote: 'Tocca un pulsante alla volta, poi copia il testo che compare e mandalo a chi sviluppa il gioco.', diagLang: 'Solo lingua bulgara', diagFile: 'Frase registrata', sClips: 'Usa la voce registrata maschile (Dimitar) al posto di quella del dispositivo', sClipsNote: n => `${n} frasi registrate con una voce maschile libera (Dimitar, Piper): su iPhone con Safari si sentono anche in silenzioso. Se il dispositivo non ha una voce bulgara, il gioco le usa da solo.`, sSounds: 'Suoni', sVibrate: 'Vibrazione', sVibrateNo: 'Vibrazione non disponibile su questo dispositivo',
     sForms: 'Lettere in stile bulgaro moderno', sFormsNote: 'Molti libri e marchi bulgari usano queste forme; i cartelli spesso no. All’inizio è più facile la forma classica.',
-    sDisplay: 'Lettura e suoni', sMusic: 'Musica', aPanel: 'Audio', aAll: 'Audio del gioco', aFx: 'Effetti sonori', aVoice: 'Voce bulgara', aStyle: 'Stile musicale', aAuto: 'Automatico: cambia con l’ambiente', themeNames: { road: 'La strada (menu e viaggio)', city: 'La città (cap. 1–3)', home: 'La casa (cap. 4, 5, 7)', market: 'Il mercato (cap. 6, 8)', feast: 'La festa (cap. 9, 10)' }, sMusicOn: 'Musica di sottofondo', sMusicCalm: 'Musica rilassata durante gli esercizi (più lenta, senza tamburo)', sMusicVol: 'Volume della musica', sMusicNote: 'Melodia originale in stile tradizionale bulgaro (ръченица in 7/8, гайда, кавал e тъпан), creata per questo gioco e suonata dal browser: nessun diritto d’autore di terzi.', sBig: 'Testo più grande', sMotion: 'Riduci le animazioni', sData: 'I tuoi dati', sDataNote: 'Il viaggio è salvato solo in questo browser. Nessun dato viene inviato.',
+    sDisplay: 'Lettura e suoni', sMusic: 'Musica', aPanel: 'Audio', aAll: 'Audio del gioco', aFx: 'Effetti sonori', aVoice: 'Voce bulgara', aStyle: 'Stile musicale', aAuto: 'Automatico: cambia con l’ambiente', themeNames: { road: 'La strada (menu e viaggio)', city: 'La città (cap. 1–3)', home: 'La casa (cap. 4, 5, 7)', market: 'Il mercato (cap. 6, 8)', feast: 'La festa (cap. 9, 10)' }, sMusicOn: 'Musica di sottofondo', sMusicCalm: 'Musica rilassata durante gli esercizi (più lenta, senza tamburo)', sMusicVol: 'Volume della musica', sMusicNote: 'Melodia originale in stile tradizionale bulgaro (ръченица in 7/8, гайда, кавал e тъпан), creata per questo gioco e suonata dal browser: nessun diritto d’autore di terzi.', sAuto: 'Avanti automatico dopo la risposta giusta (10 secondi)', autoIn: 'Avanti tra', autoSr: 'Si passa da soli all’attività successiva tra 10 secondi. Puoi mettere in pausa o premere Continua.', autoPause: 'Metti in pausa', autoPlay: 'Riprendi il conto alla rovescia', sBig: 'Testo più grande', sMotion: 'Riduci le animazioni', sData: 'I tuoi dati', sDataNote: 'Il viaggio è salvato solo in questo browser. Nessun dato viene inviato.',
     sReset: 'Cancella i progressi', sResetQ: 'Vuoi davvero cancellare nome e progressi da questo dispositivo?', sSave: 'Salva', saved: 'Salvato',
     tipsTitle: 'Tre comandi utili', tips: ['🔊 ascolta la frase in bulgaro (se il dispositivo ha la voce).', 'Aa mostra o nasconde le lettere latine sotto il cirillico.', '💡 riapre la spiegazione della guida.'],
     close: 'Chiudi', phase: 'Fase', menu: 'Menu principale'
@@ -55,7 +55,7 @@ const UI = {
     sHelpLang: 'Help language', sName: 'Your name', sGuide: 'Your guide', sTranslit: 'Transliteration (Latin letters under Cyrillic)',
     sVoice: 'Bulgarian voice', sVoicePick: 'Choose the voice', sRate: 'Speed', sTest: 'Test the voice', diag: 'Voice diagnostics', diagNote: 'Tap one button at a time, then copy the text that appears and send it to the game developer.', diagLang: 'Bulgarian language only', diagFile: 'Recorded sentence', sClips: 'Use the recorded male voice (Dimitar) instead of the device voice', sClipsNote: n => `${n} sentences recorded with a free male voice (Dimitar, Piper): on iPhone with Safari they play even in silent mode. If the device has no Bulgarian voice, the game uses them automatically.`, sSounds: 'Sounds', sVibrate: 'Vibration', sVibrateNo: 'Vibration not available on this device',
     sForms: 'Modern Bulgarian letter shapes', sFormsNote: 'Many Bulgarian books and brands use these shapes; signs often don’t. The classic shapes are easier at first.',
-    sDisplay: 'Reading and sounds', sMusic: 'Music', aPanel: 'Audio', aAll: 'Game audio', aFx: 'Sound effects', aVoice: 'Bulgarian voice', aStyle: 'Music style', aAuto: 'Automatic: changes with the setting', themeNames: { road: 'The road (menu and journey)', city: 'The city (ch. 1–3)', home: 'Home (ch. 4, 5, 7)', market: 'The market (ch. 6, 8)', feast: 'The feast (ch. 9, 10)' }, sMusicOn: 'Background music', sMusicCalm: 'Relaxed music during exercises (slower, no drum)', sMusicVol: 'Music volume', sMusicNote: 'An original tune in traditional Bulgarian style (ръченица in 7/8, гайда, кавал and тъпан), made for this game and played by the browser: no third-party copyright.', sBig: 'Larger text', sMotion: 'Reduce animations', sData: 'Your data', sDataNote: 'Your journey is saved in this browser only. No data is sent anywhere.',
+    sDisplay: 'Reading and sounds', sMusic: 'Music', aPanel: 'Audio', aAll: 'Game audio', aFx: 'Sound effects', aVoice: 'Bulgarian voice', aStyle: 'Music style', aAuto: 'Automatic: changes with the setting', themeNames: { road: 'The road (menu and journey)', city: 'The city (ch. 1–3)', home: 'Home (ch. 4, 5, 7)', market: 'The market (ch. 6, 8)', feast: 'The feast (ch. 9, 10)' }, sMusicOn: 'Background music', sMusicCalm: 'Relaxed music during exercises (slower, no drum)', sMusicVol: 'Music volume', sMusicNote: 'An original tune in traditional Bulgarian style (ръченица in 7/8, гайда, кавал and тъпан), made for this game and played by the browser: no third-party copyright.', sAuto: 'Auto-advance after a correct answer (10 seconds)', autoIn: 'Next in', autoSr: 'The next activity starts by itself in 10 seconds. You can pause or press Continue.', autoPause: 'Pause', autoPlay: 'Resume the countdown', sBig: 'Larger text', sMotion: 'Reduce animations', sData: 'Your data', sDataNote: 'Your journey is saved in this browser only. No data is sent anywhere.',
     sReset: 'Delete progress', sResetQ: 'Do you really want to delete your name and progress from this device?', sSave: 'Save', saved: 'Saved',
     tipsTitle: 'Three useful buttons', tips: ['🔊 listen to the sentence in Bulgarian (if your device has the voice).', 'Aa shows or hides Latin letters under the Cyrillic.', '💡 reopens your guide’s explanation.'],
     close: 'Close', phase: 'Phase', menu: 'Main menu'
@@ -66,7 +66,7 @@ const UI = {
 const KEY = 'zdravey.v1';
 const DEFAULTS = {
   lang: null, name: '', nameBg: '', guide: null, translit: true, showTr: true,
-  audioOn: true, music: true, musicVol: 5, musicCalm: true, musicStyle: 'auto', sfxVol: 65, voiceVol: 100, voiceOn: true, useClips: false, voiceURI: '', rate: 0.9, sounds: true, vibrate: true, bigText: false, reduceMotion: false,
+  autoAdvance: true, audioOn: true, music: true, musicVol: 5, musicCalm: true, musicStyle: 'auto', sfxVol: 65, voiceVol: 100, voiceOn: true, useClips: false, voiceURI: '', rate: 0.9, sounds: true, vibrate: true, bigText: false, reduceMotion: false,
   bgForms: false, tipsSeen: false, progress: {}, magnets: []
 };
 function loadState() {
@@ -210,13 +210,17 @@ function syncTheme() {
   const auto = music.themeFor(onboarding() ? 'welcome' : view, current.ch);
   music.setTheme(S.musicStyle && S.musicStyle !== 'auto' ? S.musicStyle : auto, view === 'chapter' && !onboarding() && S.musicCalm !== false);
 }
-voice.setSpeakHooks({ start: () => music.duck(true), end: () => music.duck(false) });
+voice.setSpeakHooks({
+  start: () => { music.duck(true); if (auto) auto.held = true; },
+  end: () => { music.duck(false); if (auto) auto.held = false; }
+});
 // Il browser permette l'audio solo dopo un gesto: la musica parte al primo tocco.
 document.addEventListener('pointerdown', () => syncMusic(), { once: true });
 document.addEventListener('keydown', () => syncMusic(), { once: true });
 $('#nav').addEventListener('click', e => { const b = e.target.closest('button[data-view]'); if (b) go(b.dataset.view); });
 
 function go(v) {
+  stopAuto();
   voice.stop();
   view = v; applyPrefs();
   // Ogni ambiente ha il suo tema; dentro i capitoli la musica è «ambient» per concentrarsi.
@@ -475,6 +479,7 @@ function renderSettings() {
         ${toggle('bgForms', T('sForms'))}
         <p class="muted small forms-demo"><span lang="bg">д л и т</span> → ${T('sFormsNote')}</p>
         ${vibOk ? toggle('vibrate', T('sVibrate')) : `<p class="muted small">${T('sVibrateNo')}</p>`}
+        ${toggle('autoAdvance', T('sAuto'))}
         ${toggle('bigText', T('sBig'))}
         ${toggle('reduceMotion', T('sMotion'))}
       </fieldset>
@@ -674,6 +679,40 @@ function openDialog(html) {
 }
 $('#dialog-close').addEventListener('click', () => $('#dialog').close());
 
+// ───────── Avanti automatico ─────────
+// Il tempo scorre solo mentre il riscontro è visibile e senza interruzioni. Guida, pannelli e app in background
+// lo mettono in pausa e si riparte solo con ▶; mentre parla la voce il conto si ferma e poi riprende.
+const AUTO_SECONDS = 10;
+let auto = null;
+function stopAuto() { if (auto) { clearInterval(auto.timer); auto = null; } }
+function pauseAuto() { if (auto && auto.running) { auto.running = false; drawAuto(); } }
+function drawAuto() {
+  if (!auto) return;
+  if (!auto.el.isConnected) { stopAuto(); return; }
+  const { el, left, running } = auto, b = el.querySelector('.auto-btn');
+  el.querySelector('.auto-bar i').style.width = (left / AUTO_SECONDS * 100) + '%';
+  el.querySelector('.auto-left').textContent = Math.ceil(left);
+  b.textContent = running ? '⏸' : '▶';
+  b.setAttribute('aria-label', running ? T('autoPause') : T('autoPlay')); b.title = b.getAttribute('aria-label');
+  el.classList.toggle('paused', !running);
+}
+function startAuto(el) {
+  stopAuto();
+  auto = { left: AUTO_SECONDS, running: true, held: false, el, timer: null };
+  el.querySelector('.auto-btn').addEventListener('click', () => { if (auto) { auto.running = !auto.running; drawAuto(); } });
+  auto.timer = setInterval(() => {
+    if (!auto) return;
+    if (!auto.el.isConnected) { stopAuto(); return; }
+    if (!auto.running) return;
+    if (document.hidden || $('#dialog').open) { pauseAuto(); return; }
+    if (auto.held) return; // la voce sta parlando
+    auto.left -= 0.1;
+    if (auto.left <= 0) { stopAuto(); advance(); return; }
+    drawAuto();
+  }, 100);
+  drawAuto();
+}
+
 // ───────── Attività ─────────
 function renderActivity(head, i) {
   const a = D().activities[i];
@@ -693,8 +732,13 @@ function renderActivity(head, i) {
     sfx.ok();
     work.querySelectorAll('button').forEach(b => { if (!b.classList.contains('speak')) b.disabled = true; });
     fb.className = 'feedback good';
-    fb.innerHTML = `<p class="fb-title">✓ ${title}</p><p>${rich(a.explain)}</p>${extra}<button class="btn cont">${T('cont')}</button>`;
-    const c = $('.cont', fb); c.addEventListener('click', advance); c.focus();
+    // Avanti automatico solo dopo una risposta giusta al primo colpo (niente dopo errori o nel messaggio libero).
+    const useAuto = S.autoAdvance && tries === 0 && a.kind !== 'free';
+    fb.innerHTML = `<p class="fb-title">✓ ${title}</p><p>${rich(a.explain)}</p>${extra}
+      ${useAuto ? `<div class="auto"><button type="button" class="icon-btn auto-btn"></button><span class="auto-bar" aria-hidden="true"><i></i></span><span class="auto-text" aria-hidden="true">${T('autoIn')} <b class="auto-left">${AUTO_SECONDS}</b> s</span><span class="sr-only">${T('autoSr')}</span></div>` : ''}
+      <button class="btn cont">${T('cont')}</button>`;
+    const c = $('.cont', fb); c.addEventListener('click', () => { stopAuto(); advance(); }); c.focus();
+    if (useAuto) startAuto($('.auto', fb));
   };
   const fail = hint => {
     sfx.no(); tries++;
