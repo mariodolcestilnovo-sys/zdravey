@@ -522,11 +522,11 @@ Il nome del giocatore è mostrato come «Марио».
 | Cap. 5 · Parole (accento e traslitterazione) | Дом — dom | Casa (focolare) | |
 | Cap. 6 · Introduzione 1 (cartello) | ЖЕНСКИ ПАЗАР | Mercato delle donne | |
 | Cap. 6 · Introduzione 2 | Тук всичко е свежо и евтино. | Qui è tutto fresco e costa poco. | |
-| Cap. 6 · Introduzione 3 | Заповядайте! Домати, краставици, череши! | Prego! Pomodori, cetrioli, ciliegie! | |
+| Cap. 6 · Introduzione 3 | Заповядайте! Домати, краставици, мандарини! | Prego! Pomodori, cetrioli, mandarini! | |
 | Cap. 6 · Spiegazione fase 1 | домати |  | |
 | Cap. 6 · Spiegazione fase 1 | краставици |  | |
 | Cap. 6 · Spiegazione fase 1 | ябълки |  | |
-| Cap. 6 · Spiegazione fase 1 | череши |  | |
+| Cap. 6 · Spiegazione fase 1 | мандарини |  | |
 | Cap. 6 · Spiegazione fase 1 | чушки |  | |
 | Cap. 6 · Spiegazione fase 1 | домат |  | |
 | Cap. 6 · Spiegazione fase 1 | ябълка |  | |
@@ -546,7 +546,7 @@ Il nome del giocatore è mostrato come «Марио».
 | Cap. 6 · Spiegazione fase 3 | половин килограм |  | |
 | Cap. 6 · Attività 1 (abbinamento) | Домати | Pomodori | |
 | Cap. 6 · Attività 1 (abbinamento) | Ябълки | Mele | |
-| Cap. 6 · Attività 1 (abbinamento) | Череши | Ciliegie | |
+| Cap. 6 · Attività 1 (abbinamento) | Мандарини | Mandarini | |
 | Cap. 6 · Attività 1 (abbinamento) | Чушки | Peperoni | |
 | Cap. 6 · Attività 2 | Заповядайте, свежи домати! | Prego, pomodori freschi! | |
 | Cap. 6 · Attività 2 | домати |  | |
@@ -558,10 +558,10 @@ Il nome del giocatore è mostrato come «Марио».
 | Cap. 6 · Attività 3 opzione giusta | ябълки |  | |
 | Cap. 6 · Attività 3 opzione | ябълка |  | |
 | Cap. 6 · Attività 3 opzione | ябълко |  | |
-| Cap. 6 · Attività 4 (ascolto) | Черешите са по пет евро. | Le ciliegie sono a cinque euro. | |
-| Cap. 6 · Attività 4 | пет |  | |
-| Cap. 6 · Attività 4 | петнайсет |  | |
-| Cap. 6 · Attività 4 | петдесет |  | |
+| Cap. 6 · Attività 4 (ascolto) | Мандарините са по три евро. | I mandarini sono a tre euro. | |
+| Cap. 6 · Attività 4 | три |  | |
+| Cap. 6 · Attività 4 | тринайсет |  | |
+| Cap. 6 · Attività 4 | трийсет |  | |
 | Cap. 6 · Attività 5 | Искам… |  | |
 | Cap. 6 · Attività 5 | Искам ябълки, моля |  | |
 | Cap. 6 · Attività 5 opzione giusta | Искам ябълки, моля. |  | |
@@ -595,22 +595,22 @@ Il nome del giocatore è mostrato come «Марио».
 | Cap. 6 · Attività 12 | четири евро |  | |
 | Cap. 6 · Attività 13 | половин килограм |  | |
 | Cap. 6 · Attività 13 | и |  | |
-| Cap. 6 · Attività 13 opzione giusta | И половин килограм череши, моля. |  | |
-| Cap. 6 · Attività 13 opzione | И половин череши килограм. |  | |
-| Cap. 6 · Attività 13 opzione | Череши е половин. |  | |
+| Cap. 6 · Attività 13 opzione giusta | И половин килограм мандарини, моля. |  | |
+| Cap. 6 · Attività 13 opzione | И половин мандарини килограм. |  | |
+| Cap. 6 · Attività 13 opzione | Мандарини е половин. |  | |
 | Cap. 6 · Attività 14 | Нещо друго? | Altro? | |
 | Cap. 6 · Attività 14 | Това е всичко |  | |
 | Cap. 6 · Attività 14 opzione giusta | Не, това е всичко. Благодаря! |  | |
 | Cap. 6 · Attività 14 opzione | Да, сто килограма! |  | |
 | Cap. 6 · Attività 14 opzione | Казвам се Нещо. |  | |
-| Cap. 6 · Attività 15 (esempio) | Един килограм домати, половин килограм череши и три ябълки. |  | |
+| Cap. 6 · Attività 15 (esempio) | Един килограм домати, половин килограм мандарини и три ябълки. |  | |
 | Cap. 6 · Finale 1 | Благодаря! Приятен ден! | Grazie! Buona giornata! | |
 | Cap. 6 · Finale 2 | Сега имаме всичко за шопска салата! | Adesso abbiamo tutto per l’insalata shopska! | |
 | Cap. 6 · Parole (accento e traslitterazione) | Паза́р — pazár | Mercato | |
 | Cap. 6 · Parole (accento e traslitterazione) | Дома́т / дома́ти — domát / domáti | Pomodoro / pomodori | |
 | Cap. 6 · Parole (accento e traslitterazione) | Кра́ставица — krástavitsa | Cetriolo | |
 | Cap. 6 · Parole (accento e traslitterazione) | Я́бълка / я́бълки — yábalka / yábalki | Mela / mele | |
-| Cap. 6 · Parole (accento e traslitterazione) | Чере́ша / чере́ши — cherésha / cheréshi | Ciliegia / ciliegie | |
+| Cap. 6 · Parole (accento e traslitterazione) | Мандари́на / мандари́ни — mandarína / mandaríni | Mandarino / mandarini | |
 | Cap. 6 · Parole (accento e traslitterazione) | Чу́шка / чу́шки — chúshka / chúshki | Peperone / peperoni | |
 | Cap. 6 · Parole (accento e traslitterazione) | Килогра́м — kilográm | Chilo | |
 | Cap. 6 · Parole (accento e traslitterazione) | Полови́н — polovín | Mezzo | |
@@ -943,9 +943,9 @@ Il nome del giocatore è mostrato come «Марио».
 | Cap. 10 · Attività 3 opzione giusta | Бъди здрав! |  | |
 | Cap. 10 · Attività 3 opzione | Бъди здрава! |  | |
 | Cap. 10 · Attività 3 opzione | Бъди здраво! |  | |
-| Cap. 10 · Attività 4 (ascolto) | Видях щъркел! Пролетта идва! | Ho visto una cicogna! Arriva la primavera! | |
-| Cap. 10 · Attività 4 | щъркел |  | |
-| Cap. 10 · Attività 4 | пролетта |  | |
+| Cap. 10 · Attività 4 (ascolto) | Мартеницата е бяла и червена. | La martenitsa è bianca e rossa. | |
+| Cap. 10 · Attività 4 | бяла |  | |
+| Cap. 10 · Attività 4 | червена |  | |
 | Cap. 10 · Attività 6 (abbinamento) | понеделник | lunedì | |
 | Cap. 10 · Attività 6 (abbinamento) | сряда | mercoledì | |
 | Cap. 10 · Attività 6 (abbinamento) | петък | venerdì | |

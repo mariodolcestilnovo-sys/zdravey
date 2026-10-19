@@ -46,11 +46,11 @@ export default {
       options: ['Бъди здрав!', 'Бъди здрава!', 'Бъди здраво!'], answer: 0,
       explain: t('A un uomo [[Бъди здрав!]], a una donna [[Бъди здрава!]]', 'To a man [[Бъди здрав!]], to a woman [[Бъди здрава!]]') },
 
-    { phase: 0, kind: 'listen', who: 'mila', say: 'Видях щъркел! Пролетта идва!', bgHelp: t('Ho visto una cicogna! Arriva la primavera!', 'I saw a stork! Spring is coming!'),
-      title: t('Che cosa ha visto?', 'What did she see?'),
-      prompt: t('Ascolta (o leggi) Mila. Che cosa ha visto?', 'Listen to (or read) Mila. What did she see?'),
-      options: [t('Una cicogna', 'A stork'), t('Un albero', 'A tree'), t('Un gatto', 'A cat')], answer: 0,
-      explain: t('[[щъркел]] = cicogna. [[пролетта]] = la primavera.', '[[щъркел]] = stork. [[пролетта]] = spring.') },
+    { phase: 0, kind: 'listen', who: 'mila', say: 'Мартеницата е бяла и червена.', bgHelp: t('La martenitsa è bianca e rossa.', 'The martenitsa is white and red.'),
+      title: t('I colori della martenitsa', 'The martenitsa colours'),
+      prompt: t('Ascolta (o leggi) Mila. Di che colori è la martenitsa?', 'Listen to (or read) Mila. What colours is the martenitsa?'),
+      options: [t('Bianca e rossa', 'White and red'), t('Verde e gialla', 'Green and yellow'), t('Blu e bianca', 'Blue and white')], answer: 0,
+      explain: t('[[бяла]] = bianca, [[червена]] = rossa. Il bianco augura purezza, il rosso salute e vita. Le cicogne tornano in Bulgaria di solito verso fine marzo: allora si toglie la мартеница.', '[[бяла]] = white, [[червена]] = red. White wishes purity, red health and life. Storks usually come back to Bulgaria towards the end of March: that’s when you take the martenitsa off.') },
 
     { phase: 0, kind: 'choice', who: 'guide',
       title: t('La tradizione', 'The tradition'),

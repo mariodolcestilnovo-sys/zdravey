@@ -185,3 +185,12 @@
 - `REVIEW` = controllato con AI per tutti i capitoli; avviso nel gioco aggiornato. I 16 dubbi restano per
   il madrelingua.
 - Verificato: content.test, audio.test (2 frasi riregistrate), partita automatica dei 10 capitoli senza errori.
+
+## 2026-10-19 — Stagioni coerenti (scelta di Mario)
+
+- Cap. 6: le ciliegie (estive) sostituite con i mandarini (invernali) in tutto il capitolo; prezzo
+  nell'ascolto 3 € (opzioni 3/13/30).
+- Cap. 10: Mila non dice più di aver visto una cicogna il 1° marzo; l'ascolto ora è sui colori della
+  мартеница («бяла и червена»), con la nota che le cicogne tornano verso fine marzo.
+- Verificato: content.test, audio.test (9 frasi riregistrate), capitoli 6 e 10 giocati in inglese fino
+  alla calamita, nessun errore. Le frasi nuove sono da far confermare al madrelingua insieme alle altre.
