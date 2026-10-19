@@ -126,7 +126,22 @@ export function speak(text, { voiceURI, rate = 0.9, onend: done, onstart, female
   return true;
 }
 
-export function stop() { player?.pause(); if (synth?.speaking || synth?.pending) synth.cancel(); }
+export function stop() { if (player) { player.pause(); player.currentTime = 0; } if (synth?.speaking || synth?.pending) synth.cancel(); paused = false; hooks.end?.(); }
+// Pausa / Riprendi per gli ascolti (voce del dispositivo o frase registrata).
+let paused = false;
+const clipPlaying = () => player && !player.paused && !player.ended;
+export const isBusy = () => paused || !!synth?.speaking || clipPlaying();
+export const isPaused = () => paused;
+export function pause() {
+  if (clipPlaying()) { player.pause(); paused = true; }
+  else if (synth?.speaking && !synth.paused) { synth.pause(); paused = true; }
+}
+export function resume() {
+  if (!paused) return;
+  paused = false;
+  if (player && player.paused && player.currentTime > 0 && !player.ended) player.play().catch(() => {});
+  else synth?.resume();
+}
 
 // Diagnostica: prova la sintesi in modi diversi e riporta cosa succede (per capire i problemi su iPhone).
 let keep = []; // tiene vive le frasi: alcuni browser le perdono prima di leggerle

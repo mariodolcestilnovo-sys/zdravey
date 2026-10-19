@@ -10,7 +10,7 @@ prova e si pubblica solo quando dice «pubblica».
 | 2 | Avanti automatico dopo la risposta giusta: 10 s, conto alla rovescia, pausa/play, «Continua»; si ferma con guida, menu, voce, app in background; disattivabile | fatto (in locale) |
 | 3 | Non perdere il punto: uscendo verso frigo/parole/impostazioni l'esercizio si ritrova com'era | fatto (in locale) |
 | 4 | Nessuna risposta regalata: segni d'errore persistenti, «Proviamo insieme» con indizi a gradini | fatto (in locale) |
-| 5 | Pausa / Riprendi / Stop negli ascolti | da fare |
+| 5 | Pausa / Riprendi / Stop negli ascolti | fatto (in locale) |
 | 6 | Tutorial guidato con faretto al primo gioco, saltabile e rivedibile | da fare |
 | 7 | Barra in basso che si ritira scorrendo; torna scorrendo su e si vede tutta in fondo alla pagina | da fare |
 | 8 | Test di orientamento facoltativo prima di iniziare | da fare |

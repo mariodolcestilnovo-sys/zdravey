@@ -17,7 +17,7 @@ const UI = {
     iosSilent: 'Su iPhone la voce non si sente con il silenzioso attivo: toglilo per ascoltare.',
     noVoiceHelp: 'Non si sente niente? Alza il volume, togli il silenzioso e controlla che la voce bulgara sia scaricata. Puoi sempre leggere il testo.',
     voiceOff: 'La voce è spenta: puoi accenderla nelle impostazioni.', voicesFound: 'Voci bulgare trovate', showTrLabel: 'Traduzioni già aperte (capitoli 1–10)',
-    activity: 'Attività', of: 'di', help: 'Aiuto della guida', keyboard: 'Tastiera cirillica', example: 'Mostra un esempio', send: 'Invia', sent: 'Messaggio inviato!', prevStep: 'Torna indietro', backToGame: 'Torna all’esercizio', nextCh: 'Capitolo', yourMsg: 'Il tuo messaggio',
+    activity: 'Attività', of: 'di', help: 'Aiuto della guida', keyboard: 'Tastiera cirillica', example: 'Mostra un esempio', send: 'Invia', sent: 'Messaggio inviato!', prevStep: 'Torna indietro', lPause: 'Pausa', lResume: 'Riprendi', lStop: 'Stop', backToGame: 'Torna all’esercizio', nextCh: 'Capitolo', yourMsg: 'Il tuo messaggio',
     aiSlot: 'Consiglio automatico: in arrivo. Stiamo provando un’AI gratuita che potrà darti un suggerimento sulle frasi libere.',
     reward: 'Nuova calamita!', toFridge: 'Vai al frigo', toJourney: 'Torna al viaggio',
     challenge: (n, tot) => `Riempi il frigo entro il 1° marzo: ${n} di ${tot} calamite.`,
@@ -44,7 +44,7 @@ const UI = {
     iosSilent: 'On iPhone the voice can’t be heard in silent mode: switch it off to listen.',
     noVoiceHelp: 'Can’t hear anything? Turn the volume up, switch off silent mode and check the Bulgarian voice is downloaded. You can always read the text.',
     voiceOff: 'The voice is off: you can turn it on in Settings.', voicesFound: 'Bulgarian voices found', showTrLabel: 'Translations already open (chapters 1–10)',
-    activity: 'Activity', of: 'of', help: 'Guide’s help', keyboard: 'Cyrillic keyboard', example: 'Show an example', send: 'Send', sent: 'Message sent!', prevStep: 'Go back', backToGame: 'Back to the exercise', nextCh: 'Chapter', yourMsg: 'Your message',
+    activity: 'Activity', of: 'of', help: 'Guide’s help', keyboard: 'Cyrillic keyboard', example: 'Show an example', send: 'Send', sent: 'Message sent!', prevStep: 'Go back', lPause: 'Pause', lResume: 'Resume', lStop: 'Stop', backToGame: 'Back to the exercise', nextCh: 'Chapter', yourMsg: 'Your message',
     aiSlot: 'Automatic tip: coming soon. We’re testing a free AI that could give you a hint on free sentences.',
     reward: 'New magnet!', toFridge: 'Go to the fridge', toJourney: 'Back to the journey',
     challenge: (n, tot) => `Fill the fridge by 1 March: ${n} of ${tot} magnets.`,
@@ -798,7 +798,11 @@ function renderActivity(head, i) {
     if (a.kind === 'listen') {
       const can = S.audioOn && S.voiceOn && voice.hasSpeech();
       pre = `<div class="speaker">${speakerHTML(a.who)}<div class="bubble">
-          <button class="btn listen-btn" data-say="${esc(a.say)}" data-who="${a.who || ''}" ${can ? '' : 'hidden'}>🔊 ${T('listen')}</button>
+          <div class="listen-row" ${can ? '' : 'hidden'}>
+            <button class="btn listen-btn" data-say="${esc(a.say)}" data-who="${a.who || ''}">🔊 ${T('listen')}</button>
+            <button class="icon-btn" id="l-pause" disabled aria-label="${T('lPause')}" title="${T('lPause')}">⏸</button>
+            <button class="icon-btn" id="l-stop" disabled aria-label="${T('lStop')}" title="${T('lStop')}">⏹</button>
+          </div>
           <details class="tr" ${can ? '' : 'open'}><summary>${T('showText')}</summary><p class="bg-line">${bg(a.say)}</p><p class="muted">${esc(help(a.bgHelp))}</p></details>
           ${can ? '' : `<p class="note small">${T('noVoice')}</p>`}
         </div></div>`;
@@ -810,6 +814,7 @@ function renderActivity(head, i) {
       const label = a.latinOptions ? `<span>${esc(o)}</span>` : typeof o === 'string' ? bg(o) : `<span>${esc(help(o))}</span>`;
       return `<div class="opt-wrap"><button class="opt" data-k="${k}">${label}</button>${typeof o === 'string' && !a.latinOptions ? speakBtn(o) : ''}</div>`;
     }).join('')}</div>`;
+    if (a.kind === 'listen') setTimeout(bindListenControls, 0);
     work.querySelectorAll('.opt').forEach(b => b.addEventListener('click', () => {
       if (+b.dataset.k === a.answer) { b.classList.add('is-right'); success(); }
       else {
@@ -911,6 +916,21 @@ function renderActivity(head, i) {
       success(T('sent'), `<div class="ai-slot" data-ai-slot><span aria-hidden="true">🤖</span> ${T('aiSlot')}</div>`);
     });
   }
+}
+// Comandi Pausa / Riprendi / Stop dell'ascolto: si accendono mentre la voce parla.
+function bindListenControls() {
+  const p = $('#l-pause'), st = $('#l-stop');
+  if (!p) return;
+  p.addEventListener('click', () => { if (voice.isPaused()) voice.resume(); else voice.pause(); refresh(); });
+  st.addEventListener('click', () => { voice.stop(); refresh(); });
+  const refresh = () => {
+    if (!p.isConnected) { clearInterval(timer); return; }
+    const busy = voice.isBusy(), paused = voice.isPaused();
+    p.disabled = st.disabled = !busy;
+    p.textContent = paused ? '▶' : '⏸';
+    const label = paused ? T('lResume') : T('lPause'); p.setAttribute('aria-label', label); p.title = label;
+  };
+  const timer = setInterval(refresh, 200);
 }
 function toastFlash(el) { el?.classList.add('glow'); setTimeout(() => el?.classList.remove('glow'), 900); }
 

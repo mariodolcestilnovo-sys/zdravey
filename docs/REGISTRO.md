@@ -290,3 +290,4 @@
   1) regola della guida per la fase; 2) scelte: toglie UNA opzione sbagliata solo se ne restano almeno due;
   ascolto: frase più lenta, poi testo; abbinamenti: una sola coppia illuminata; riordino: pezzi giusti in verde,
   poi il pezzo successivo. Verificato nel browser su scelta, abbinamento e riordino. Solo in locale.
+- 2026-10-19 — Passo 5: negli ascolti ⏸ Pausa / ▶ Riprendi / ⏹ Stop accanto a «Ascolta», attivi solo mentre la voce parla (voce del dispositivo o frase registrata). Verificato nel browser (pausa, ripresa, stop). Solo in locale.
