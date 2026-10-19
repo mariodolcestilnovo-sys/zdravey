@@ -87,7 +87,7 @@ let ctx, master, duckGain, timer, nextTime = 0, playing = false, volume = 0.12;
 let current = 'road', seq = sequence(THEMES.road), idx = 0, drones = [], pending = null;
 // Modalità «ambient» (dentro i capitoli): stesse melodie, più lente, morbide, senza tamburo martellante, con eco.
 let calm = false, echoSend;
-const CALM_TEMPO = 1.6, CALM_VOLUME = 0.7;
+const CALM_TEMPO = 1.25, CALM_VOLUME = 0.85;
 const level = () => volume * (calm ? CALM_VOLUME : 1);
 
 function setup() {
@@ -139,11 +139,23 @@ function gadulka(t, midi, dur) {
   o.connect(f); o2.connect(f); f.connect(g).connect(master);
   [o, o2, vib].forEach(x => { x.start(t); x.stop(t + dur + 0.02); });
 }
+// Melodia «lontana» (modalità ambient): stessa altezza della melodia, suono morbido e scuro, con l'eco.
+function distant(t, midi, dur) {
+  const o = ctx.createOscillator(), o2 = ctx.createOscillator(), f = ctx.createBiquadFilter(), g = ctx.createGain(), vib = ctx.createOscillator(), vg = ctx.createGain();
+  o.type = 'triangle'; o2.type = 'sawtooth';
+  o.frequency.setValueAtTime(hz(midi), t); o2.frequency.setValueAtTime(hz(midi) * 1.002, t);
+  f.type = 'lowpass'; f.frequency.value = 900; f.Q.value = 0.7;
+  vib.frequency.value = 4.5; vg.gain.value = 2.5; vib.connect(vg).connect(o.frequency);
+  const mix = ctx.createGain(); mix.gain.value = 0.35; o2.connect(mix).connect(f); o.connect(f);
+  env(g, t, dur, 0.17, Math.min(0.08, dur / 3), Math.min(0.15, dur / 3));
+  f.connect(g).connect(master);
+  [o, o2, vib].forEach(x => { x.start(t); x.stop(t + dur + 0.03); });
+}
 // Tappeto morbido (modalità ambient): due onde un po' stonate tra loro, attacco lento.
 function pad(t, midi, dur) {
   const f = ctx.createBiquadFilter(), g = ctx.createGain();
   f.type = 'lowpass'; f.frequency.value = 1200;
-  env(g, t, dur, 0.07, Math.min(0.25, dur / 2), Math.min(0.3, dur / 2));
+  env(g, t, dur, 0.12, Math.min(0.25, dur / 2), Math.min(0.3, dur / 2));
   [0.997, 1.003].forEach(k => { const o = ctx.createOscillator(); o.type = 'triangle'; o.frequency.setValueAtTime(hz(midi) * k, t); o.connect(f); o.start(t); o.stop(t + dur + 0.05); });
   f.connect(g).connect(master);
 }
@@ -198,10 +210,10 @@ function scheduleBar(t) {
   notes.forEach(([deg, len], i) => {
     const start = t + pos * E, dur = len * E, midi = midiOf(th, deg);
     if (calm) {
-      // Ambient: кавал morbido per la melodia, tappeto per il controtema, тамбура leggera nei bridge
-      if (sec === 'bridge') pluck(start, midi, 0.06);
+      // Ambient: melodia lontana (non acuta), tappeto per il controtema, тамбура leggera nei bridge
+      if (sec === 'bridge') pluck(start, midi, 0.08);
       else if (sec === 'C') pad(start, midi, dur);
-      else kaval(start, midi, dur, 0.1, Math.min(0.12, dur / 3));
+      else distant(start, midi, dur);
     }
     else if (sec === 'intro') kaval(start, midi, dur);
     else if (sec === 'bridge') pluck(start, midi, 0.12);
@@ -211,8 +223,9 @@ function scheduleBar(t) {
   });
 
   if (calm) {
-    // Ambient: niente bacchetta; solo un colpo grave e morbido a inizio battuta (tranne nell'intro)
-    if (sec !== 'intro') bass(t, 0.12);
+    // Ambient: тъпан morbido su ogni gruppo (accento sul gruppo lungo), niente bacchetta; più leggero nell'intro
+    const soft = sec === 'intro' ? 0.5 : 1;
+    starts.forEach((s, k) => bass(t + s * E, (th.groups[k] === longest ? 0.2 : 0.13) * soft));
     if (sec === 'C') pluck(t, th.tonic - 12, 0.03);
     idx = (idx + 1) % seq.length;
     return acc * E;
@@ -237,7 +250,7 @@ function tick() {
 
 function begin(name) {
   current = name; seq = sequence(THEMES[name]); idx = 0;
-  echoSend.gain.setValueAtTime(calm ? 0.35 : 0, ctx.currentTime);
+  echoSend.gain.setValueAtTime(calm ? 0.5 : 0, ctx.currentTime);
   nextTime = ctx.currentTime + 0.15;
   startDrone(THEMES[name], nextTime);
 }

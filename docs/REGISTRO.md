@@ -250,3 +250,8 @@
   predefinito; chi l'aveva regolato a mano lo mantiene). Cursore nelle impostazioni a passi dell'1%,
   separato dalla voce. Verificato: 20 → 5 al ricaricamento, voce Daria a volume pieno mentre suona la musica,
   cursore ricordato. Solo in locale, non pubblicato.
+- 2026-10-19 — Ambient ritoccato (Mario: dentro il gioco si sentivano solo bordone e тъпан): melodia
+  «lontana» alla sua altezza normale (non più кавал un'ottava sopra), suono morbido e scuro, ~6 volte più
+  forte del bordone; eco più presente; тъпан morbido su ogni gruppo del ritmo, senza bacchetta; tempo solo
+  leggermente più lento (×1,25); volume ambient 85%. Bordone invariato. Fuori dal gioco nessun cambiamento.
+  Verificato (Mac): cap. 4 → tema «casa» ambient, sezioni in ordine, nessun errore. Ascolto: Mario. Solo locale.
