@@ -754,6 +754,7 @@ function renderActivity(head, i) {
   app.innerHTML = `${head}<section class="card act kind-${a.kind} ${a.noTl ? 'no-tl' : ''}">
     ${top}${a.kind === 'listen' ? '' : ctx}
     <p class="prompt">${rich(a.prompt)}</p>
+    <div class="hint-box" hidden></div>
     <div class="work"></div>
     <div class="feedback" role="status" aria-live="polite"></div>
   </section>`;
@@ -772,11 +773,24 @@ function renderActivity(head, i) {
     const c = $('.cont', fb); c.addEventListener('click', () => { stopAuto(); advance(); }); c.focus();
     if (useAuto) startAuto($('.auto', fb));
   };
-  const fail = hint => {
+  // «Proviamo insieme» a gradini: prima la regola della guida, poi aiuti mirati che non svelano la risposta.
+  // Ogni aiuto è { ok: () => si può usare adesso?, run: () => applicalo }.
+  let hintsUsed = 0;
+  const guideTip = { ok: () => true, run: () => {
+    const box = $('.hint-box');
+    box.innerHTML = `<span class="avatar xs">${avatars[guideKey()]}</span><p><b>${bg(guides[guideKey()].bgName)}:</b> ${rich(D().teaching[a.phase])}</p>`;
+    box.hidden = false;
+  } };
+  const fail = (kindHints = []) => {
     sfx.no(); tries++;
+    const levels = [guideTip, ...kindHints];
+    const next = levels.slice(hintsUsed).find(h => h.ok());
     fb.className = 'feedback bad';
-    fb.innerHTML = `<p class="fb-title">${T('notYet')}</p>${hint ? `<button class="btn ghost small" id="together">🤝 ${T('together')}</button>` : ''}`;
-    $('#together', fb)?.addEventListener('click', () => { hint(); fb.innerHTML = ''; fb.className = 'feedback'; });
+    fb.innerHTML = `<p class="fb-title">${T('notYet')}</p>${next ? `<button class="btn ghost small" id="together">🤝 ${T('together')}</button>` : ''}`;
+    $('#together', fb)?.addEventListener('click', () => {
+      next.run(); hintsUsed = levels.indexOf(next) + 1;
+      fb.innerHTML = ''; fb.className = 'feedback';
+    });
   };
 
   if (a.kind === 'choice' || a.kind === 'read' || a.kind === 'listen') {
@@ -799,12 +813,17 @@ function renderActivity(head, i) {
     work.querySelectorAll('.opt').forEach(b => b.addEventListener('click', () => {
       if (+b.dataset.k === a.answer) { b.classList.add('is-right'); success(); }
       else {
-        b.classList.add('wrong'); b.disabled = true;
-        fail(() => {
-          const left = [...work.querySelectorAll('.opt:not(:disabled)')].filter(x => +x.dataset.k !== a.answer);
-          left.forEach(x => { x.disabled = true; x.classList.add('faded'); });
-          work.querySelector(`.opt[data-k="${a.answer}"]`).classList.add('glow');
-        });
+        b.classList.add('wrong'); b.disabled = true; // il segno d'errore resta
+        const wrongLeft = () => [...work.querySelectorAll('.opt:not(:disabled)')].filter(x => +x.dataset.k !== a.answer);
+        const hints = [];
+        // Ascolto: prima la frase più lenta, poi il testo
+        if (a.kind === 'listen') {
+          hints.push({ ok: () => S.audioOn && S.voiceOn && voice.hasSpeech(), run: () => voice.speak(a.say, { female: FEMALE.has(a.who), voiceURI: S.voiceURI, rate: 0.6, volume: S.voiceVol / 100 }) });
+          hints.push({ ok: () => true, run: () => { const d = work.querySelector('details.tr'); if (d) d.open = true; } });
+        }
+        // Scelte: toglie UNA opzione sbagliata, solo se ne restano almeno due (mai la sola risposta giusta)
+        hints.push({ ok: () => wrongLeft().length >= 2, run: () => { const x = wrongLeft()[0]; x.disabled = true; x.classList.add('faded'); } });
+        fail(hints);
       }
     }));
   }
@@ -829,10 +848,11 @@ function renderActivity(head, i) {
         if (matched === a.pairs.length) success(); else tone([700], 0.08);
       } else {
         b.classList.add('shake'); setTimeout(() => b.classList.remove('shake'), 400);
-        fail(() => {
-          const k = sel?.dataset.k ?? work.querySelector('.m-item.left:not(:disabled)').dataset.k;
-          work.querySelector(`.m-item.right[data-k="${k}"]`).classList.add('glow');
-        });
+        // Abbinamenti: illumina la coppia giusta per una sola parola
+        fail([{ ok: () => !!work.querySelector('.m-item.left:not(:disabled)'), run: () => {
+          const k = (sel && !sel.disabled ? sel : work.querySelector('.m-item.left:not(:disabled)')).dataset.k;
+          [work.querySelector(`.m-item.left[data-k="${k}"]`), work.querySelector(`.m-item.right[data-k="${k}"]`)].forEach(x => x.classList.add('glow'));
+        } }]);
       }
     }));
   }
@@ -842,10 +862,10 @@ function renderActivity(head, i) {
     const target = a.kind === 'letters' ? [...a.answer] : a.answer.map(fillName);
     let pool = a.kind === 'letters' ? shuffle(a.pool) : shuffle(target);
     if (a.kind === 'order') { let n = 0; while (pool.join() === target.join() && n++ < 10) pool = shuffle(target); }
-    let line = [];
+    let line = [], marks = false;
     const draw = () => {
       work.innerHTML = `
-        <div class="line ${a.kind}" aria-label="${T('check')}">${line.length ? line.map((w, k) => `<button class="tile in" data-line="${k}" lang="bg">${esc(w)}</button>`).join('') : '<span class="placeholder">…</span>'}</div>
+        <div class="line ${a.kind}" aria-label="${T('check')}">${line.length ? line.map((w, k) => `<button class="tile in ${marks && w === target[k] ? 'placed' : ''}" data-line="${k}" lang="bg">${esc(w)}</button>`).join('') : '<span class="placeholder">…</span>'}</div>
         <div class="pool">${pool.map((w, k) => `<button class="tile" data-pool="${k}" lang="bg">${esc(w)}</button>`).join('')}</div>
         <p class="tl-preview tl">${esc(toLatin(line.join(joiner)))}</p>
         <button class="btn" id="check" ${line.length ? '' : 'disabled'}>${T('check')}</button>`;
@@ -856,14 +876,18 @@ function renderActivity(head, i) {
           work.querySelectorAll('.tile').forEach(t => t.disabled = true); $('#check').hidden = true;
           if (S.audioOn && S.voiceOn && a.kind === 'order') voice.speak(line.join(' '), { voiceURI: S.voiceURI, rate: S.rate, volume: S.voiceVol / 100 });
           success();
-        } else fail(() => {
-          // Proviamo insieme: rimette a posto la parte iniziale corretta e aggiunge il pezzo successivo.
-          const all = [...line, ...pool];
-          let k = 0; while (k < line.length && line[k] === target[k]) k++;
-          const fixed = target.slice(0, k + 1);
-          fixed.forEach(w => all.splice(all.indexOf(w), 1));
-          line = fixed; pool = all; draw();
-        });
+        } else fail([
+          // 1) segna in verde i pezzi già al posto giusto, senza spostarli
+          { ok: () => true, run: () => { marks = true; draw(); } },
+          // 2) mette a posto la parte iniziale corretta e aggiunge il pezzo successivo
+          { ok: () => true, run: () => {
+            const all = [...line, ...pool];
+            let k = 0; while (k < line.length && line[k] === target[k]) k++;
+            const fixed = target.slice(0, k + 1);
+            fixed.forEach(w => all.splice(all.indexOf(w), 1));
+            line = fixed; pool = all; draw();
+          } }
+        ]);
       });
     };
     const refocus = sel => (work.querySelector(sel) || $('#check'))?.focus();

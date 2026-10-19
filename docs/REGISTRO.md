@@ -286,3 +286,7 @@
   Verificato (browser): parole riordinate a metà → frigo → parole → ritorno, intatte; conto alla rovescia in pausa
   da 8 s e poi avanti; testo libero con tastiera aperta intatto dopo le impostazioni; cap. 3 e 8 completi con
   una deviazione nel frigo; nessun errore. Solo in locale.
+- 2026-10-19 — Passo 4, nessuna risposta regalata: segno d'errore persistente; «Proviamo insieme» a gradini —
+  1) regola della guida per la fase; 2) scelte: toglie UNA opzione sbagliata solo se ne restano almeno due;
+  ascolto: frase più lenta, poi testo; abbinamenti: una sola coppia illuminata; riordino: pezzi giusti in verde,
+  poi il pezzo successivo. Verificato nel browser su scelta, abbinamento e riordino. Solo in locale.
