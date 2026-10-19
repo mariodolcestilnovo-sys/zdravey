@@ -2,7 +2,20 @@
 // finché Mario non cambia lo stato in REVIEW_STATUS.
 // Convenzioni: [[...]] dentro i testi di aiuto = testo bulgaro; {name} = nome del giocatore in cirillico.
 
-export const REVIEW_STATUS = 'ai-checked'; // pending → ai-checked → native-approved
+import ch2 from './chapters/ch2.js';
+import ch3 from './chapters/ch3.js';
+import ch4 from './chapters/ch4.js';
+import ch5 from './chapters/ch5.js';
+import ch6 from './chapters/ch6.js';
+import ch7 from './chapters/ch7.js';
+import ch8 from './chapters/ch8.js';
+import ch9 from './chapters/ch9.js';
+import ch10 from './chapters/ch10.js';
+
+// Stato di revisione per capitolo: pending → ai-checked → native-approved
+export const REVIEW = { 1: 'ai-checked', 2: 'pending', 3: 'pending', 4: 'pending', 5: 'pending', 6: 'pending', 7: 'pending', 8: 'pending', 9: 'pending', 10: 'pending' };
+// Stato complessivo mostrato nel gioco: il più basso tra i capitoli.
+export const REVIEW_STATUS = Object.values(REVIEW).includes('pending') ? 'pending' : Object.values(REVIEW).includes('ai-checked') ? 'ai-checked' : 'native-approved';
 
 export const phases = [
   { it: 'Scopri', en: 'Discover' },
@@ -29,16 +42,16 @@ export const guides = {
 };
 
 export const chapters = [
-  { id: 1, bg: 'Здравей, София!', it: 'All’aeroporto di Sofia', en: 'At Sofia airport', magnet: 'sofia' },
-  { id: 2, bg: 'Буквите в метрото', it: 'Le lettere della metro', en: 'Letters in the metro', magnet: 'metro' },
-  { id: 3, bg: 'Кафе и баница', it: 'Caffè e banitsa', en: 'Coffee and banitsa', magnet: 'banitsa' },
-  { id: 4, bg: 'Аз съм от Италия', it: 'Da dove vieni', en: 'Where you are from', magnet: 'passport' },
-  { id: 5, bg: 'Новият апартамент', it: 'Il nuovo appartamento', en: 'The new flat', magnet: 'key' },
-  { id: 6, bg: 'На Женския пазар', it: 'Al mercato', en: 'At the market', magnet: 'pepper' },
-  { id: 7, bg: 'Рожденият ден на Мила', it: 'Il compleanno di Mila', en: 'Mila’s birthday', magnet: 'cake' },
-  { id: 8, bg: 'Маршрутка до Пловдив', it: 'In minibus a Plovdiv', en: 'Minibus to Plovdiv', magnet: 'bus' },
-  { id: 9, bg: 'При баба Ружа', it: 'Da nonna Ruzha', en: 'At Granny Ruzha’s', magnet: 'rose' },
-  { id: 10, bg: 'Честита Баба Марта!', it: 'Buona Baba Marta!', en: 'Happy Baba Marta!', magnet: 'martenitsa' }
+  { id: 1, bg: 'Здравей, София!', it: 'All’aeroporto di Sofia', en: 'At Sofia airport', magnet: 'sofia', magnetBg: 'София' },
+  { id: 2, bg: 'Буквите в метрото', it: 'Le lettere della metro', en: 'Letters in the metro', magnet: 'metro', magnetBg: 'Метро' },
+  { id: 3, bg: 'Кафе и баница', it: 'Caffè e banitsa', en: 'Coffee and banitsa', magnet: 'banitsa', magnetBg: 'Баница' },
+  { id: 4, bg: 'Откъде си?', it: 'Da dove vieni?', en: 'Where are you from?', magnet: 'passport', magnetBg: 'Паспорт' },
+  { id: 5, bg: 'Новият апартамент', it: 'Il nuovo appartamento', en: 'The new flat', magnet: 'key', magnetBg: 'Ключ' },
+  { id: 6, bg: 'На Женския пазар', it: 'Al mercato', en: 'At the market', magnet: 'pepper', magnetBg: 'Чушка' },
+  { id: 7, bg: 'Рожденият ден на Мила', it: 'Il compleanno di Mila', en: 'Mila’s birthday', magnet: 'cake', magnetBg: 'Торта' },
+  { id: 8, bg: 'Маршрутка до Пловдив', it: 'In minibus a Plovdiv', en: 'Minibus to Plovdiv', magnet: 'bus', magnetBg: 'Пловдив' },
+  { id: 9, bg: 'При баба Ружа', it: 'Da nonna Ruzha', en: 'At Granny Ruzha’s', magnet: 'rose', magnetBg: 'Роза' },
+  { id: 10, bg: 'Честита Баба Марта!', it: 'Buona Baba Marta!', en: 'Happy Baba Marta!', magnet: 'martenitsa', magnetBg: 'Мартеница' }
 ];
 
 // Parole del capitolo: l'accento (´) indica la sillaba forte. Da controllare.
@@ -111,7 +124,7 @@ export const activities1 = [
     pairs: [['Здравей', t('Ciao', 'Hi')], ['Благодаря', t('Grazie', 'Thank you')], ['Да', t('Sì', 'Yes')], ['Не', t('No', 'No')]],
     explain: t('Con queste quattro parole puoi già salutare, ringraziare e rispondere.', 'With these four words you can already greet, thank and answer.') },
 
-  { phase: 0, kind: 'read', sign: 'МАМА', signStyle: 'phone',
+  { phase: 0, kind: 'read', sign: 'МАМА', signStyle: 'phone', noTl: true,
     title: t('Chi chiama?', 'Who’s calling?'),
     prompt: t('Squilla il telefono di Mila. Sullo schermo c’è scritto [[МАМА]]. Come si legge?', 'Mila’s phone rings. The screen says [[МАМА]]. How do you read it?'),
     options: ['mama', 'nana', 'tata'], latinOptions: true, answer: 0,
@@ -191,3 +204,8 @@ export const activities1 = [
     example: 'Здравей! Аз съм {name}. Благодаря, Мила!',
     explain: t('Hai scritto il tuo primo messaggio in bulgaro! Questa prova libera non viene corretta e il testo non viene salvato.', 'You wrote your first message in Bulgarian! This free task is not marked and the text is not saved.') }
 ];
+
+export const chapterData = {
+  1: { intro: intro1, outro: outro1, teaching: teaching1, activities: activities1, words: words1 },
+  2: ch2, 3: ch3, 4: ch4, 5: ch5, 6: ch6, 7: ch7, 8: ch8, 9: ch9, 10: ch10
+};

@@ -143,3 +143,27 @@
 - Verificato (Mac): cartello letto da Daria, nessun file Dimitar; partita completa con due «indietro»,
   tutte le spiegazioni presenti, calamita, nessun errore in console.
 - Android: non provato (rimandato da Mario).
+
+## 2026-10-19 — Capitoli 2–10 (percorso A1.1 completo)
+
+**Fatto**
+- Motore a più capitoli (`chapterData`): passi, punti di avanzamento, calamita e titolo per capitolo;
+  pulsante «Capitolo successivo →» alla fine; pagina Parole divisa per capitolo; frigo pieno = complimenti.
+- Contenuti originali in `js/chapters/ch2.js … ch10.js`: metro e lettere (2), bar e numeri 1–10 (3),
+  «essere», Lei e nazionalità (4), casa e genere (5), mercato e numeri fino a 100 (6), famiglia ed età (7),
+  trasporti, orari e direzioni (8), articolo determinativo (9), giorni, mesi e Baba Marta (10).
+- Capitolo 4 rinominato «Откъде си?» (era «Аз съм от Италия»): va bene anche per chi non è italiano.
+- Nuovi personaggi disegnati: Desi, signor Petrov, Ivaylo, nonna Ruzha, la signora del mercato; 9 calamite.
+- Opzione `noTl` per le attività di lettura (le lettere latine darebbero la risposta), anche in cap. 1 att. 3.
+- Audio di riserva Dimitar per 428 frasi (6,3 MB). Elenco frasi da controllare rigenerato (992 righe).
+- Stato di revisione per capitolo (`REVIEW` in content.js): cap. 1 controllato con AI, 2–10 da controllare.
+
+**Verificato**
+- `tests/content.test.mjs` (ora su tutti i capitoli: struttura, traduzioni, personaggi, calamite,
+  lettere con ripetizioni, traslitterazione delle parole) e `tests/audio.test.mjs`: passano.
+- Browser, formato telefono: partita automatica dei 10 capitoli di fila (150 attività, ognuna prima
+  sbagliata con «Proviamo insieme»), 10 calamite, nessun errore, nessuno sconfinamento orizzontale.
+
+**Da fare**
+- Revisione AI del bulgaro dei capitoli 2–10 in una sessione separata, poi applicare le correzioni.
+- Prova di Mario sul telefono. Dubbi aperti per il madrelingua (cap. 1 e successivi).

@@ -51,6 +51,61 @@ export const avatars = {
     <rect x="56" y="70" width="34" height="22" rx="3" fill="#fffaf0" stroke="#c9a227" stroke-width="2"/>
     <text x="73" y="86" font-size="13" text-anchor="middle" font-family="Sofia Sans, sans-serif" font-weight="800" fill="#c8102e">АБВ</text>`),
 
+  desi: svg(`
+    <circle cx="50" cy="50" r="48" fill="#fff1d6"/>
+    <path d="M26 56c0-20 10-32 24-32s24 12 24 32l-4 18H30z" fill="#b5532a"/>
+    <ellipse cx="50" cy="52" rx="19" ry="21" fill="#f1c7a3"/>
+    <path d="M31 46c4-12 12-16 20-16 9 0 16 5 18 15-8-6-26-7-38 1z" fill="#b5532a"/>
+    <circle cx="43" cy="53" r="2.5" fill="#2b2321"/><circle cx="57" cy="53" r="2.5" fill="#2b2321"/>
+    <path d="M43 62q7 6 14 0" stroke="#b5483c" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <path d="M20 98c2-15 13-23 30-23s28 8 30 23z" fill="#2e7d5b"/>
+    <path d="M38 76h24v22H38z" fill="#fff"/><circle cx="50" cy="86" r="4" fill="#7a4a2a"/>`),
+
+  petrov: svg(`
+    <circle cx="50" cy="50" r="48" fill="#e6ebf2"/>
+    <path d="M20 98c2-18 14-27 30-27s28 9 30 27z" fill="#1f3b5c"/>
+    <path d="M44 72l6 10 6-10" fill="#fff"/><path d="M48 76h4l-1 12h-2z" fill="#c8102e"/>
+    <ellipse cx="50" cy="47" rx="18" ry="21" fill="#f0c9a6"/>
+    <path d="M32 40c1-12 9-18 18-18s17 6 18 18c-5-5-11-7-18-7s-13 2-18 7z" fill="#8c8c8c"/>
+    <path d="M38 58q12 5 24 0" stroke="#8c8c8c" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <circle cx="43" cy="47" r="2.3" fill="#2b2321"/><circle cx="57" cy="47" r="2.3" fill="#2b2321"/>
+    <path d="M40 43h7M53 43h7" stroke="#6b6b6b" stroke-width="2"/>
+    <path d="M30 27h40l-4 -8H34z" fill="#1f3b5c"/>`),
+
+  ivaylo: svg(`
+    <circle cx="50" cy="50" r="48" fill="#e3f0e8"/>
+    <path d="M20 98c2-18 14-27 30-27s28 9 30 27z" fill="#6b7f3a"/>
+    <ellipse cx="50" cy="50" rx="19" ry="21" fill="#e9b98f"/>
+    <path d="M31 46c0-14 8-21 19-21s19 7 19 21c-4-6-10-9-19-9s-15 3-19 9z" fill="#2b2321"/>
+    <path d="M36 60q14 12 28 0v6q-14 10-28 0z" fill="#2b2321" opacity=".85"/>
+    <circle cx="43" cy="50" r="2.4" fill="#2b2321"/><circle cx="57" cy="50" r="2.4" fill="#2b2321"/>
+    <path d="M44 61q6 3 12 0" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <path d="M28 30q22-12 44 0v6H28z" fill="#c8102e"/>`),
+
+  ruzha: svg(`
+    <circle cx="50" cy="50" r="48" fill="#fde7ef"/>
+    <path d="M20 98c2-18 14-27 30-27s28 9 30 27z" fill="#7a2f4a"/>
+    <path d="M36 74h28l-2 6H38z" fill="#fff"/>
+    <ellipse cx="50" cy="50" rx="19" ry="21" fill="#f0c9a6"/>
+    <path d="M30 46c0-16 9-24 20-24s20 8 20 24c-5-8-12-11-20-11s-15 3-20 11z" fill="#d8d4cc"/>
+    <circle cx="50" cy="24" r="8" fill="#d8d4cc"/>
+    <circle cx="43" cy="51" r="2.4" fill="#2b2321"/><circle cx="57" cy="51" r="2.4" fill="#2b2321"/>
+    <path d="M39 46q4-3 8 0M53 46q4-3 8 0" stroke="#a09a90" stroke-width="1.5" fill="none"/>
+    <path d="M43 61q7 5 14 0" stroke="#b5483c" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <circle cx="37" cy="58" r="3.5" fill="#f19c8f" opacity=".6"/><circle cx="63" cy="58" r="3.5" fill="#f19c8f" opacity=".6"/>
+    <circle cx="70" cy="30" r="5" fill="#d6336c"/><circle cx="70" cy="30" r="2" fill="#a61e4d"/>`),
+
+  vendor: svg(`
+    <circle cx="50" cy="50" r="48" fill="#fff4e0"/>
+    <path d="M20 98c2-18 14-27 30-27s28 9 30 27z" fill="#2e7d5b"/>
+    <path d="M30 80h40v18H30z" fill="#f3e2c0"/>
+    <ellipse cx="50" cy="52" rx="18" ry="20" fill="#e8b48a"/>
+    <path d="M28 50c0-20 10-30 22-30s22 10 22 30c-3-12-12-18-22-18s-19 6-22 18z" fill="#c8102e"/>
+    <path d="M28 50q-4 10 4 14M72 50q4 10-4 14" stroke="#c8102e" stroke-width="5" fill="none"/>
+    <circle cx="36" cy="30" r="2" fill="#fff"/><circle cx="50" cy="26" r="2" fill="#fff"/><circle cx="64" cy="30" r="2" fill="#fff"/>
+    <circle cx="43" cy="53" r="2.4" fill="#2b2321"/><circle cx="57" cy="53" r="2.4" fill="#2b2321"/>
+    <path d="M43 62q7 5 14 0" stroke="#9c3b2e" stroke-width="2.5" fill="none" stroke-linecap="round"/>`),
+
   narrator: svg(`
     <circle cx="50" cy="50" r="48" fill="#eef2ea"/>
     <rect x="26" y="38" width="48" height="40" rx="7" fill="#c8102e"/>
@@ -60,6 +115,15 @@ export const avatars = {
 };
 
 export const magnets = {
+  metro: svg(`<rect x="6" y="6" width="88" height="88" rx="18" fill="#fffaf2" stroke="#c8102e" stroke-width="4"/><circle cx="50" cy="44" r="26" fill="#1f5fa8"/><text x="50" y="56" font-size="34" text-anchor="middle" font-family="Sofia Sans, sans-serif" font-weight="900" fill="#fff">М</text><text x="50" y="91" font-size="9" text-anchor="middle" font-family="Sofia Sans, sans-serif" font-weight="800" fill="#c8102e">МЕТРО</text>`),
+  banitsa: svg(`<rect x="6" y="6" width="88" height="88" rx="18" fill="#fffaf2" stroke="#c8102e" stroke-width="4"/><circle cx="50" cy="46" r="27" fill="#e2a64b"/><path d="M50 46m-22 0a22 22 0 1 0 44 0a17 17 0 1 0-34 0a12 12 0 1 0 24 0a7 7 0 1 0-14 0" fill="none" stroke="#a8682a" stroke-width="3"/><text x="50" y="91" font-size="9" text-anchor="middle" font-family="Sofia Sans, sans-serif" font-weight="800" fill="#c8102e">БАНИЦА</text>`),
+  passport: svg(`<rect x="6" y="6" width="88" height="88" rx="18" fill="#fffaf2" stroke="#c8102e" stroke-width="4"/><rect x="30" y="18" width="40" height="56" rx="5" fill="#7a1f2b"/><circle cx="50" cy="42" r="10" fill="none" stroke="#d4a017" stroke-width="2.5"/><path d="M40 42h20M50 32v20" stroke="#d4a017" stroke-width="1.5"/><rect x="38" y="60" width="24" height="3" fill="#d4a017"/><text x="50" y="91" font-size="9" text-anchor="middle" font-family="Sofia Sans, sans-serif" font-weight="800" fill="#c8102e">ПАСПОРТ</text>`),
+  key: svg(`<rect x="6" y="6" width="88" height="88" rx="18" fill="#fffaf2" stroke="#c8102e" stroke-width="4"/><circle cx="34" cy="44" r="14" fill="none" stroke="#c9a227" stroke-width="7"/><path d="M47 44h32M68 44v10M76 44v8" stroke="#c9a227" stroke-width="7" stroke-linecap="round"/><text x="50" y="91" font-size="9" text-anchor="middle" font-family="Sofia Sans, sans-serif" font-weight="800" fill="#c8102e">КЛЮЧ</text>`),
+  pepper: svg(`<rect x="6" y="6" width="88" height="88" rx="18" fill="#fffaf2" stroke="#c8102e" stroke-width="4"/><path d="M50 24c-3-6 2-10 6-10" stroke="#2e7d5b" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M38 30q12-8 24 0c8 8 6 30-12 44-18-14-20-36-12-44z" fill="#d62828"/><path d="M44 34q-4 14 2 26" stroke="#ff8a80" stroke-width="3" fill="none" stroke-linecap="round"/><text x="50" y="91" font-size="9" text-anchor="middle" font-family="Sofia Sans, sans-serif" font-weight="800" fill="#c8102e">ЧУШКА</text>`),
+  cake: svg(`<rect x="6" y="6" width="88" height="88" rx="18" fill="#fffaf2" stroke="#c8102e" stroke-width="4"/><rect x="26" y="44" width="48" height="26" rx="4" fill="#f4b6c2"/><rect x="26" y="44" width="48" height="8" fill="#fff"/><path d="M36 44v-12M50 44v-12M64 44v-12" stroke="#4a90d9" stroke-width="4"/><path d="M36 30q-3-4 0-7q3 3 0 7M50 30q-3-4 0-7q3 3 0 7M64 30q-3-4 0-7q3 3 0 7" fill="#f4a300"/><text x="50" y="91" font-size="9" text-anchor="middle" font-family="Sofia Sans, sans-serif" font-weight="800" fill="#c8102e">ТОРТА</text>`),
+  bus: svg(`<rect x="6" y="6" width="88" height="88" rx="18" fill="#fffaf2" stroke="#c8102e" stroke-width="4"/><path d="M18 70a32 32 0 0 1 64 0z" fill="#e9dcc3"/><path d="M26 70a24 24 0 0 1 48 0M34 70a16 16 0 0 1 32 0" fill="none" stroke="#b8a37a" stroke-width="3"/><path d="M50 38v32M30 52l10 6M70 52l-10 6" stroke="#b8a37a" stroke-width="2"/><text x="50" y="91" font-size="9" text-anchor="middle" font-family="Sofia Sans, sans-serif" font-weight="800" fill="#c8102e">ПЛОВДИВ</text>`),
+  rose: svg(`<rect x="6" y="6" width="88" height="88" rx="18" fill="#fffaf2" stroke="#c8102e" stroke-width="4"/><path d="M50 48v28" stroke="#2e7d5b" stroke-width="4"/><path d="M50 62q-12-2-14-10q10 0 14 10z" fill="#2e7d5b"/><circle cx="50" cy="38" r="16" fill="#e64980"/><path d="M50 38m-9 0a9 9 0 1 0 18 0a6 6 0 1 0-12 0a3 3 0 1 0 6 0" fill="none" stroke="#a61e4d" stroke-width="2.5"/><text x="50" y="91" font-size="9" text-anchor="middle" font-family="Sofia Sans, sans-serif" font-weight="800" fill="#c8102e">РОЗА</text>`),
+  martenitsa: svg(`<rect x="6" y="6" width="88" height="88" rx="18" fill="#fffaf2" stroke="#c8102e" stroke-width="4"/><path d="M50 20v14" stroke="#c8102e" stroke-width="3"/><path d="M50 20v14" stroke="#fff" stroke-width="1.2" stroke-dasharray="3 3"/><circle cx="36" cy="44" r="9" fill="#fff" stroke="#c9c2b8" stroke-width="1.5"/><path d="M28 52h16l4 22H24z" fill="#fff" stroke="#c9c2b8" stroke-width="1.5"/><circle cx="64" cy="44" r="9" fill="#c8102e"/><path d="M56 52h16l4 22H52z" fill="#c8102e"/><path d="M36 34q14-6 28 0" stroke="#c8102e" stroke-width="2" fill="none"/><text x="50" y="91" font-size="9" text-anchor="middle" font-family="Sofia Sans, sans-serif" font-weight="800" fill="#c8102e">МАРТЕНИЦА</text>`),
   sofia: svg(`
     <rect x="6" y="6" width="88" height="88" rx="18" fill="#fffaf2" stroke="#c8102e" stroke-width="4"/>
     <rect x="20" y="58" width="60" height="22" fill="#e9e3d8"/>

@@ -1,4 +1,4 @@
-import { phases, guides, chapters, words1, teaching1, intro1, outro1, activities1, REVIEW_STATUS } from './content.js';
+import { phases, guides, chapters, chapterData, REVIEW_STATUS } from './content.js';
 import { avatars, magnets, lockedMagnet } from './art.js';
 import { toLatin, toCyrillic } from './translit.js';
 import * as voice from './speech.js';
@@ -16,13 +16,13 @@ const UI = {
     iosSilent: 'Su iPhone la voce non si sente con il silenzioso attivo: toglilo per ascoltare.',
     noVoiceHelp: 'Non si sente niente? Alza il volume, togli il silenzioso e controlla che la voce bulgara sia scaricata. Puoi sempre leggere il testo.',
     voiceOff: 'La voce è spenta: puoi accenderla nelle impostazioni.', voicesFound: 'Voci bulgare trovate', showTrLabel: 'Traduzioni già aperte (capitoli 1–10)',
-    activity: 'Attività', of: 'di', help: 'Aiuto della guida', keyboard: 'Tastiera cirillica', example: 'Mostra un esempio', send: 'Invia a Mila', sent: 'Messaggio inviato!', prevStep: 'Torna indietro', yourMsg: 'Il tuo messaggio',
+    activity: 'Attività', of: 'di', help: 'Aiuto della guida', keyboard: 'Tastiera cirillica', example: 'Mostra un esempio', send: 'Invia', sent: 'Messaggio inviato!', prevStep: 'Torna indietro', nextCh: 'Capitolo', yourMsg: 'Il tuo messaggio',
     aiSlot: 'Consiglio automatico: in arrivo. Stiamo provando un’AI gratuita che potrà darti un suggerimento sulle frasi libere.',
     reward: 'Nuova calamita!', toFridge: 'Vai al frigo', toJourney: 'Torna al viaggio',
     challenge: (n, tot) => `Riempi il frigo entro il 1° marzo: ${n} di ${tot} calamite.`,
     play: 'Gioca', resume: 'Continua', replay: 'Rigioca', soon: 'In preparazione', done: 'Completato',
-    fridgeTitle: 'Il tuo frigo', fridgeEmpty: 'Le calamite grigie arriveranno con i prossimi capitoli.',
-    wordsTitle: 'Le parole del capitolo 1', wordsNote: 'La vocale rossa e sottolineata è quella da dire più forte. Nei testi bulgari normali non si segna.',
+    fridgeTitle: 'Il tuo frigo', fridgeEmpty: 'Le calamite grigie arriveranno con i prossimi capitoli.', fridgeFull: 'Frigo pieno! Hai finito il percorso A1.1: complimenti!',
+    wordsTitle: 'Le parole', wordsNote: 'La vocale rossa e sottolineata è quella da dire più forte. Nei testi bulgari normali non si segna.',
     review: 'Testi bulgari in revisione: da far controllare a un madrelingua.', reviewAi: 'Testi bulgari controllati con l’AI, in attesa di conferma da un madrelingua.',
     sHelpLang: 'Lingua degli aiuti', sName: 'Il tuo nome', sGuide: 'La tua guida', sTranslit: 'Traslitterazione (lettere latine sotto il cirillico)',
     sVoice: 'Voce bulgara', sVoicePick: 'Scegli la voce', sRate: 'Velocità', sTest: 'Prova la voce', diag: 'Diagnostica della voce', diagNote: 'Tocca un pulsante alla volta, poi copia il testo che compare e mandalo a chi sviluppa il gioco.', diagLang: 'Solo lingua bulgara', diagFile: 'Frase registrata', sClips: 'Usa la voce registrata maschile (Dimitar) al posto di quella del dispositivo', sClipsNote: n => `${n} frasi registrate con una voce maschile libera (Dimitar, Piper): su iPhone con Safari si sentono anche in silenzioso. Se il dispositivo non ha una voce bulgara, il gioco le usa da solo.`, sSounds: 'Suoni', sVibrate: 'Vibrazione', sVibrateNo: 'Vibrazione non disponibile su questo dispositivo',
@@ -43,13 +43,13 @@ const UI = {
     iosSilent: 'On iPhone the voice can’t be heard in silent mode: switch it off to listen.',
     noVoiceHelp: 'Can’t hear anything? Turn the volume up, switch off silent mode and check the Bulgarian voice is downloaded. You can always read the text.',
     voiceOff: 'The voice is off: you can turn it on in Settings.', voicesFound: 'Bulgarian voices found', showTrLabel: 'Translations already open (chapters 1–10)',
-    activity: 'Activity', of: 'of', help: 'Guide’s help', keyboard: 'Cyrillic keyboard', example: 'Show an example', send: 'Send to Mila', sent: 'Message sent!', prevStep: 'Go back', yourMsg: 'Your message',
+    activity: 'Activity', of: 'of', help: 'Guide’s help', keyboard: 'Cyrillic keyboard', example: 'Show an example', send: 'Send', sent: 'Message sent!', prevStep: 'Go back', nextCh: 'Chapter', yourMsg: 'Your message',
     aiSlot: 'Automatic tip: coming soon. We’re testing a free AI that could give you a hint on free sentences.',
     reward: 'New magnet!', toFridge: 'Go to the fridge', toJourney: 'Back to the journey',
     challenge: (n, tot) => `Fill the fridge by 1 March: ${n} of ${tot} magnets.`,
     play: 'Play', resume: 'Continue', replay: 'Play again', soon: 'Coming soon', done: 'Completed',
-    fridgeTitle: 'Your fridge', fridgeEmpty: 'The grey magnets will come with the next chapters.',
-    wordsTitle: 'Chapter 1 words', wordsNote: 'The red, underlined vowel is the stressed one. Normal Bulgarian texts don’t mark it.',
+    fridgeTitle: 'Your fridge', fridgeEmpty: 'The grey magnets will come with the next chapters.', fridgeFull: 'The fridge is full! You’ve finished level A1.1: congratulations!',
+    wordsTitle: 'Words', wordsNote: 'The red, underlined vowel is the stressed one. Normal Bulgarian texts don’t mark it.',
     review: 'Bulgarian texts under review: to be checked by a native speaker.', reviewAi: 'Bulgarian texts checked with AI, awaiting confirmation by a native speaker.',
     sHelpLang: 'Help language', sName: 'Your name', sGuide: 'Your guide', sTranslit: 'Transliteration (Latin letters under Cyrillic)',
     sVoice: 'Bulgarian voice', sVoicePick: 'Choose the voice', sRate: 'Speed', sTest: 'Test the voice', diag: 'Voice diagnostics', diagNote: 'Tap one button at a time, then copy the text that appears and send it to the game developer.', diagLang: 'Bulgarian language only', diagFile: 'Recorded sentence', sClips: 'Use the recorded male voice (Dimitar) instead of the device voice', sClipsNote: n => `${n} sentences recorded with a free male voice (Dimitar, Piper): on iPhone with Safari they play even in silent mode. If the device has no Bulgarian voice, the game uses them automatically.`, sSounds: 'Sounds', sVibrate: 'Vibration', sVibrateNo: 'Vibration not available on this device',
@@ -103,7 +103,7 @@ function rich(o) {
   return esc(s).replace(/\[\[(.+?)\]\]/g, (_, b) => `<span class="bg" lang="bg">${b}</span><span class="tl inline" aria-hidden="true">(${esc(toLatin(b.replace(/&#39;/g, "'")))})</span>`);
 }
 // Personaggi femminili: per loro si preferisce la voce femminile del dispositivo (le frasi registrate sono maschili).
-const FEMALE = new Set(['mila', 'desi', 'ruzha']);
+const FEMALE = new Set(['mila', 'desi', 'ruzha', 'vendor']);
 const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 function speakBtn(text, who = '') {
   return `<button class="icon-btn speak" data-say="${esc(fillName(text))}" data-who="${who}" aria-label="${T('listen')}" title="${T('listen')}">🔊</button>`;
@@ -343,7 +343,7 @@ function renderJourney() {
       </div>
       <ol class="chapters">
         ${chapters.map(c => {
-          const p = chapterProgress(c.id), ready = c.id === 1;
+          const p = chapterProgress(c.id), ready = !!chapterData[c.id];
           const label = !ready ? T('soon') : p.completed ? T('replay') : p.step > 0 ? T('resume') : T('play');
           return `<li class="chapter ${ready ? '' : 'locked'} ${p.completed ? 'completed' : ''}">
             <span class="ch-num" aria-hidden="true">${c.id}</span>
@@ -372,7 +372,7 @@ function renderFridge() {
             : `<div role="listitem" class="magnet" aria-label="${c.id}: ${T('soon')}">${lockedMagnet(c.id)}</div>`;
         }).join('')}
       </div>
-      <p class="muted center">${T('fridgeEmpty')}</p>
+      <p class="muted center">${S.magnets.length >= chapters.length ? T('fridgeFull') : T('fridgeEmpty')}</p>
     </section>`;
   app.querySelectorAll('[data-open]').forEach(b => b.addEventListener('click', () => openChapter(+b.dataset.open)));
 }
@@ -384,9 +384,19 @@ function renderWords() {
       <h1>${T('wordsTitle')}</h1>
       <p class="muted">${T('wordsNote')}</p>
       <ul class="words">
-        ${words1.map(([w, tl, m]) => `<li>${speakBtn(w.replace(/́/g, ''))}<span class="w-bg" lang="bg">${esc(w).replace(/(.)\u0301/g, '<span class="stress">$1</span>')}</span><span class="w-tl">${esc(tl)}</span><span class="w-help">${esc(help(m))}</span></li>`).join('')}
+        ${wordsList()}
       </ul>
     </section>`;
+}
+
+function wordsList() {
+  const last = S.lastCh || 1;
+  return chapters.filter(c => chapterData[c.id]).map(c => `
+    <details class="w-chapter" ${c.id === last ? 'open' : ''}><summary>${c.id}. ${bg(c.bg)} <span class="muted">· ${esc(c[L()])}</span></summary>
+      <ul class="words">
+        ${chapterData[c.id].words.map(([w, tl, m]) => `<li>${speakBtn(w.replace(/\u0301/g, ''))}<span class="w-bg" lang="bg">${esc(w).replace(/(.)\u0301/g, '<span class="stress">$1</span>')}</span><span class="w-tl">${esc(tl)}</span><span class="w-help">${esc(help(m))}</span></li>`).join('')}
+      </ul>
+    </details>`).join('');
 }
 
 // ───────── Impostazioni ─────────
@@ -471,16 +481,21 @@ function toggle(key, label) {
 
 // ───────── Capitolo: sequenza di passi ─────────
 // intro → [spiegazione fase + 5 attività] × 3 → outro → calamita
-const STEPS = (() => {
-  const s = intro1.map(x => ({ type: 'scene', x }));
+const stepCache = {};
+function stepsFor(ch) {
+  if (stepCache[ch]) return stepCache[ch];
+  const d = chapterData[ch];
+  const s = d.intro.map(x => ({ type: 'scene', x }));
   phases.forEach((_, p) => {
     s.push({ type: 'teach', phase: p });
-    activities1.forEach((a, i) => { if (a.phase === p) s.push({ type: 'act', i }); });
+    d.activities.forEach((a, i) => { if (a.phase === p) s.push({ type: 'act', i }); });
   });
-  outro1.forEach(x => s.push({ type: 'scene', x }));
+  d.outro.forEach(x => s.push({ type: 'scene', x }));
   s.push({ type: 'reward' });
-  return s;
-})();
+  return (stepCache[ch] = s);
+}
+const D = () => chapterData[current.ch];
+const CH = () => chapters.find(c => c.id === current.ch);
 let current = { ch: 1, step: 0 };
 
 function openChapter(id) {
@@ -489,13 +504,14 @@ function openChapter(id) {
   else S.progress[id] = p;
   save();
   current = { ch: id, step: S.progress[id].step };
+  S.lastCh = id; save();
   go('chapter');
 }
 function advance() {
   const p = S.progress[current.ch];
-  const st = STEPS[current.step];
-  if (st.type === 'act') p.done = Math.max(p.done, activities1.slice(0, st.i + 1).length);
-  current.step = Math.min(current.step + 1, STEPS.length - 1);
+  const steps = stepsFor(current.ch), st = steps[current.step];
+  if (st.type === 'act') p.done = Math.max(p.done, st.i + 1);
+  current.step = Math.min(current.step + 1, steps.length - 1);
   p.step = current.step; save();
   go('chapter');
 }
@@ -524,14 +540,15 @@ function bubble(item) {
 }
 
 function renderStep() {
-  const st = STEPS[current.step];
-  const actIndex = st.type === 'act' ? st.i : st.type === 'teach' ? activities1.findIndex(a => a.phase === st.phase) - 1 : null;
+  const d = D(), c = CH(), prog = S.progress[current.ch];
+  const st = stepsFor(current.ch)[current.step];
+  const actIndex = st.type === 'act' ? st.i : st.type === 'teach' ? d.activities.findIndex(a => a.phase === st.phase) - 1 : null;
   const head = `<div class="ch-head">
       <button class="icon-btn" id="back-btn" aria-label="${T('prevStep')}" title="${T('prevStep')}" ${current.step === 0 ? 'disabled' : ''}>←</button>
-      <span class="ch-title">${bg(chapters[0].bg)}</span>
+      <span class="ch-title">${c.id}. ${bg(c.bg)}</span>
       <button class="icon-btn" id="help-btn" aria-label="${T('help')}" title="${T('help')}">💡</button>
     </div>
-    <div class="dots" aria-hidden="true">${activities1.map((a, i) => `<i class="${i < (S.progress[1].done || 0) ? 'on' : ''} ${actIndex === i ? 'cur' : ''} p${a.phase}"></i>`).join('')}</div>`;
+    <div class="dots" aria-hidden="true">${d.activities.map((a, i) => `<i class="${i < (prog.done || 0) ? 'on' : ''} ${actIndex === i ? 'cur' : ''} p${a.phase}"></i>`).join('')}</div>`;
 
   if (st.type === 'scene') {
     const x = st.x;
@@ -547,30 +564,31 @@ function renderStep() {
     app.innerHTML = `${head}<section class="card teach">
       <p class="phase-tag p${st.phase}">${T('phase')} ${st.phase + 1} · ${help(phases[st.phase])}</p>
       <div class="speaker">${speakerHTML('guide')}<div class="bubble"><h2 class="g-title">${bg(g.bgName)}</h2>
-        ${st.phase === 0 ? `<p>${esc(g[L()].hello)}</p>` : ''}<p>${rich(teaching1[st.phase])}</p></div></div>
+        ${st.phase === 0 && c.id === 1 ? `<p>${esc(g[L()].hello)}</p>` : ''}<p>${rich(d.teaching[st.phase])}</p></div></div>
       <button class="btn cont">${T('cont')}</button></section>`;
     $('.cont').addEventListener('click', advance);
   } else if (st.type === 'act') {
     renderActivity(head, st.i);
   } else {
-    const p = S.progress[1];
-    const first = !S.magnets.includes('sofia');
-    if (first) S.magnets.push('sofia');
+    const p = prog;
+    if (!S.magnets.includes(c.magnet)) S.magnets.push(c.magnet);
     p.completed = true; p.done = 15; delete p.replay; save();
     app.innerHTML = `${head}<section class="card reward">
       <h2>${T('reward')}</h2>
-      <div class="magnet big pop">${magnets.sofia}</div>
-      <p>${bg('София')} · ${esc(chapters[0][L()])}</p>
+      <div class="magnet big pop">${magnets[c.magnet]}</div>
+      <p>${bg(c.magnetBg)} · ${esc(c[L()])}</p>
+      ${chapterData[c.id + 1] ? `<button class="btn" id="next-ch">${T('nextCh')} ${c.id + 1} →</button>` : ''}
       <div class="row"><button class="btn" id="to-fridge">${T('toFridge')}</button><button class="btn ghost" id="to-journey">${T('toJourney')}</button></div>
     </section>`;
     sfx.magnet();
     $('#to-fridge').addEventListener('click', () => go('fridge'));
     $('#to-journey').addEventListener('click', () => go('journey'));
+    $('#next-ch')?.addEventListener('click', () => openChapter(c.id + 1));
   }
   $('#back-btn').addEventListener('click', goBack);
   $('#help-btn').addEventListener('click', () => {
-    const ph = st.type === 'act' ? activities1[st.i].phase : st.type === 'teach' ? st.phase : 0;
-    openDialog(`<div class="speaker">${speakerHTML('guide')}<div class="bubble"><h2>${bg(guides[guideKey()].bgName)}</h2><p>${rich(teaching1[ph])}</p></div></div>`);
+    const ph = st.type === 'act' ? d.activities[st.i].phase : st.type === 'teach' ? st.phase : 0;
+    openDialog(`<div class="speaker">${speakerHTML('guide')}<div class="bubble"><h2>${bg(guides[guideKey()].bgName)}</h2><p>${rich(d.teaching[ph])}</p></div></div>`);
   });
   if (!S.tipsSeen && st.type === 'act') {
     S.tipsSeen = true; save();
@@ -588,11 +606,11 @@ $('#dialog-close').addEventListener('click', () => $('#dialog').close());
 
 // ───────── Attività ─────────
 function renderActivity(head, i) {
-  const a = activities1[i];
+  const a = D().activities[i];
   const top = `<p class="phase-tag p${a.phase}">${T('activity')} ${i + 1} ${T('of')} 15 · ${help(phases[a.phase])}</p>
     <h2>${esc(help(a.title))}</h2>`;
   const ctx = a.bg && a.who ? bubble(a) : a.who === 'guide' ? `<div class="speaker">${speakerHTML('guide')}</div>` : '';
-  app.innerHTML = `${head}<section class="card act kind-${a.kind}">
+  app.innerHTML = `${head}<section class="card act kind-${a.kind} ${a.noTl ? 'no-tl' : ''}">
     ${top}${a.kind === 'listen' ? '' : ctx}
     <p class="prompt">${rich(a.prompt)}</p>
     <div class="work"></div>

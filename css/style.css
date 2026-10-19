@@ -371,3 +371,12 @@ body.calm *, body.calm *::before, body.calm *::after { animation: none !importan
 .diag summary { cursor: pointer; font-weight: 700; min-height: 40px; display: flex; align-items: center; }
 .diag-log { white-space: pre-wrap; word-break: break-word; font-size: .78em; background: #f5efe7; border-radius: 10px; padding: 8px; max-height: 260px; overflow: auto; user-select: text; -webkit-user-select: text; }
 .diag-log:empty { display: none; }
+
+.w-chapter { margin: 0 0 10px; }
+.w-chapter > summary { cursor: pointer; font-weight: 800; padding: 10px 12px; background: var(--card); border-radius: 14px; box-shadow: var(--shadow); min-height: 48px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.w-chapter[open] > summary { margin-bottom: 8px; }
+.reward #next-ch { margin-top: 12px; width: 100%; }
+
+/* Attività di lettura: niente lettere latine che darebbero la risposta. */
+body.translit .no-tl .tl { display: none !important; }
+.sign .bg { white-space: pre-line; }

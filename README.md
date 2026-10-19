@@ -3,13 +3,14 @@
 Gioco web per imparare il bulgaro (A1), con aiuti in italiano o inglese.
 Progetto separato da Dolce Stilnovo, ispirato alle meccaniche del suo Prototipo 2.
 
-**Stato:** capitolo 1 giocabile in locale. Testi bulgari **da far controllare a un madrelingua**
+**Stato:** percorso A1.1 completo e giocabile in locale: 10 capitoli, 150 attività. Testi bulgari **da far controllare a un madrelingua**
 ([elenco](docs/DA-CONTROLLARE.md)). Non pubblicato online.
 
 ## Cosa c'è
 - Benvenuto: lingua degli aiuti, nome (anche in cirillico, con tastiera fonetica QWERTY sullo schermo), scelta della guida.
-- Capitolo 1 «Здравей, София!»: 5 scene, 3 spiegazioni della guida, 15 attività
-  (Scopri / Prova / Usa), finale e calamita per il frigo.
+- 10 capitoli (aeroporto, metro, bar, portiere, casa, mercato, compleanno, Plovdiv, nonna Ruzha,
+  Baba Marta): scene, 3 spiegazioni della guida e 15 attività ciascuno (Scopri / Prova / Usa),
+  calamita per il frigo. Scelta libera dei capitoli; pulsante ← per tornare indietro.
 - Attività: scelta, abbinamento, riordino di parole, composizione con lettere, lettura di cartelli,
   ascolto, messaggio libero (non corretto, non salvato, con lo spazio pronto per un futuro consiglio AI).
 - Errori: si riprova subito, «Proviamo insieme» è facoltativo.
@@ -48,7 +49,7 @@ node tools/list-bulgarian.mjs      # rigenera docs/DA-CONTROLLARE.md
 ```
 
 ## File
-- `js/content.js` – storia, attività, parole (tutti i testi bulgari sono qui)
+- `js/content.js` – capitolo 1, elenco capitoli, guide, stato di revisione · `js/chapters/` – capitoli 2–10
 - `js/app.js` – schermate e logica · `js/art.js` – illustrazioni SVG
 - `js/speech.js` – voce del browser · `js/translit.js` – traslitterazione
 - `fonts/` – Sofia Sans e variante con forme classiche (`tools/make_classic_font.py`), licenza OFL
