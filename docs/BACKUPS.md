@@ -6,6 +6,7 @@ Le etichette sono salvate sia sul Mac sia su GitHub.
 | Etichetta | Data | Che cosa contiene |
 |---|---|---|
 | `ripristino-01-online-2026-10-19` | 19/10/2026 | Versione online prima del programma di miglioramenti: 10 capitoli A1.1, 5 temi musicali con ambient nei capitoli, musica al 5%, voce Daria, tastiera fonetica (commit 0084dad) |
+| `ripristino-02-online-2026-10-19` | 19/10/2026 | Versione online con il programma completato: pannello audio, avanti automatico, esercizio conservato, aiuti a gradini, Pausa/Stop, tutorial, barra a scomparsa, test di orientamento, accessibilità, condividi il frigo, © 2026 Zario (commit f6d1ed3) |
 
 ## Come tornare a un punto di ripristino
 - Per **guardarlo**: `git checkout <etichetta>` (poi `git checkout main` per tornare all'ultima versione).
