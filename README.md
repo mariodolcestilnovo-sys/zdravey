@@ -18,6 +18,8 @@ Progetto separato da Dolce Stilnovo, ispirato alle meccaniche del suo Prototipo 
 - Cirillico: font Sofia Sans (OFL) con forme classiche predefinite e forme bulgare moderne a scelta;
   traslitterazione ufficiale (Aa, accesa di default); traduzioni aperte nei capitoli 1–10;
   voce bulgara del dispositivo quando c'è.
+- Musica di sottofondo originale in stile tradizionale bulgaro (ръченица 7/8, гайда, кавал, тъпан),
+  generata dal browser (`js/music.js`): nessun file e nessun diritto di terzi. Pulsante ♫ e volume.
 - Salvataggio solo nel browser (`localStorage`). Nessun account, nessun dato inviato.
 
 ## Provare in locale

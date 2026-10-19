@@ -9,8 +9,6 @@ const listeners = new Set();
 export function playbackSession() {
   try { if (navigator.audioSession && navigator.audioSession.type !== 'playback') navigator.audioSession.type = 'playback'; } catch { /* non supportato */ }
 }
-// Subito al caricamento, prima che qualunque suono possa mettere la pagina in modalità «sottofondo».
-if (typeof navigator !== 'undefined') playbackSession();
 function wakeAudio() {
   playbackSession();
   startSilence();
@@ -96,7 +94,12 @@ export const allVoicesCount = () => synth?.getVoices().length || 0;
 
 // Parla anche se l'elenco delle voci è vuoto: con lang="bg-BG" il sistema sceglie da solo
 // la voce bulgara installata (succede su alcuni iPhone).
-export function speak(text, { voiceURI, rate = 0.9, onend, onstart, female = false } = {}) {
+// La musica si abbassa mentre parla la voce.
+let hooks = {};
+export const setSpeakHooks = h => { hooks = h; };
+export function speak(text, { voiceURI, rate = 0.9, onend: done, onstart, female = false } = {}) {
+  hooks.start?.();
+  const onend = () => { hooks.end?.(); done?.(); };
   // Di norma parla la voce del dispositivo (Daria su Apple). Le frasi registrate (Dimitar, maschile) si usano
   // se scelte nelle impostazioni (tranne per i personaggi femminili) o come riserva se manca la voce bulgara.
   const hasDevice = load().length > 0;
@@ -104,7 +107,6 @@ export function speak(text, { voiceURI, rate = 0.9, onend, onstart, female = fal
   if (!hasDevice && playClip(text, rate, onstart, onend, true)) return true;
   if (!synth) return false;
   load();
-  wakeAudio();
   // Su Safari un cancel() seguito subito da speak() può restare muto: annulla solo se serve.
   if (synth.speaking || synth.pending) synth.cancel();
   const u = new SpeechSynthesisUtterance(text.replace(/[«»]/g, ''));
@@ -163,7 +165,3 @@ export function diagnose(mode, log) {
   setTimeout(() => log(`  dopo 3 s: speaking=${synth.speaking} pending=${synth.pending} paused=${synth.paused}`), 3000);
 }
 
-// Al primo tocco prepara già l'audio muto, così la prima frase non arriva prima di lui.
-if (typeof document !== 'undefined') {
-  document.addEventListener('pointerdown', () => { startSilence(); stopSilenceSoon(); }, { once: true, capture: true });
-}

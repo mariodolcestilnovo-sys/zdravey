@@ -194,3 +194,17 @@
   мартеница («бяла и червена»), con la nota che le cicogne tornano verso fine marzo.
 - Verificato: content.test, audio.test (9 frasi riregistrate), capitoli 6 e 10 giocati in inglese fino
   alla calamita, nessun errore. Le frasi nuove sono da far confermare al madrelingua insieme alle altre.
+
+## 2026-10-19 — Musica di sottofondo bulgara
+
+- Richiesta di Mario: musica tradizionale bulgara senza alcun rischio di diritti.
+- Scelta: **melodia originale** composta per il gioco in stile tradizionale (non una canzone esistente:
+  le registrazioni hanno diritti degli esecutori, e molte canzoni «popolari» hanno autori moderni).
+  Ritmo di ръченица 7/8 (2+2+3), scala con 2ª bassa e 3ª alta, гайда con bordone e кавал in alternanza,
+  тъпан. Suonata dal browser con Web Audio (`js/music.js`): nessun file audio.
+- Comandi: pulsante ♫ in alto, interruttore e volume nelle impostazioni (predefinito 20%); parte al primo
+  tocco (regola dei browser), si abbassa mentre parla la voce, si ferma se si cambia app o scheda.
+- Su iPhone la musica rispetta il silenzioso: tolti dalla voce normale i due trucchi per il silenzioso
+  (non funzionavano con la voce e avrebbero fatto suonare la musica in silenzioso).
+- Verificato (Mac): parte al primo clic, ♫ la spegne e riaccende, nessun errore. **Ascolto e giudizio
+  sul suono: Mario.**
