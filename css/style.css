@@ -380,3 +380,6 @@ body.calm *, body.calm *::before, body.calm *::after { animation: none !importan
 /* Attività di lettura: niente lettere latine che darebbero la risposta. */
 body.translit .no-tl .tl { display: none !important; }
 .sign .bg { white-space: pre-line; }
+
+/* Maniglia dello sportello del frigo (sotto la linea del freezer) */
+.fridge-handle.low { top: calc(38% + 24px); height: 150px; }

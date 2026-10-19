@@ -223,3 +223,4 @@
 - `tests/music.test.mjs`: ogni battuta ha la durata giusta, conclusione sulla tonica, 5 temi usati.
 - Verificato nel browser: cambio tema tra Viaggio e capitoli 1, 4, 6, 9; giro completo del tema della città
   nell'ordine esatto, poi di nuovo intro. Nessun errore. Ascolto: Mario.
+- 2026-10-19 — Frigo: aggiunta la maniglia anche sullo sportello di sotto (richiesta di Mario). Verificato nel browser.

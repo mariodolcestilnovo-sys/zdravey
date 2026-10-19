@@ -376,6 +376,7 @@ function renderFridge() {
       <h1>${T('fridgeTitle')}</h1>
       <div class="fridge" role="list">
         <div class="fridge-handle" aria-hidden="true"></div>
+        <div class="fridge-handle low" aria-hidden="true"></div>
         ${chapters.map(c => {
           const won = S.magnets.includes(c.magnet);
           return won
