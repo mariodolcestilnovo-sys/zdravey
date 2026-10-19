@@ -261,3 +261,15 @@
   tempo leggermente rallentato (×1,25). Fuori dal gioco invariato. Verificato (Mac): cap. 1 ambient con
   sezioni in ordine, frigo con tema normale, nessun errore. Ascolto: Mario. Solo locale.
 - 2026-10-19 — Pubblicato su GitHub Pages su richiesta di Mario («pubblica»): musica ambient e volume al 5%.
+
+## 2026-10-19 — Programma: passi 0 e 1
+
+- Programma concordato in [PROGRAMMA.md](PROGRAMMA.md) (idee dall'app dell'italiano, letta solo in lettura).
+- Passo 0: punto di ripristino `ripristino-01-online-2026-10-19` (versione online), su Mac e GitHub; [BACKUPS.md](BACKUPS.md).
+- Passo 1: ♫ e ⚙ sempre visibili, anche nel benvenuto (da ⚙ si torna al punto del benvenuto). ♫ apre il
+  pannello audio: audio del gioco (generale), musica, effetti, voce — ognuno con interruttore e volume in %
+  (musica 5%, effetti 65%, voce 100% di partenza) — stile musicale (automatico o uno dei 5 temi fisso) e
+  musica rilassata negli esercizi. Con l'audio generale spento l'icona diventa 🔇. Stesso pannello nelle impostazioni.
+- Verificato (browser, telefono): pannello dal benvenuto; spegni/riaccendi tutto; volume voce 60% applicato
+  alla voce; stile «festa» fisso e ritorno ad automatico; ⚙ dal benvenuto e dal nome con ritorno; nessun errore.
+  Solo in locale.

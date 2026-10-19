@@ -81,6 +81,7 @@ function playClip(text, rate, onstart, onend, force = false) {
   player.onended = player.onerror = () => { player.onended = player.onerror = null; onend?.(); };
   player.src = 'audio/' + file;
   player.playbackRate = Math.min(1.2, Math.max(0.6, rate));
+  player.volume = Math.max(0, Math.min(1, lastVolume));
   const p = player.play();
   p?.catch?.(() => onend?.());
   return true;
@@ -95,9 +96,10 @@ export const allVoicesCount = () => synth?.getVoices().length || 0;
 // Parla anche se l'elenco delle voci è vuoto: con lang="bg-BG" il sistema sceglie da solo
 // la voce bulgara installata (succede su alcuni iPhone).
 // La musica si abbassa mentre parla la voce.
-let hooks = {};
+let hooks = {}, lastVolume = 1;
 export const setSpeakHooks = h => { hooks = h; };
-export function speak(text, { voiceURI, rate = 0.9, onend: done, onstart, female = false } = {}) {
+export function speak(text, { voiceURI, rate = 0.9, onend: done, onstart, female = false, volume = 1 } = {}) {
+  lastVolume = volume;
   hooks.start?.();
   const onend = () => { hooks.end?.(); done?.(); };
   // Di norma parla la voce del dispositivo (Daria su Apple). Le frasi registrate (Dimitar, maschile) si usano
@@ -114,6 +116,7 @@ export function speak(text, { voiceURI, rate = 0.9, onend: done, onstart, female
   if (v) u.voice = v;
   u.lang = v?.lang || 'bg-BG';
   u.rate = rate;
+  u.volume = Math.max(0, Math.min(1, volume));
   u.onstart = () => onstart?.();
   u.onend = () => { lastError = ''; stopSilenceSoon(); onend?.(); };
   u.onerror = e => { lastError = e.error || 'error'; stopSilenceSoon(); onend?.(); };

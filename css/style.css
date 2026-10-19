@@ -383,3 +383,12 @@ body.translit .no-tl .tl { display: none !important; }
 
 /* Maniglia dello sportello del frigo (sotto la linea del freezer) */
 .fridge-handle.low { top: calc(38% + 24px); height: 150px; }
+
+/* Pannello audio */
+.audio-panel .a-row { display: grid; gap: 2px; padding: 6px 0; border-bottom: 1px solid var(--line); }
+.audio-panel .a-vol { display: flex; align-items: center; gap: 10px; padding-left: 60px; }
+.audio-panel .a-vol input { flex: 1; }
+.audio-panel .a-vol output { min-width: 3.2em; text-align: right; font-weight: 700; color: var(--muted); }
+.audio-panel .a-group[data-off] { opacity: .45; pointer-events: none; }
+#music-btn.muted { background: #f3eee8; }
+#s-back-welcome { margin-bottom: 6px; }

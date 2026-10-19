@@ -66,7 +66,7 @@ export const THEMES = {
 
 // Quale tema per quale ambiente
 export function themeFor(view, chapter) {
-  if (view !== 'chapter') return 'road';
+  if (view !== 'chapter') return 'road'; // menu, benvenuto, frigo, parole, impostazioni
   if (chapter <= 3) return 'city';
   if ([4, 5, 7].includes(chapter)) return 'home';
   if ([6, 8].includes(chapter)) return 'market';

@@ -28,7 +28,7 @@ const UI = {
     sHelpLang: 'Lingua degli aiuti', sName: 'Il tuo nome', sGuide: 'La tua guida', sTranslit: 'Traslitterazione (lettere latine sotto il cirillico)',
     sVoice: 'Voce bulgara', sVoicePick: 'Scegli la voce', sRate: 'Velocità', sTest: 'Prova la voce', diag: 'Diagnostica della voce', diagNote: 'Tocca un pulsante alla volta, poi copia il testo che compare e mandalo a chi sviluppa il gioco.', diagLang: 'Solo lingua bulgara', diagFile: 'Frase registrata', sClips: 'Usa la voce registrata maschile (Dimitar) al posto di quella del dispositivo', sClipsNote: n => `${n} frasi registrate con una voce maschile libera (Dimitar, Piper): su iPhone con Safari si sentono anche in silenzioso. Se il dispositivo non ha una voce bulgara, il gioco le usa da solo.`, sSounds: 'Suoni', sVibrate: 'Vibrazione', sVibrateNo: 'Vibrazione non disponibile su questo dispositivo',
     sForms: 'Lettere in stile bulgaro moderno', sFormsNote: 'Molti libri e marchi bulgari usano queste forme; i cartelli spesso no. All’inizio è più facile la forma classica.',
-    sDisplay: 'Lettura e suoni', sMusic: 'Musica', sMusicOn: 'Musica di sottofondo', sMusicCalm: 'Musica rilassata durante gli esercizi (più lenta, senza tamburo)', sMusicVol: 'Volume della musica', sMusicNote: 'Melodia originale in stile tradizionale bulgaro (ръченица in 7/8, гайда, кавал e тъпан), creata per questo gioco e suonata dal browser: nessun diritto d’autore di terzi.', sBig: 'Testo più grande', sMotion: 'Riduci le animazioni', sData: 'I tuoi dati', sDataNote: 'Il viaggio è salvato solo in questo browser. Nessun dato viene inviato.',
+    sDisplay: 'Lettura e suoni', sMusic: 'Musica', aPanel: 'Audio', aAll: 'Audio del gioco', aFx: 'Effetti sonori', aVoice: 'Voce bulgara', aStyle: 'Stile musicale', aAuto: 'Automatico: cambia con l’ambiente', themeNames: { road: 'La strada (menu e viaggio)', city: 'La città (cap. 1–3)', home: 'La casa (cap. 4, 5, 7)', market: 'Il mercato (cap. 6, 8)', feast: 'La festa (cap. 9, 10)' }, sMusicOn: 'Musica di sottofondo', sMusicCalm: 'Musica rilassata durante gli esercizi (più lenta, senza tamburo)', sMusicVol: 'Volume della musica', sMusicNote: 'Melodia originale in stile tradizionale bulgaro (ръченица in 7/8, гайда, кавал e тъпан), creata per questo gioco e suonata dal browser: nessun diritto d’autore di terzi.', sBig: 'Testo più grande', sMotion: 'Riduci le animazioni', sData: 'I tuoi dati', sDataNote: 'Il viaggio è salvato solo in questo browser. Nessun dato viene inviato.',
     sReset: 'Cancella i progressi', sResetQ: 'Vuoi davvero cancellare nome e progressi da questo dispositivo?', sSave: 'Salva', saved: 'Salvato',
     tipsTitle: 'Tre comandi utili', tips: ['🔊 ascolta la frase in bulgaro (se il dispositivo ha la voce).', 'Aa mostra o nasconde le lettere latine sotto il cirillico.', '💡 riapre la spiegazione della guida.'],
     close: 'Chiudi', phase: 'Fase', menu: 'Menu principale'
@@ -55,7 +55,7 @@ const UI = {
     sHelpLang: 'Help language', sName: 'Your name', sGuide: 'Your guide', sTranslit: 'Transliteration (Latin letters under Cyrillic)',
     sVoice: 'Bulgarian voice', sVoicePick: 'Choose the voice', sRate: 'Speed', sTest: 'Test the voice', diag: 'Voice diagnostics', diagNote: 'Tap one button at a time, then copy the text that appears and send it to the game developer.', diagLang: 'Bulgarian language only', diagFile: 'Recorded sentence', sClips: 'Use the recorded male voice (Dimitar) instead of the device voice', sClipsNote: n => `${n} sentences recorded with a free male voice (Dimitar, Piper): on iPhone with Safari they play even in silent mode. If the device has no Bulgarian voice, the game uses them automatically.`, sSounds: 'Sounds', sVibrate: 'Vibration', sVibrateNo: 'Vibration not available on this device',
     sForms: 'Modern Bulgarian letter shapes', sFormsNote: 'Many Bulgarian books and brands use these shapes; signs often don’t. The classic shapes are easier at first.',
-    sDisplay: 'Reading and sounds', sMusic: 'Music', sMusicOn: 'Background music', sMusicCalm: 'Relaxed music during exercises (slower, no drum)', sMusicVol: 'Music volume', sMusicNote: 'An original tune in traditional Bulgarian style (ръченица in 7/8, гайда, кавал and тъпан), made for this game and played by the browser: no third-party copyright.', sBig: 'Larger text', sMotion: 'Reduce animations', sData: 'Your data', sDataNote: 'Your journey is saved in this browser only. No data is sent anywhere.',
+    sDisplay: 'Reading and sounds', sMusic: 'Music', aPanel: 'Audio', aAll: 'Game audio', aFx: 'Sound effects', aVoice: 'Bulgarian voice', aStyle: 'Music style', aAuto: 'Automatic: changes with the setting', themeNames: { road: 'The road (menu and journey)', city: 'The city (ch. 1–3)', home: 'Home (ch. 4, 5, 7)', market: 'The market (ch. 6, 8)', feast: 'The feast (ch. 9, 10)' }, sMusicOn: 'Background music', sMusicCalm: 'Relaxed music during exercises (slower, no drum)', sMusicVol: 'Music volume', sMusicNote: 'An original tune in traditional Bulgarian style (ръченица in 7/8, гайда, кавал and тъпан), made for this game and played by the browser: no third-party copyright.', sBig: 'Larger text', sMotion: 'Reduce animations', sData: 'Your data', sDataNote: 'Your journey is saved in this browser only. No data is sent anywhere.',
     sReset: 'Delete progress', sResetQ: 'Do you really want to delete your name and progress from this device?', sSave: 'Save', saved: 'Saved',
     tipsTitle: 'Three useful buttons', tips: ['🔊 listen to the sentence in Bulgarian (if your device has the voice).', 'Aa shows or hides Latin letters under the Cyrillic.', '💡 reopens your guide’s explanation.'],
     close: 'Close', phase: 'Phase', menu: 'Main menu'
@@ -66,7 +66,7 @@ const UI = {
 const KEY = 'zdravey.v1';
 const DEFAULTS = {
   lang: null, name: '', nameBg: '', guide: null, translit: true, showTr: true,
-  music: true, musicVol: 5, musicCalm: true, voiceOn: true, useClips: false, voiceURI: '', rate: 0.9, sounds: true, vibrate: true, bigText: false, reduceMotion: false,
+  audioOn: true, music: true, musicVol: 5, musicCalm: true, musicStyle: 'auto', sfxVol: 65, voiceVol: 100, voiceOn: true, useClips: false, voiceURI: '', rate: 0.9, sounds: true, vibrate: true, bigText: false, reduceMotion: false,
   bgForms: false, tipsSeen: false, progress: {}, magnets: []
 };
 function loadState() {
@@ -115,14 +115,16 @@ function speakBtn(text, who = '') {
 // ───────── Suoni, vibrazione, coriandoli ─────────
 let actx;
 function tone(freqs, dur = 0.12, type = 'sine', gap = 0.09) {
-  if (!S.sounds) return;
+  if (!S.audioOn || !S.sounds) return;
+  const peak = 0.18 * (S.sfxVol ?? 65) / 100;
+  if (peak <= 0.0002) return;
   try {
     actx ||= new (window.AudioContext || window.webkitAudioContext)();
     window.__sfxCtx = actx;
     freqs.forEach((f, i) => {
       const o = actx.createOscillator(), g = actx.createGain(), t0 = actx.currentTime + i * gap;
       o.type = type; o.frequency.value = f;
-      g.gain.setValueAtTime(0.0001, t0); g.gain.exponentialRampToValueAtTime(0.18, t0 + 0.02); g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+      g.gain.setValueAtTime(0.0001, t0); g.gain.exponentialRampToValueAtTime(peak, t0 + 0.02); g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
       o.connect(g).connect(actx.destination); o.start(t0); o.stop(t0 + dur + 0.02);
     });
   } catch { /* audio non disponibile */ }
@@ -152,12 +154,12 @@ function confetti(n = 22) {
 document.addEventListener('click', e => {
   const b = e.target.closest('[data-say]');
   if (!b) return;
-  if (!S.voiceOn) { toast(T('voiceOff')); return; }
+  if (!S.audioOn || !S.voiceOn) { toast(T('voiceOff')); return; }
   if (!voice.hasSpeech()) { toast(T('noVoice')); return; }
   b.classList.add('speaking');
   let started = false;
   if (isIOS && !S.iosSilentTold) { S.iosSilentTold = true; save(); toast(T('iosSilent')); }
-  voice.speak(b.dataset.say, { female: FEMALE.has(b.dataset.who), voiceURI: S.voiceURI, rate: S.rate, onstart: () => { started = true; }, onend: () => b.classList.remove('speaking') });
+  voice.speak(b.dataset.say, { female: FEMALE.has(b.dataset.who), voiceURI: S.voiceURI, rate: S.rate, volume: S.voiceVol / 100, onstart: () => { started = true; }, onend: () => b.classList.remove('speaking') });
   setTimeout(() => { if (!started) { b.classList.remove('speaking'); toast(T('noVoiceHelp')); } }, 2500);
 });
 let toastTimer;
@@ -180,7 +182,8 @@ function applyPrefs() {
   document.body.classList.toggle('calm', prefersReduced());
   const tb = $('#translit-btn'); tb.setAttribute('aria-pressed', S.translit); tb.title = T('sTranslit'); tb.setAttribute('aria-label', T('sTranslit'));
   $('#settings-btn').setAttribute('aria-label', T('settings'));
-  const mb = $('#music-btn'); mb.setAttribute('aria-pressed', S.music); mb.setAttribute('aria-label', T('sMusic')); mb.title = T('sMusic');
+  const mb = $('#music-btn'); mb.setAttribute('aria-label', T('aPanel')); mb.title = T('aPanel');
+  mb.querySelector('span').textContent = S.audioOn ? '♫' : '🔇'; mb.classList.toggle('muted', !S.audioOn);
   $('#brand-sub').textContent = T('subtitle');
   $('#review-note').textContent = '⚠ ' + reviewText();
   $('#review-note').hidden = REVIEW_STATUS === 'native-approved';
@@ -189,15 +192,23 @@ function applyPrefs() {
     b.querySelector('span').textContent = T(b.dataset.view);
     b.setAttribute('aria-current', b.dataset.view === view ? 'page' : 'false');
   });
-  $('#topbar').hidden = $('#nav').hidden = !S.lang || !S.guide;
+  // ♫ e ⚙ ci sono sempre, anche nel benvenuto; la barra in basso solo dopo la scelta della guida.
+  $('#topbar').hidden = false;
+  $('#nav').hidden = !S.lang || !S.guide;
 }
 
 $('#translit-btn').addEventListener('click', () => { S.translit = !S.translit; save(); applyPrefs(); });
 $('#settings-btn').addEventListener('click', () => go('settings'));
-$('#music-btn').addEventListener('click', () => { S.music = !S.music; save(); syncMusic(); applyPrefs(); if (view === 'settings') renderSettings(); });
+$('#music-btn').addEventListener('click', openAudioPanel);
 function syncMusic() {
   music.setVolume(S.musicVol / 100);
-  if (S.music && !document.hidden) music.start(); else music.stop();
+  if (S.audioOn && S.music && !document.hidden) music.start(); else music.stop();
+}
+const onboarding = () => !S.lang || !S.guide;
+// Tema musicale: automatico per ambiente oppure quello scelto nel pannello audio.
+function syncTheme() {
+  const auto = music.themeFor(onboarding() ? 'welcome' : view, current.ch);
+  music.setTheme(S.musicStyle && S.musicStyle !== 'auto' ? S.musicStyle : auto, view === 'chapter' && !onboarding() && S.musicCalm !== false);
 }
 voice.setSpeakHooks({ start: () => music.duck(true), end: () => music.duck(false) });
 // Il browser permette l'audio solo dopo un gesto: la musica parte al primo tocco.
@@ -209,14 +220,16 @@ function go(v) {
   voice.stop();
   view = v; applyPrefs();
   // Ogni ambiente ha il suo tema; dentro i capitoli la musica è «ambient» per concentrarsi.
-  music.setTheme(music.themeFor(v, current.ch), v === 'chapter' && S.musicCalm !== false);
+  syncTheme();
   ({ journey: renderJourney, fridge: renderFridge, words: renderWords, settings: renderSettings, chapter: renderStep })[v]();
   window.scrollTo(0, 0);
   const h = $('h1, h2', app); if (h) { h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); }
 }
 
 // ───────── Benvenuto ─────────
+let welcomeStep = 0;
 function renderWelcome(stepN = 0) {
+  welcomeStep = stepN;
   applyPrefs();
   if (stepN === 0) {
     app.innerHTML = `
@@ -420,6 +433,7 @@ function renderSettings() {
   const vs = voice.bulgarianVoices();
   app.innerHTML = `
     <section class="settings">
+      ${onboarding() ? `<button class="btn ghost small" id="s-back-welcome">← ${T('back')}</button>` : ''}
       <h1>${T('settings')}</h1>
       <fieldset><legend>${T('sHelpLang')}</legend>
         <div class="seg">${['it', 'en'].map(l => `<button data-setlang="${l}" aria-pressed="${S.lang === l}">${l === 'it' ? '🇮🇹 Italiano' : '🇬🇧 English'}</button>`).join('')}</div>
@@ -433,14 +447,10 @@ function renderSettings() {
       <fieldset><legend>${T('sGuide')}</legend>
         <div class="seg">${Object.entries(guides).map(([k, g]) => `<button data-setguide="${k}" aria-pressed="${S.guide === k}"><span class="avatar xs">${avatars[k]}</span><span lang="bg">${g.bgName}</span></button>`).join('')}</div>
       </fieldset>
-      <fieldset><legend>${T('sMusic')}</legend>
-        ${toggle('music', T('sMusicOn'))}
-        ${toggle('musicCalm', T('sMusicCalm'))}
-        <label class="field"><span>${T('sMusicVol')}: <output id="mvol-out">${S.musicVol}%</output></span><input type="range" id="s-mvol" min="0" max="100" step="1" value="${S.musicVol}"></label>
-        <p class="muted small">${T('sMusicNote')}</p>
+      <fieldset><legend>${T('aPanel')}</legend>
+        <div class="audio-panel">${audioPanelHTML()}</div>
       </fieldset>
       <fieldset><legend>${T('sVoice')}</legend>
-        ${toggle('voiceOn', T('sVoice'))}
         ${toggle('useClips', T('sClips'))}
         <p class="muted small">${T('sClipsNote')(voice.clipCount())}</p>
         ${isIOS ? `<p class="note small">📱 ${T('iosSilent')}</p>` : ''}
@@ -464,7 +474,6 @@ function renderSettings() {
         ${toggle('showTr', T('showTrLabel'))}
         ${toggle('bgForms', T('sForms'))}
         <p class="muted small forms-demo"><span lang="bg">д л и т</span> → ${T('sFormsNote')}</p>
-        ${toggle('sounds', T('sSounds'))}
         ${vibOk ? toggle('vibrate', T('sVibrate')) : `<p class="muted small">${T('sVibrateNo')}</p>`}
         ${toggle('bigText', T('sBig'))}
         ${toggle('reduceMotion', T('sMotion'))}
@@ -477,7 +486,7 @@ function renderSettings() {
     </section>`;
   app.querySelectorAll('[data-setlang]').forEach(b => b.addEventListener('click', () => { S.lang = b.dataset.setlang; save(); go('settings'); }));
   app.querySelectorAll('[data-setguide]').forEach(b => b.addEventListener('click', () => { S.guide = b.dataset.setguide; save(); go('settings'); }));
-  app.querySelectorAll('[data-toggle]').forEach(c => c.addEventListener('change', () => { S[c.dataset.toggle] = c.checked; save(); applyPrefs(); if (c.dataset.toggle === 'music') syncMusic(); if (c.dataset.toggle === 'musicCalm') music.setTheme(music.themeFor(view, current.ch), view === 'chapter' && S.musicCalm); }));
+  app.querySelectorAll('[data-toggle]').forEach(c => { if (!c.closest('.audio-panel')) c.addEventListener('change', () => { S[c.dataset.toggle] = c.checked; save(); applyPrefs(); }); });
   $('#s-voice')?.addEventListener('change', e => { S.voiceURI = e.target.value; save(); });
   const diagLog = $('#diag-log');
   const dlog = line => { diagLog.textContent += line + '\n'; };
@@ -485,7 +494,8 @@ function renderSettings() {
     if (!diagLog.textContent) dlog(`${navigator.userAgent.replace(/^Mozilla\/5.0 /, '')}\nvoci totali: ${voice.allVoicesCount()}, bulgare: ${voice.bulgarianVoices().length}`);
     voice.diagnose(b.dataset.diag, dlog);
   }));
-  $('#s-mvol').addEventListener('input', e => { S.musicVol = +e.target.value; $('#mvol-out').textContent = S.musicVol + '%'; music.setVolume(S.musicVol / 100); save(); });
+  bindAudioPanel(app.querySelector('.audio-panel'));
+  $('#s-back-welcome')?.addEventListener('click', () => { view = 'journey'; renderWelcome(welcomeStep); });
   $('#s-rate').addEventListener('input', e => { S.rate = +e.target.value; $('#rate-out').textContent = Math.round(S.rate * 100) + '%'; save(); });
   attachKeyboard($('.kb-toggle'), $('.kb-slot'), $('#s-namebg'));
   $('#s-savename').addEventListener('click', () => {
@@ -497,6 +507,44 @@ function renderSettings() {
     S = { ...DEFAULTS }; view = 'journey'; renderWelcome(0);
   });
 }
+// ───────── Pannello audio (♫): tutto l'audio, musica, effetti, voce, stile ─────────
+function audioRow(key, volKey, label) {
+  return `<div class="a-row">${toggle(key, label)}
+    <label class="a-vol"><span class="sr-only">${label}</span><input type="range" min="0" max="100" step="1" data-vol="${volKey}" value="${S[volKey]}" aria-label="${label}"><output>${S[volKey]}%</output></label></div>`;
+}
+function audioPanelHTML() {
+  const names = T('themeNames');
+  return `${toggle('audioOn', T('aAll'))}
+    <div class="a-group" ${S.audioOn ? '' : 'data-off'}>
+      ${audioRow('music', 'musicVol', T('sMusic'))}
+      ${audioRow('sounds', 'sfxVol', T('aFx'))}
+      ${audioRow('voiceOn', 'voiceVol', T('aVoice'))}
+      <label class="field"><span>${T('aStyle')}</span><select data-style>
+        <option value="auto" ${S.musicStyle === 'auto' ? 'selected' : ''}>${T('aAuto')}</option>
+        ${Object.entries(music.THEMES).map(([k, th]) => `<option value="${k}" ${S.musicStyle === k ? 'selected' : ''}>${th.name} · ${names[k]}</option>`).join('')}
+      </select></label>
+      ${toggle('musicCalm', T('sMusicCalm'))}
+      <p class="muted small">${T('sMusicNote')}</p>
+    </div>`;
+}
+function bindAudioPanel(root) {
+  if (!root) return;
+  root.querySelectorAll('[data-toggle]').forEach(c => c.addEventListener('change', () => {
+    S[c.dataset.toggle] = c.checked; save(); applyPrefs(); syncMusic(); syncTheme();
+    if (c.dataset.toggle === 'audioOn') { root.querySelector('.a-group').toggleAttribute('data-off', !S.audioOn); if (!S.audioOn) voice.stop(); }
+  }));
+  root.querySelectorAll('[data-vol]').forEach(r => r.addEventListener('input', () => {
+    const k = r.dataset.vol; S[k] = +r.value; r.nextElementSibling.textContent = S[k] + '%'; save();
+    if (k === 'musicVol') music.setVolume(S.musicVol / 100);
+  }));
+  root.querySelectorAll('[data-vol="sfxVol"]').forEach(r => r.addEventListener('change', () => sfx.tap()));
+  root.querySelector('[data-style]').addEventListener('change', e => { S.musicStyle = e.target.value; save(); syncMusic(); syncTheme(); });
+}
+function openAudioPanel() {
+  openDialog(`<h2>♫ ${T('aPanel')}</h2><div class="audio-panel">${audioPanelHTML()}</div>`);
+  bindAudioPanel($('#dialog-body .audio-panel'));
+}
+
 function toggle(key, label) {
   return `<label class="switch"><input type="checkbox" data-toggle="${key}" ${S[key] ? 'checked' : ''}><span class="track" aria-hidden="true"></span><span>${label}</span></label>`;
 }
@@ -658,7 +706,7 @@ function renderActivity(head, i) {
   if (a.kind === 'choice' || a.kind === 'read' || a.kind === 'listen') {
     let pre = '';
     if (a.kind === 'listen') {
-      const can = S.voiceOn && voice.hasSpeech();
+      const can = S.audioOn && S.voiceOn && voice.hasSpeech();
       pre = `<div class="speaker">${speakerHTML(a.who)}<div class="bubble">
           <button class="btn listen-btn" data-say="${esc(a.say)}" data-who="${a.who || ''}" ${can ? '' : 'hidden'}>🔊 ${T('listen')}</button>
           <details class="tr" ${can ? '' : 'open'}><summary>${T('showText')}</summary><p class="bg-line">${bg(a.say)}</p><p class="muted">${esc(help(a.bgHelp))}</p></details>
@@ -695,7 +743,7 @@ function renderActivity(head, i) {
     work.querySelectorAll('.m-item.left').forEach(b => b.addEventListener('click', () => {
       work.querySelectorAll('.m-item.left').forEach(x => x.setAttribute('aria-pressed', 'false'));
       b.setAttribute('aria-pressed', 'true'); sel = b; sfx.tap();
-      if (S.voiceOn) voice.speak(a.pairs[+b.dataset.k][0], { voiceURI: S.voiceURI, rate: S.rate });
+      if (S.audioOn && S.voiceOn) voice.speak(a.pairs[+b.dataset.k][0], { voiceURI: S.voiceURI, rate: S.rate, volume: S.voiceVol / 100 });
     }));
     work.querySelectorAll('.m-item.right').forEach(b => b.addEventListener('click', () => {
       if (!sel) { work.querySelectorAll('.m-item.left:not(:disabled)').forEach(toastFlash); return; }
@@ -730,7 +778,7 @@ function renderActivity(head, i) {
       $('#check').addEventListener('click', () => {
         if (line.join(joiner) === target.join(joiner)) {
           work.querySelectorAll('.tile').forEach(t => t.disabled = true); $('#check').hidden = true;
-          if (S.voiceOn && a.kind === 'order') voice.speak(line.join(' '), { voiceURI: S.voiceURI, rate: S.rate });
+          if (S.audioOn && S.voiceOn && a.kind === 'order') voice.speak(line.join(' '), { voiceURI: S.voiceURI, rate: S.rate, volume: S.voiceVol / 100 });
           success();
         } else fail(() => {
           // Proviamo insieme: rimette a posto la parte iniziale corretta e aggiunge il pezzo successivo.
