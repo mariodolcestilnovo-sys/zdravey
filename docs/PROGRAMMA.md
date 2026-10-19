@@ -25,7 +25,7 @@ prova e si pubblica solo quando dice «pubblica».
 | 16 | 3 obiettivi del giorno (nappine) e calamite di stagione (sfida del mese) | fatto (in locale) |
 | 17 | Riepilogo di fine capitolo, «N di fila», prova senza aiuti → calamita dorata | fatto (in locale) |
 | 18 | «Ripeti ad alta voce» (riconoscimento vocale bg-BG), «Ora non posso parlare/ascoltare» | fatto (in locale) |
-| 19 | Piccoli tocchi: glossario sulle parole, «troppo facile/difficile», ascolto lento | in corso |
+| 19 | Piccoli tocchi: glossario sulle parole, «troppo facile/difficile», ascolto lento | fatto (in locale) |
 | Dopo | Account e salvataggio online (Google, email con doppia password, recupero): progetto separato, servizio gratuito nuovo, massima attenzione ai dati personali | da pianificare |
 
 Non servono inviti a una scuola: non esiste una scuola di bulgaro collegata.

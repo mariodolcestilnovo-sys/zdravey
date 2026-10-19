@@ -511,3 +511,10 @@ body.sr nav#nav.away { transform: none; }
 .speak-line .sw.heard { background: var(--ok-bg); color: var(--ok); }
 
 .gold-link { min-height: 32px; padding: 2px 0; text-align: left; }
+
+/* Glossario, valutazioni */
+.gl { border-bottom: 2px dotted #c9a9ad; cursor: help; position: relative; }
+@media (hover: hover) { .gl:hover::after { content: attr(data-g); position: absolute; left: 0; top: 110%; z-index: 5; white-space: nowrap; background: var(--ink); color: #fff; font-size: .7em; font-weight: 600; padding: 3px 8px; border-radius: 8px; } }
+.rate-row { font-size: .85em; color: var(--muted); margin: 8px 0 0; }
+.rate-row .link-btn { font-size: 1em; min-height: 32px; padding: 0 2px; }
+.icon-btn.slow { font-size: .95em; }

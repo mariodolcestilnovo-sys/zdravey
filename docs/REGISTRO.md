@@ -326,3 +326,4 @@ di terzi; niente vite, negozio o classifiche.
   (scrittura in lettere latine accettata) → obiettivi completati; prova senza aiuti → calamita dorata nel frigo;
   calendario; ripasso interrotto e ripreso. Corretto: niente «Torna all'esercizio» sulle schermate finali.
   Il riconoscimento vocale vero va provato da Mario sul telefono (qui non c'è microfono). Solo in locale.
+- 2026-10-19 — Passo 19: glossario nei fumetti (parole conosciute sottolineate a puntini: al passaggio o al tocco traslitterazione e significato), 🐢 ascolto lento nei fumetti e negli ascolti, «Com'era? 😌 troppo facile · 😓 troppo difficile» dopo ogni risposta, esportabile in CSV dalle impostazioni per Mario. L'idea «la stessa frase in più forme» è coperta da «Più difficile» e dagli errori che tornano, senza nuovi contenuti. Verificato nel browser. Solo in locale.
