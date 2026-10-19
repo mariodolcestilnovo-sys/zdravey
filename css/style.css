@@ -436,3 +436,26 @@ body.calm nav#nav { transition: none; }
 .placement .prompt { font-size: 1.15em; }
 .opt.dont-know { background: #f5efe7; }
 .pl-result { font-size: 1.1em; }
+
+/* ── Accessibilità ── */
+body.contrast {
+  --ink: #000; --muted: #2b2b2b; --paper: #fff; --card: #fff; --line: #000;
+  --red: #a3001b; --red-dark: #6e0012; --ok: #00602f; --ok-bg: #e2f5e9; --bad: #8f1d10; --bad-bg: #fde8e5;
+}
+body.contrast .card, body.contrast .chapter, body.contrast fieldset, body.contrast .words li { box-shadow: none; border: 2px solid #000; }
+body.contrast .opt, body.contrast .m-item, body.contrast .tile, body.contrast .big-btn, body.contrast .seg button { border-color: #000; }
+body.contrast .tl, body.contrast .muted { color: #2b2b2b !important; }
+body.contrast .bubble { background: #fff; border: 2px solid #000; }
+body.contrast :focus-visible { outline: 4px solid #000; outline-offset: 3px; }
+body.bigtargets .btn, body.bigtargets .opt, body.bigtargets .m-item, body.bigtargets .big-btn { min-height: 64px; }
+body.bigtargets .icon-btn { min-width: 54px; height: 54px; }
+body.bigtargets .tile { min-height: 58px; min-width: 58px; }
+body.bigtargets .key { min-height: 52px; }
+body.bigtargets nav#nav button { min-height: 66px; }
+body.bigtargets .switch { min-height: 56px; }
+/* Mancini: comandi a sinistra */
+body.lefty header#topbar { flex-direction: row-reverse; }
+body.lefty .opt-wrap, body.lefty .listen-row, body.lefty .ch-head, body.lefty .auto { flex-direction: row-reverse; }
+body.lefty .bg-line { flex-direction: row-reverse; justify-content: flex-end; }
+/* Lettore di schermo: niente barra a scomparsa */
+body.sr nav#nav.away { transform: none; }
