@@ -412,3 +412,15 @@ body.translit .no-tl .tl { display: none !important; }
 /* Comandi dell'ascolto */
 .listen-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
 .listen-row .icon-btn:disabled { opacity: .4; }
+
+/* Tutorial con faretto */
+.tour { position: fixed; inset: 0; z-index: 60; }
+.tour-spot { position: fixed; border-radius: 14px; box-shadow: 0 0 0 9999px rgba(43, 35, 33, .62); outline: 3px solid #fff; transition: all .25s ease; pointer-events: none; }
+.tour-card { position: fixed; left: 50%; transform: translateX(-50%); width: min(92vw, 420px); background: var(--card); color: var(--ink); border-radius: 18px; padding: 16px; box-shadow: 0 16px 40px rgba(0, 0, 0, .3); }
+.tour-card.center { top: 50% !important; transform: translate(-50%, -50%); }
+.tour-card h2 { margin-top: 0; }
+.tour-hero { width: 72px; margin: 0 auto 6px; }
+.tour-count { font-size: .8em; color: var(--muted); margin: 8px 0 0; }
+.tour-row { display: flex; gap: 8px; align-items: center; margin-top: 10px; }
+.tour-gap { flex: 1; }
+body.calm .tour-spot { transition: none; }

@@ -3,6 +3,7 @@ import { avatars, magnets, lockedMagnet } from './art.js';
 import { toLatin, toCyrillic } from './translit.js';
 import * as voice from './speech.js';
 import * as music from './music.js';
+import { startTour, tourOpen } from './tour.js';
 
 // ───────── Testi dell'interfaccia ─────────
 const UI = {
@@ -17,7 +18,7 @@ const UI = {
     iosSilent: 'Su iPhone la voce non si sente con il silenzioso attivo: toglilo per ascoltare.',
     noVoiceHelp: 'Non si sente niente? Alza il volume, togli il silenzioso e controlla che la voce bulgara sia scaricata. Puoi sempre leggere il testo.',
     voiceOff: 'La voce è spenta: puoi accenderla nelle impostazioni.', voicesFound: 'Voci bulgare trovate', showTrLabel: 'Traduzioni già aperte (capitoli 1–10)',
-    activity: 'Attività', of: 'di', help: 'Aiuto della guida', keyboard: 'Tastiera cirillica', example: 'Mostra un esempio', send: 'Invia', sent: 'Messaggio inviato!', prevStep: 'Torna indietro', lPause: 'Pausa', lResume: 'Riprendi', lStop: 'Stop', backToGame: 'Torna all’esercizio', nextCh: 'Capitolo', yourMsg: 'Il tuo messaggio',
+    activity: 'Attività', of: 'di', help: 'Aiuto della guida', keyboard: 'Tastiera cirillica', example: 'Mostra un esempio', send: 'Invia', sent: 'Messaggio inviato!', prevStep: 'Torna indietro', tourTitle: 'Tutorial', tourSkip: 'Salta', tourDone: 'Iniziamo!', tourAgain: 'Rivedi il tutorial', tour1: r => `Ti mostro i comandi in un minuto. La tua guida, ${r}, ti accompagna in tutto il viaggio.`, tour2: 'Questa è la sfida: riempire il frigo di calamite entro il 1° marzo. La barra mostra quante ne hai.', tour3: 'Ogni capitolo è una tappa della storia, con 15 attività. Puoi sceglierli liberamente.', tour4: 'Il frigo: qui finiscono le calamite che conquisti. Toccane una per rigiocare quel capitolo.', tour5: 'Le parole di ogni capitolo, con la pronuncia e la vocale accentata.', tour6: 'L’audio: musica, effetti e voce, ognuno con il suo volume. Qui puoi anche spegnere tutto.', tour7: 'Aa mostra o nasconde le lettere latine sotto il cirillico.', tour8: 'Le impostazioni: lingua, nome, guida, lettura… e qui puoi rivedere questo tutorial.', tour9: 'Negli esercizi trovi anche 💡 per la spiegazione della guida e ← per tornare indietro. Ora tocca a te: premi «Gioca»!', lPause: 'Pausa', lResume: 'Riprendi', lStop: 'Stop', backToGame: 'Torna all’esercizio', nextCh: 'Capitolo', yourMsg: 'Il tuo messaggio',
     aiSlot: 'Consiglio automatico: in arrivo. Stiamo provando un’AI gratuita che potrà darti un suggerimento sulle frasi libere.',
     reward: 'Nuova calamita!', toFridge: 'Vai al frigo', toJourney: 'Torna al viaggio',
     challenge: (n, tot) => `Riempi il frigo entro il 1° marzo: ${n} di ${tot} calamite.`,
@@ -44,7 +45,7 @@ const UI = {
     iosSilent: 'On iPhone the voice can’t be heard in silent mode: switch it off to listen.',
     noVoiceHelp: 'Can’t hear anything? Turn the volume up, switch off silent mode and check the Bulgarian voice is downloaded. You can always read the text.',
     voiceOff: 'The voice is off: you can turn it on in Settings.', voicesFound: 'Bulgarian voices found', showTrLabel: 'Translations already open (chapters 1–10)',
-    activity: 'Activity', of: 'of', help: 'Guide’s help', keyboard: 'Cyrillic keyboard', example: 'Show an example', send: 'Send', sent: 'Message sent!', prevStep: 'Go back', lPause: 'Pause', lResume: 'Resume', lStop: 'Stop', backToGame: 'Back to the exercise', nextCh: 'Chapter', yourMsg: 'Your message',
+    activity: 'Activity', of: 'of', help: 'Guide’s help', keyboard: 'Cyrillic keyboard', example: 'Show an example', send: 'Send', sent: 'Message sent!', prevStep: 'Go back', tourTitle: 'Tutorial', tourSkip: 'Skip', tourDone: 'Let’s go!', tourAgain: 'Replay the tutorial', tour1: r => `I’ll show you the controls in a minute. Your guide, ${r}, is with you for the whole journey.`, tour2: 'This is the challenge: fill the fridge with magnets by 1 March. The bar shows how many you have.', tour3: 'Each chapter is a step of the story, with 15 activities. You can pick them freely.', tour4: 'The fridge: the magnets you win end up here. Tap one to replay that chapter.', tour5: 'The words of every chapter, with pronunciation and the stressed vowel.', tour6: 'Audio: music, effects and voice, each with its own volume. You can also turn everything off here.', tour7: 'Aa shows or hides Latin letters under the Cyrillic.', tour8: 'Settings: language, name, guide, reading… and you can replay this tutorial here.', tour9: 'In the exercises you’ll also find 💡 for your guide’s explanation and ← to go back. Now it’s your turn: press “Play”!', lPause: 'Pause', lResume: 'Resume', lStop: 'Stop', backToGame: 'Back to the exercise', nextCh: 'Chapter', yourMsg: 'Your message',
     aiSlot: 'Automatic tip: coming soon. We’re testing a free AI that could give you a hint on free sentences.',
     reward: 'New magnet!', toFridge: 'Go to the fridge', toJourney: 'Back to the journey',
     challenge: (n, tot) => `Fill the fridge by 1 March: ${n} of ${tot} magnets.`,
@@ -229,6 +230,7 @@ function go(v) {
   const restored = v === 'chapter' && restoreChapter();
   if (!restored) ({ journey: renderJourney, fridge: renderFridge, words: renderWords, settings: renderSettings, chapter: renderStep })[v]();
   if (v !== 'chapter') addBackToGame();
+  if (v === 'journey' && !S.tourSeen) setTimeout(runTour, 250);
   window.scrollTo(0, restored ? restored.scroll : 0);
   const target = restored?.focus?.isConnected ? restored.focus : $('h1, h2', app);
   if (target) { if (!restored?.focus) target.setAttribute('tabindex', '-1'); target.focus({ preventScroll: true }); }
@@ -331,7 +333,7 @@ function renderWelcome(stepN = 0) {
       $('#b-start').disabled = false;
     }));
     $('#b-back').addEventListener('click', () => renderWelcome(1));
-    $('#b-start').addEventListener('click', () => openChapter(1));
+    $('#b-start').addEventListener('click', () => go('journey')); // il viaggio parte con il tutorial guidato
   }
   const h = $('h1', app); h?.setAttribute('tabindex', '-1');
 }
@@ -391,6 +393,25 @@ function attachKeyboard(toggle, slot, input, onType) {
     toggle.setAttribute('aria-expanded', open);
     if (open) { upper = !input.value; draw(); } else slot.innerHTML = '';
   });
+}
+
+// ───────── Tutorial guidato ─────────
+function runTour() {
+  if (tourOpen() || view !== 'journey') return;
+  $('#nav').classList.remove('away'); // la barra in basso deve vedersi durante il tutorial
+  const g = guides[guideKey()];
+  const steps = [
+    { target: null, html: `<div class="tour-hero">${avatars[guideKey()]}</div><h2>${bg('Добре дошли!')}</h2><p>${T('tour1')(g[L()].role)}</p>` },
+    { target: '.challenge', html: `<h2>${T('journey')}</h2><p>${T('tour2')}</p>` },
+    { target: '.chapter:first-child .btn', html: `<p>${T('tour3')}</p>` },
+    { target: '#nav [data-view="fridge"]', html: `<p>${T('tour4')}</p>` },
+    { target: '#nav [data-view="words"]', html: `<p>${T('tour5')}</p>` },
+    { target: '#music-btn', html: `<p>${T('tour6')}</p>` },
+    { target: '#translit-btn', html: `<p>${T('tour7')}</p>` },
+    { target: '#settings-btn', html: `<p>${T('tour8')}</p>` },
+    { target: '.chapter:first-child .btn', html: `<p>${T('tour9')}</p>` }
+  ];
+  startTour(steps, { title: T('tourTitle'), skip: T('tourSkip'), back: T('back'), next: T('next'), done: T('tourDone') }, () => { S.tourSeen = true; save(); });
 }
 
 // ───────── Viaggio ─────────
@@ -512,6 +533,7 @@ function renderSettings() {
         <p class="muted small forms-demo"><span lang="bg">д л и т</span> → ${T('sFormsNote')}</p>
         ${vibOk ? toggle('vibrate', T('sVibrate')) : `<p class="muted small">${T('sVibrateNo')}</p>`}
         ${toggle('autoAdvance', T('sAuto'))}
+        <button class="btn small ghost" id="s-tour">🔦 ${T('tourAgain')}</button>
         ${toggle('bigText', T('sBig'))}
         ${toggle('reduceMotion', T('sMotion'))}
       </fieldset>
@@ -532,6 +554,7 @@ function renderSettings() {
     voice.diagnose(b.dataset.diag, dlog);
   }));
   bindAudioPanel(app.querySelector('.audio-panel'));
+  $('#s-tour')?.addEventListener('click', () => { S.tourSeen = false; save(); go('journey'); });
   $('#s-back-welcome')?.addEventListener('click', () => { view = 'journey'; renderWelcome(welcomeStep); });
   $('#s-rate').addEventListener('input', e => { S.rate = +e.target.value; $('#rate-out').textContent = Math.round(S.rate * 100) + '%'; save(); });
   attachKeyboard($('.kb-toggle'), $('.kb-slot'), $('#s-namebg'));
