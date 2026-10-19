@@ -236,3 +236,13 @@
   nuovo giocatore dal benvenuto, 10 capitoli completi, 10 calamite, font caricato, HTTPS, nessun errore.
 - Il plugin GitHub dell'app Claude resta non funzionante (manca la chiave GITHUB_PERSONAL_ACCESS_TOKEN):
   non serve, si usa `gh` dal terminale.
+
+## 2026-10-19 — Musica «ambient» negli esercizi (solo in locale)
+
+- Richiesta di Mario: nei capitoli la musica era troppo incalzante. Nuova modalità ambient, solo dentro i
+  capitoli (menu, viaggio e frigo restano come prima): stesse melodie e struttura, tempo ×1,6, niente
+  bacchetta del тъпан (solo un colpo grave e morbido a inizio battuta), melodia sul кавал morbido,
+  controtema con un tappeto morbido, bordone più basso, eco leggera, volume al 70%.
+- Opzione nelle impostazioni «Musica rilassata durante gli esercizi» (attiva di default).
+- Verificato (Mac, locale): frigo → tema normale; cap. 3 e 9 → tema giusto in ambient; struttura rispettata;
+  nessun errore. **Non ancora pubblicato** (si pubblica quando Mario dice «pubblica»).
