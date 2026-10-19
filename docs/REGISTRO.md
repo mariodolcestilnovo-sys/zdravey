@@ -167,3 +167,10 @@
 **Da fare**
 - Revisione AI del bulgaro dei capitoli 2–10 in una sessione separata, poi applicare le correzioni.
 - Prova di Mario sul telefono. Dubbi aperti per il madrelingua (cap. 1 e successivi).
+
+## 2026-10-19 — Revisione AI del bulgaro, capitoli 2–10
+
+- Revisione da sessione separata (ruolo «insegnante di bulgaro»): [REVISIONE-AI-cap2-10.md](REVISIONE-AI-cap2-10.md).
+  Bulgaro corretto; 13 piccole correzioni (soprattutto spiegazioni italiane, 4 testi IT che presuppongono
+  un giocatore maschio, «улица Витоша» → «булевард Витоша»), miglioramenti facoltativi e 16 dubbi per un madrelingua.
+  File `js` non modificati: le correzioni le applica la sessione principale.
