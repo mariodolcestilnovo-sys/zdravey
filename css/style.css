@@ -465,3 +465,49 @@ body.sr nav#nav.away { transform: none; }
 .share-preview { display: block; width: 100%; max-height: 55vh; object-fit: contain; border-radius: 12px; margin: 6px 0 10px; background: #fbf7f2; }
 
 .copyright { max-width: 680px; margin: 0 auto 16px; padding: 0 16px; text-align: center; font-size: .8em; color: var(--muted); }
+
+/* ── Ripasso, memoria, abitudini, prova senza aiuti ── */
+.hard-toggle { float: right; font-size: .9em; min-height: 32px; padding: 4px 0; }
+.w-in { font-size: 1.3rem !important; }
+.w-note { background: #fff8e1; border-radius: 10px; padding: 8px 10px; margin: 8px 0 0; }
+.no-help details.tr, .no-help .tl, .no-help #together { display: none !important; }
+.summary { background: var(--paper); border-radius: 14px; padding: 10px 14px; margin: 10px 0; }
+.sum-label { font-weight: 900; font-size: 1.15em; margin: 0 0 4px; }
+.sum-list { list-style: none; padding: 0; margin: 0; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.magnet.gold svg rect:first-child, .magnet.gold svg > rect { stroke: #d4a017 !important; stroke-width: 6 !important; }
+.magnet.gold { filter: drop-shadow(0 0 8px rgba(212, 160, 23, .7)); }
+.today { margin-top: 12px; }
+.today-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.streak { font-weight: 900; margin: 0; }
+.goals { list-style: none; padding: 0; margin: 8px 0; display: grid; gap: 6px; }
+.goals li { display: grid; grid-template-columns: 1fr 70px 38px; gap: 8px; align-items: center; font-size: .92em; }
+.goals li.done span:first-child { color: var(--ok); font-weight: 700; }
+.g-bar { height: 7px; border-radius: 4px; background: var(--line); overflow: hidden; }
+.g-bar i { display: block; height: 100%; background: repeating-linear-gradient(90deg, var(--red) 0 8px, #fff 8px 11px); }
+.g-num { text-align: right; color: var(--muted); font-size: .85em; }
+.cal { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; text-align: center; margin: 6px 0 10px; }
+.cal b { font-size: .75em; color: var(--muted); }
+.cal span { padding: 6px 0; border-radius: 8px; font-size: .9em; }
+.cal .active { background: repeating-linear-gradient(135deg, var(--red) 0 6px, #fff 6px 10px); color: #000; font-weight: 800; box-shadow: inset 0 0 0 2px var(--red); }
+.cal .rest { box-shadow: inset 0 0 0 2px #c9c2b8; background: #f5efe7; }
+.cal .today { outline: 2px solid var(--ink); }
+.cal-month { font-weight: 800; text-transform: capitalize; margin: 4px 0 0; }
+.cal-key { display: inline-block; width: 14px; height: 14px; border-radius: 4px; vertical-align: middle; margin-left: 8px; }
+.cal-key.active { background: repeating-linear-gradient(135deg, var(--red) 0 4px, #fff 4px 7px); box-shadow: inset 0 0 0 1px var(--red); }
+.cal-key.rest { background: #f5efe7; box-shadow: inset 0 0 0 1px #c9c2b8; }
+.season-title { margin-top: 18px; }
+.season-row { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; max-width: 420px; margin: 6px auto 0; }
+.small-mag svg { width: 100%; height: auto; }
+.small-mag.locked-s { filter: grayscale(1); opacity: .35; }
+.tassels { margin: 4px 0 0; }
+.center-row { justify-content: center; }
+.fresh { display: inline-flex; gap: 2px; align-items: flex-end; height: 14px; margin-right: 4px; grid-row: span 3; align-self: center; }
+.fresh i { width: 4px; border-radius: 2px; background: #dccfc2; }
+.fresh i:nth-child(1) { height: 5px; } .fresh i:nth-child(2) { height: 9px; } .fresh i:nth-child(3) { height: 13px; }
+.fresh.f1 i:nth-child(1), .fresh.f2 i:nth-child(-n+2), .fresh.f3 i { background: var(--ok); }
+.fresh.f1 i:nth-child(1) { background: var(--bad); }
+.words li { grid-template-columns: auto auto 1fr; }
+.speak-line .sw { padding: 0 2px; border-radius: 6px; transition: background .2s; }
+.speak-line .sw.heard { background: var(--ok-bg); color: var(--ok); }
+
+.gold-link { min-height: 32px; padding: 2px 0; text-align: left; }

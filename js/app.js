@@ -1,5 +1,8 @@
 import { phases, guides, chapters, chapterData, REVIEW_STATUS } from './content.js';
-import { avatars, magnets, lockedMagnet } from './art.js';
+import { avatars, magnets, lockedMagnet, seasonalMagnets } from './art.js';
+import * as mem from './memory.js';
+import { checkWritten } from './check.js';
+import * as habit from './habit.js';
 import { toLatin, toCyrillic } from './translit.js';
 import * as voice from './speech.js';
 import * as music from './music.js';
@@ -23,6 +26,7 @@ const UI = {
     iosSilent: 'Su iPhone la voce non si sente con il silenzioso attivo: toglilo per ascoltare.',
     noVoiceHelp: 'Non si sente niente? Alza il volume, togli il silenzioso e controlla che la voce bulgara sia scaricata. Puoi sempre leggere il testo.',
     voiceOff: 'La voce è spenta: puoi accenderla nelle impostazioni.', voicesFound: 'Voci bulgare trovate', showTrLabel: 'Traduzioni già aperte (capitoli 1–10)',
+    writeIt: 'Scrivilo in cirillico.', retryTag: 'Di nuovo, più difficile', retryIntro: n => `Prima del finale ripassiamo ${n === 1 ? 'l’attività che' : `le ${n} attività che`} ti ${n === 1 ? 'ha' : 'hanno'} fatto sbagliare, in una forma un po’ più difficile.`, sumGreat: 'Ottimo!', sumGood: 'Bene!', sumReview: 'Da ripassare: niente paura, il ripasso di 5 minuti ti aiuta.', sumFirst: 'giuste al primo colpo', sumWords: 'parole nuove', sumMin: 'min', goldHave: 'Hai già la calamita dorata di questo capitolo!', goldTry: 'Prova senza aiuti: calamita dorata', goldNote: 'Senza lettere latine, traduzioni né aiuti, scrivendo le risposte. Al massimo 2 errori.', goldTitle: 'Prova senza aiuti', goldWon: 'Complimenti: calamita dorata conquistata!', goldMissed: n => `${n} errori: per la calamita dorata ne servono al massimo 2. Riprova quando vuoi!`, easier: 'Più facile', harderBtn: 'Più difficile: scrivo io', inARow: n => `${n} di fila`, goalsDone: 'Obiettivi del giorno completati: una nappina per il tuo frigo!', seasonalWon: 'Sfida del mese completata: nuova calamita di stagione nel frigo!', yourAnswer: 'La tua risposta (cirillico o lettere latine)', wLatin: r => `Hai scritto in lettere latine: va bene! In cirillico è <b lang="bg">${r}</b>.`, wSmall: r => `Piccolo errore: si scrive <b lang="bg">${r}</b>.`, wConf: (r, g, w) => `Attento: qui ci vuole <b lang="bg">${r}</b>, non <b lang="bg">${g}</b> → <b lang="bg">${w}</b>.`, almost: 'Quasi perfetto!', letters: 'lettere', reviewTip: 'Ripassa con calma: ogni parola ricordata dura più a lungo nella memoria.', reviewNone: 'Prima gioca almeno un capitolo: poi il ripasso userà le sue parole.', reviewTitle: 'Ripasso di 5 minuti', reviewDone: 'Ripasso finito!', reviewScore: (ok, n) => `${ok} su ${n} giuste al primo colpo.`, reviewNext: 'Le parole che hai sbagliato torneranno presto; quelle giuste più avanti.', speakNow: 'Parla', noSpeak: 'Ora non posso parlare', speakPrivacy: 'Il riconoscimento della voce è quello del browser: in Chrome l’audio passa dai server di Google, in Safari spesso resta sul dispositivo. Il gioco non registra niente.', listening: 'Ti ascolto…', speakAgain: 'Riprova a parlare', noListen: 'Ora non posso ascoltare', noListenOn: 'Ascolto in pausa per 15 minuti: leggi il testo.', tassels: n => `${n} ${n === 1 ? 'nappina' : 'nappine'} della Мартеница (obiettivi del giorno completati)`, seasonTitle: 'Calamite di stagione', seasonNote: (n, t, name) => `Sfida del mese: completa tutti gli obiettivi del giorno per ${t} giorni (${n}/${t}) e vinci «${name}».`, freshT: ['Mai vista', 'Da ripassare', 'Così così', 'Fresca'], streak: n => `${n} ${n === 1 ? 'giorno' : 'giorni'} di fila`, calendar: 'Calendario', goal_acts: '3 attività', goal_run: '5 giuste di fila', goal_review: 'Un ripasso di 5 minuti', calNote: n => `Ogni giorno in cui giochi aggiunge un filo bianco e rosso. Ogni mese hai ${n} giorni di riposo gratuiti che non rompono la serie.`, calActive: 'giocato', calRest: 'riposo', milestones: 'Traguardi: 7, 30 e 100 giorni.',
     activity: 'Attività', of: 'di', help: 'Aiuto della guida', keyboard: 'Tastiera cirillica', example: 'Mostra un esempio', send: 'Invia', sent: 'Messaggio inviato!', prevStep: 'Torna indietro', plTitle: 'Test di orientamento', plOffer: 'Sai già un po’ di bulgaro? Fai il test di orientamento: 11 domande, circa 2 minuti. Ti suggerisce da quale capitolo partire.', plYes: 'Fai il test', plNo: 'No, grazie', plQ: (i, n) => `Domanda ${i} di ${n}`, plNote: 'Non è un esame: serve solo a orientarti. Puoi sempre scegliere qualsiasi capitolo.', plGo: n => `Vai al capitolo ${n}`, plResult: (n, title) => `Ti consigliamo di partire dal capitolo ${n}: «${title}».`, plAll: 'Complimenti: conosci già le basi di tutti i 10 capitoli! Scegli liberamente da dove ripassare.', plDontKnow: 'Non lo so', tourTitle: 'Tutorial', tourSkip: 'Salta', tourDone: 'Iniziamo!', tourAgain: 'Rivedi il tutorial', tour1: r => `Ti mostro i comandi in un minuto. La tua guida, ${r}, ti accompagna in tutto il viaggio.`, tour2: 'Questa è la sfida: riempire il frigo di calamite entro il 1° marzo. La barra mostra quante ne hai.', tour3: 'Ogni capitolo è una tappa della storia, con 15 attività. Puoi sceglierli liberamente.', tour4: 'Il frigo: qui finiscono le calamite che conquisti. Toccane una per rigiocare quel capitolo.', tour5: 'Le parole di ogni capitolo, con la pronuncia e la vocale accentata.', tour6: 'L’audio: musica, effetti e voce, ognuno con il suo volume. Qui puoi anche spegnere tutto.', tour7: 'Aa mostra o nasconde le lettere latine sotto il cirillico.', tour8: 'Le impostazioni: lingua, nome, guida, lettura… e qui puoi rivedere questo tutorial.', tour9: 'Negli esercizi trovi anche 💡 per la spiegazione della guida e ← per tornare indietro. Ora tocca a te: premi «Gioca»!', lPause: 'Pausa', lResume: 'Riprendi', lStop: 'Stop', backToGame: 'Torna all’esercizio', nextCh: 'Capitolo', yourMsg: 'Il tuo messaggio',
     aiSlot: 'Consiglio automatico: in arrivo. Stiamo provando un’AI gratuita che potrà darti un suggerimento sulle frasi libere.',
     reward: 'Nuova calamita!', toFridge: 'Vai al frigo', toJourney: 'Torna al viaggio',
@@ -50,6 +54,7 @@ const UI = {
     iosSilent: 'On iPhone the voice can’t be heard in silent mode: switch it off to listen.',
     noVoiceHelp: 'Can’t hear anything? Turn the volume up, switch off silent mode and check the Bulgarian voice is downloaded. You can always read the text.',
     voiceOff: 'The voice is off: you can turn it on in Settings.', voicesFound: 'Bulgarian voices found', showTrLabel: 'Translations already open (chapters 1–10)',
+    writeIt: 'Write it in Cyrillic.', retryTag: 'Again, a bit harder', retryIntro: n => `Before the ending, let’s review the ${n === 1 ? 'activity' : `${n} activities`} you got wrong, in a slightly harder form.`, sumGreat: 'Excellent!', sumGood: 'Well done!', sumReview: 'Worth reviewing: don’t worry, the 5-minute review helps.', sumFirst: 'right first time', sumWords: 'new words', sumMin: 'min', goldHave: 'You already have this chapter’s golden magnet!', goldTry: 'No-help test: golden magnet', goldNote: 'No Latin letters, translations or help, writing the answers. At most 2 mistakes.', goldTitle: 'No-help test', goldWon: 'Well done: golden magnet won!', goldMissed: n => `${n} mistakes: the golden magnet needs at most 2. Try again whenever you like!`, easier: 'Easier', harderBtn: 'Harder: I’ll write it', inARow: n => `${n} in a row`, goalsDone: 'Daily goals completed: a tassel for your fridge!', seasonalWon: 'Monthly challenge completed: a new seasonal magnet on your fridge!', yourAnswer: 'Your answer (Cyrillic or Latin letters)', wLatin: r => `You wrote in Latin letters: that’s fine! In Cyrillic it’s <b lang="bg">${r}</b>.`, wSmall: r => `Small mistake: it’s spelt <b lang="bg">${r}</b>.`, wConf: (r, g, w) => `Careful: this needs <b lang="bg">${r}</b>, not <b lang="bg">${g}</b> → <b lang="bg">${w}</b>.`, almost: 'Almost perfect!', letters: 'letters', reviewTip: 'Take your time: every word you remember lasts longer in your memory.', reviewNone: 'Play at least one chapter first: the review will then use its words.', reviewTitle: '5-minute review', reviewDone: 'Review done!', reviewScore: (ok, n) => `${ok} of ${n} right first time.`, reviewNext: 'The words you got wrong will come back soon; the right ones later.', speakNow: 'Speak', noSpeak: 'I can’t speak now', speakPrivacy: 'Speech recognition is the browser’s: in Chrome the audio goes through Google’s servers, in Safari it often stays on the device. The game records nothing.', listening: 'Listening…', speakAgain: 'Try speaking again', noListen: 'I can’t listen now', noListenOn: 'Listening paused for 15 minutes: read the text.', tassels: n => `${n} martenitsa ${n === 1 ? 'tassel' : 'tassels'} (daily goals completed)`, seasonTitle: 'Seasonal magnets', seasonNote: (n, t, name) => `Monthly challenge: complete all the daily goals on ${t} days (${n}/${t}) and win “${name}”.`, freshT: ['Never seen', 'Needs review', 'So-so', 'Fresh'], streak: n => `${n} ${n === 1 ? 'day' : 'days'} in a row`, calendar: 'Calendar', goal_acts: '3 activities', goal_run: '5 right in a row', goal_review: 'One 5-minute review', calNote: n => `Every day you play adds a white and red thread. Each month you get ${n} free rest days that don’t break the streak.`, calActive: 'played', calRest: 'rest', milestones: 'Milestones: 7, 30 and 100 days.',
     activity: 'Activity', of: 'of', help: 'Guide’s help', keyboard: 'Cyrillic keyboard', example: 'Show an example', send: 'Send', sent: 'Message sent!', prevStep: 'Go back', plTitle: 'Placement test', plOffer: 'Do you already know some Bulgarian? Take the placement test: 11 questions, about 2 minutes. It suggests which chapter to start from.', plYes: 'Take the test', plNo: 'No, thanks', plQ: (i, n) => `Question ${i} of ${n}`, plNote: 'It’s not an exam: it only helps you find your place. You can always pick any chapter.', plGo: n => `Go to chapter ${n}`, plResult: (n, title) => `We suggest starting from chapter ${n}: “${title}”.`, plAll: 'Well done: you already know the basics of all 10 chapters! Pick freely where to review.', plDontKnow: 'I don’t know', tourTitle: 'Tutorial', tourSkip: 'Skip', tourDone: 'Let’s go!', tourAgain: 'Replay the tutorial', tour1: r => `I’ll show you the controls in a minute. Your guide, ${r}, is with you for the whole journey.`, tour2: 'This is the challenge: fill the fridge with magnets by 1 March. The bar shows how many you have.', tour3: 'Each chapter is a step of the story, with 15 activities. You can pick them freely.', tour4: 'The fridge: the magnets you win end up here. Tap one to replay that chapter.', tour5: 'The words of every chapter, with pronunciation and the stressed vowel.', tour6: 'Audio: music, effects and voice, each with its own volume. You can also turn everything off here.', tour7: 'Aa shows or hides Latin letters under the Cyrillic.', tour8: 'Settings: language, name, guide, reading… and you can replay this tutorial here.', tour9: 'In the exercises you’ll also find 💡 for your guide’s explanation and ← to go back. Now it’s your turn: press “Play”!', lPause: 'Pause', lResume: 'Resume', lStop: 'Stop', backToGame: 'Back to the exercise', nextCh: 'Chapter', yourMsg: 'Your message',
     aiSlot: 'Automatic tip: coming soon. We’re testing a free AI that could give you a hint on free sentences.',
     reward: 'New magnet!', toFridge: 'Go to the fridge', toJourney: 'Back to the journey',
@@ -252,6 +257,10 @@ function go(v) {
 // così com'è (risposte parziali, riscontro, pulsanti) e rimessa al suo posto al ritorno.
 let parked = null;
 function parkChapter() {
+  // si parcheggia solo un esercizio in corso, non le schermate finali
+  const steps = session ? session.steps : chapterData[current.ch] ? stepsFor(current.ch) : [];
+  const st = steps[current.step];
+  if (!st || st.type === 'end' || st.type === 'reward') { parked = null; return; }
   const focus = app.contains(document.activeElement) ? document.activeElement : null;
   const frag = document.createDocumentFragment();
   while (app.firstChild) frag.appendChild(app.firstChild);
@@ -451,6 +460,7 @@ function renderJourney() {
         <div><h1>${T('journey')}</h1><p>${T('challenge')(won, chapters.length)}</p>
           <div class="meter" role="img" aria-label="${won}/${chapters.length}"><i style="width:${won / chapters.length * 100}%"></i></div></div>
       </div>
+      ${todayCard()}
       ${!S.placementDone && !S.placementNo && !Object.keys(S.progress).length ? `<div class="card pl-offer"><p>🧭 ${T('plOffer')}</p><div class="row"><button class="btn ghost" id="pl-no">${T('plNo')}</button><button class="btn" id="pl-yes">${T('plYes')}</button></div></div>` : ''}
       <ol class="chapters">
         ${chapters.map(c => {
@@ -460,7 +470,8 @@ function renderJourney() {
             <span class="ch-num" aria-hidden="true">${c.id}</span>
             <span class="ch-text"><span class="ch-bg">${bg(c.bg)}</span><span class="ch-help">${esc(c[L()])}</span>
               ${ready && !p.completed && p.step > 0 ? `<span class="small muted">${T('activity')} ${Math.min(p.done + 1, 15)} ${T('of')} 15</span>` : ''}
-              ${p.completed ? `<span class="small ok">✓ ${T('done')}</span>` : ''}</span>
+              ${p.completed ? `<span class="small ok">✓ ${T('done')}${(S.gold || []).includes(c.magnet) ? ' · 🥇' : ''}</span>` : ''}
+              ${p.completed && !(S.gold || []).includes(c.magnet) ? `<button class="link-btn small gold-link" data-mastery="${c.id}">🥇 ${T('goldTry')}</button>` : ''}</span>
             <button class="btn ${ready ? '' : 'ghost'}" ${ready ? `data-open="${c.id}"` : 'disabled'}>${label}</button>
           </li>`;
         }).join('')}
@@ -468,6 +479,8 @@ function renderJourney() {
     </section>`;
   app.querySelectorAll('[data-open]').forEach(b => b.addEventListener('click', () => openChapter(+b.dataset.open)));
   $('#pl-yes')?.addEventListener('click', () => { pq = { i: 0, answers: [] }; go('placement'); });
+  bindToday();
+  app.querySelectorAll('[data-mastery]').forEach(b => b.addEventListener('click', () => startMastery(+b.dataset.mastery)));
   $('#pl-no')?.addEventListener('click', () => { S.placementNo = true; save(); go('journey'); });
 }
 
@@ -511,15 +524,23 @@ function renderFridge() {
         ${chapters.map(c => {
           const won = S.magnets.includes(c.magnet);
           return won
-            ? `<button role="listitem" class="magnet won" data-open="${c.id}" aria-label="${esc(c.bg)} – ${esc(c[L()])}">${magnets[c.magnet]}</button>`
+            ? `<button role="listitem" class="magnet won ${(S.gold || []).includes(c.magnet) ? 'gold' : ''}" data-open="${c.id}" aria-label="${esc(c.bg)} – ${esc(c[L()])}">${magnets[c.magnet]}</button>`
             : `<div role="listitem" class="magnet" aria-label="${c.id}: ${T('soon')}">${lockedMagnet(c.id)}</div>`;
         }).join('')}
       </div>
       <p class="muted center">${S.magnets.length >= chapters.length ? T('fridgeFull') : T('fridgeEmpty')}</p>
-      <button class="btn share-btn" id="share-fridge">📤 ${T('shareBtn')}</button>
+      ${S.tassels ? `<p class="center tassels">🧶 ${T('tassels')(S.tassels)}</p>` : ''}
+      <div class="row wrap center-row"><button class="btn ghost" id="review-btn">🔁 ${T('reviewTitle')}</button><button class="btn share-btn" id="share-fridge">📤 ${T('shareBtn')}</button></div>
+      <h2 class="season-title">${T('seasonTitle')}</h2>
+      <p class="muted small">${T('seasonNote')(habit.monthProgress(S), habit.MONTH_TARGET, habit.SEASONAL[new Date().getMonth()][L()])}</p>
+      <div class="season-row" role="list">${habit.SEASONAL.map((m, k) => {
+        const won = (S.seasonal || []).some(x => +x.slice(5, 7) === k + 1);
+        return `<div role="listitem" class="magnet small-mag ${won ? 'won' : 'locked-s'}" aria-label="${esc(m.bg)} – ${esc(m[L()])}${won ? '' : ' (' + T('soon') + ')'}" title="${esc(m.bg)} – ${esc(m[L()])}">${seasonalMagnets[k]}</div>`;
+      }).join('')}</div>
     </section>`;
   app.querySelectorAll('[data-open]').forEach(b => b.addEventListener('click', () => openChapter(+b.dataset.open)));
   $('#share-fridge').addEventListener('click', shareFridge);
+  $('#review-btn').addEventListener('click', startReview);
 }
 
 // ───────── Condividi il frigo ─────────
@@ -553,12 +574,42 @@ function renderWords() {
     </section>`;
 }
 
+// Indicatore discreto (3 tacche) di quanto una parola è «fresca» nella memoria.
+function fresh(id) {
+  if (!mem.WORDS.some(w => w.id === id)) return '';
+  const f = mem.freshness(S.mem?.[id]);
+  return `<span class="fresh f${f}" title="${T('freshT')[f]}" aria-label="${T('freshT')[f]}"><i></i><i></i><i></i></span>`;
+}
+// Scheda «oggi» nel viaggio: fili della Мартеница e obiettivi del giorno.
+function todayCard() {
+  if (!Object.keys(S.progress).length && !(S.days || []).length) return '';
+  const st = habit.streak(S), goals = habit.goalProgress(S);
+  return `<div class="card today">
+    <div class="today-head"><p class="streak">🧵 ${T('streak')(st.count)}</p><button class="link-btn" id="cal-btn">📅 ${T('calendar')}</button></div>
+    <ul class="goals">${goals.map(g => `<li class="${g.value >= g.target ? 'done' : ''}"><span>${g.value >= g.target ? '✓' : '○'} ${T('goal_' + g.id)}</span><span class="g-bar" aria-hidden="true"><i style="width:${g.value / g.target * 100}%"></i></span><span class="g-num">${g.value}/${g.target}</span></li>`).join('')}</ul>
+    <button class="btn ghost small" id="review-btn2">🔁 ${T('reviewTitle')}</button>
+  </div>`;
+}
+function bindToday() {
+  $('#review-btn2')?.addEventListener('click', startReview);
+  $('#cal-btn')?.addEventListener('click', () => {
+    const cal = habit.monthCalendar(S), st = habit.streak(S);
+    const names = L() === 'it' ? ['L', 'M', 'M', 'G', 'V', 'S', 'D'] : ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
+    const month = new Date(cal.year, cal.month, 1).toLocaleDateString(L() === 'it' ? 'it-IT' : 'en-GB', { month: 'long', year: 'numeric' });
+    openDialog(`<h2>🧵 ${T('streak')(st.count)}</h2><p class="muted small">${T('calNote')(habit.REST_PER_MONTH)}</p>
+      <p class="cal-month">${month}</p>
+      <div class="cal">${names.map(n => `<b>${n}</b>`).join('')}${'<span></span>'.repeat(cal.offset)}${cal.cells.map(c => `<span class="${c.state} ${c.today ? 'today' : ''}" title="${c.key}">${c.d}</span>`).join('')}</div>
+      <p class="small"><span class="cal-key active"></span> ${T('calActive')} <span class="cal-key rest"></span> ${T('calRest')}</p>
+      <p class="muted small">${T('milestones')}</p>`);
+  });
+}
+
 function wordsList() {
   const last = S.lastCh || 1;
   return chapters.filter(c => chapterData[c.id]).map(c => `
     <details class="w-chapter" ${c.id === last ? 'open' : ''}><summary>${c.id}. ${bg(c.bg)} <span class="muted">· ${esc(c[L()])}</span></summary>
       <ul class="words">
-        ${chapterData[c.id].words.map(([w, tl, m]) => `<li>${speakBtn(w.replace(/\u0301/g, ''))}<span class="w-bg" lang="bg">${esc(w).replace(/(.)\u0301/g, '<span class="stress">$1</span>')}</span><span class="w-tl">${esc(tl)}</span><span class="w-help">${esc(help(m))}</span></li>`).join('')}
+        ${chapterData[c.id].words.map(([w, tl, m], i) => `<li>${speakBtn(w.replace(/\u0301/g, ''))}${fresh(`${c.id}-${i}`)}<span class="w-bg" lang="bg">${esc(w).replace(/(.)\u0301/g, '<span class="stress">$1</span>')}</span><span class="w-tl">${esc(tl)}</span><span class="w-help">${esc(help(m))}</span></li>`).join('')}
       </ul>
     </details>`).join('');
 }
@@ -706,7 +757,9 @@ function toggle(key, label) {
 // ───────── Capitolo: sequenza di passi ─────────
 // intro → [spiegazione fase + 5 attività] × 3 → outro → calamita
 const stepCache = {};
-function stepsFor(ch) {
+// Sessione speciale in corso (ripasso di 5 minuti o prova senza aiuti), altrimenti null.
+let session = null;
+function baseSteps(ch) {
   if (stepCache[ch]) return stepCache[ch];
   const d = chapterData[ch];
   const s = d.intro.map(x => ({ type: 'scene', x }));
@@ -718,21 +771,112 @@ function stepsFor(ch) {
   s.push({ type: 'reward' });
   return (stepCache[ch] = s);
 }
-const D = () => chapterData[current.ch];
-const CH = () => chapters.find(c => c.id === current.ch);
+// Gli errori tornano: le attività sbagliate al primo colpo si ripresentano, più difficili, prima del finale.
+function stepsFor(ch) {
+  if (session) return session.steps;
+  const base = baseSteps(ch), retry = S.progress[ch]?.retry || [];
+  if (!retry.length) return base;
+  const at = base.length - 1 - chapterData[ch].outro.length;
+  return [...base.slice(0, at), { type: 'retryIntro' }, ...retry.map((_, k) => ({ type: 'act', i: 15 + k })), ...base.slice(at)];
+}
+function chapterActs(ch) {
+  const base = chapterData[ch], retry = S.progress[ch]?.retry || [];
+  return retry.length ? { ...base, activities: [...base.activities, ...retry.map(i => harder(base.activities[i]))] } : base;
+}
+const D = () => (session ? session.data : chapterActs(current.ch));
+const CH = () => (session ? session.meta : chapters.find(c => c.id === current.ch));
+const P = () => (session ? session.prog : S.progress[current.ch]);
 let current = { ch: 1, step: 0 };
+let runInChapter = 0; // risposte giuste di fila al primo colpo
+
+const canSpeak = () => !!(window.SpeechRecognition || window.webkitSpeechRecognition) && Date.now() >= (S.noSpeakUntil || 0) && S.audioOn !== false;
+// ───────── Ripasso di 5 minuti e prova senza aiuti ─────────
+const startedChapters = () => chapters.map(c => c.id).filter(id => S.progress[id] || S.magnets.includes(chapters.find(c => c.id === id).magnet));
+const pickOthers = (list, w, n, f) => shuffle(list.filter(x => f(x) !== f(w))).slice(0, n);
+function reviewActivities(words) {
+  const meaning = w => w.m, others = (w, n) => pickOthers(mem.WORDS, w, n, x => x.m.it);
+  const can = S.audioOn && S.voiceOn && voice.hasSpeech();
+  return words.map((w, k) => {
+    const base = { phase: 0, words: [w.id], title: { it: 'Ripasso', en: 'Review' } };
+    const ex = { it: `[[${w.bg}]] (${w.tl}) = ${w.m.it}`, en: `[[${w.bg}]] (${w.tl}) = ${w.m.en}` };
+    const type = ['meaning', 'reverse', 'write', can ? 'listen' : 'reverse', /^[А-Яа-я]{2,7}$/.test(w.bg) ? 'letters' : 'write', canSpeak() ? 'speak' : 'meaning'][k % 6];
+    if (type === 'meaning') return { ...base, kind: 'choice', noTl: true, prompt: { it: `Che cosa vuol dire [[${w.bg}]]?`, en: `What does [[${w.bg}]] mean?` }, options: [meaning(w), ...others(w, 2).map(meaning)], answer: 0, explain: ex };
+    if (type === 'reverse') return { ...base, kind: 'choice', noTl: true, prompt: { it: `Come si dice «${w.m.it}»?`, en: `How do you say “${w.m.en}”?` }, options: [w.bg, ...pickOthers(mem.WORDS, w, 2, x => x.bg).map(x => x.bg)], answer: 0, explain: ex };
+    if (type === 'listen') return { ...base, kind: 'listen', who: 'narrator', say: w.bg, bgHelp: w.m, prompt: { it: 'Ascolta: quale parola senti?', en: 'Listen: which word do you hear?' }, options: [w.bg, ...pickOthers(mem.WORDS, w, 2, x => x.bg).map(x => x.bg)], answer: 0, explain: ex };
+    if (type === 'letters') { const up = w.bg.toUpperCase(); return { ...base, kind: 'letters', noTl: true, prompt: { it: `Componi la parola che si legge «${w.tl}» (${w.m.it}).`, en: `Build the word that reads “${w.tl}” (${w.m.en}).` }, answer: up, pool: shuffle([...up, ...shuffle([...'БВГДЖЗКЛМНПРСТФХЦЧШЩЪЮЯ'].filter(x => !up.includes(x))).slice(0, 2)]), explain: ex }; }
+    if (type === 'speak') return { ...base, kind: 'speak', say: w.bg, bgHelp: w.m, prompt: { it: 'Ripeti ad alta voce:', en: 'Say it out loud:' }, explain: ex };
+    return { ...base, kind: 'write', prompt: { it: `Scrivi in cirillico: «${w.m.it}».`, en: `Write in Cyrillic: “${w.m.en}”.` }, answer: w.bg, explain: ex };
+  });
+}
+function startSession(kind, meta, activities, extra = {}) {
+  session = { kind, meta, data: { activities, teaching: extra.teaching || [T('reviewTip'), T('reviewTip'), T('reviewTip')].map(x => ({ it: x, en: x })), intro: [], outro: [], words: [] },
+    steps: [...activities.map((_, i) => ({ type: 'act', i })), { type: 'end' }], prog: { step: 0, done: 0 }, results: [], start: Date.now(), ...extra };
+  current = { ch: meta.id, step: 0 }; runInChapter = 0;
+  go('chapter');
+}
+function startReview() {
+  const started = startedChapters();
+  if (!started.length) { toast(T('reviewNone')); return; }
+  const words = mem.pickReview(S.mem || {}, started, 10);
+  startSession('review', { id: 'R', bg: 'Преговор', it: T('reviewTitle'), en: T('reviewTitle') }, reviewActivities(words));
+}
+function startMastery(ch) {
+  const c = chapters.find(x => x.id === ch), d = chapterData[ch];
+  startSession('mastery', { ...c }, d.activities.filter(a => a.kind !== 'free').map(a => ({ ...a, hideTr: true })), { teaching: d.teaching, ch });
+}
+function renderSessionEnd(head) {
+  const ok = session.results.filter(Boolean).length, n = session.results.length;
+  let body;
+  if (session.kind === 'review') {
+    const ev = habit.onReview(S); save();
+    if (ev.includes('goals')) setTimeout(() => toast('🧶 ' + T('goalsDone')), 400);
+    if (ev.includes('seasonal')) setTimeout(() => toast('🎁 ' + T('seasonalWon')), 1600);
+    body = `<h2>🔁 ${T('reviewDone')}</h2><p class="sum-label">${T('reviewScore')(ok, n)}</p><p class="muted">${T('reviewNext')}</p>`;
+  } else {
+    const errors = n - ok, pass = errors <= 2, c = chapters.find(x => x.id === session.ch);
+    if (pass) { S.gold ||= []; if (!S.gold.includes(c.magnet)) S.gold.push(c.magnet); save(); sfx.magnet(); }
+    body = `<h2>🥇 ${T('goldTitle')}</h2>
+      <div class="magnet big ${pass ? 'gold pop' : ''}">${magnets[c.magnet]}</div>
+      <p class="sum-label">${pass ? T('goldWon') : T('goldMissed')(errors)}</p>`;
+  }
+  app.innerHTML = `${head}<section class="card reward">${body}
+    <div class="row"><button class="btn" id="to-fridge">${T('toFridge')}</button><button class="btn ghost" id="to-journey">${T('toJourney')}</button></div></section>`;
+  const back = v => { session = null; go(v); };
+  $('#to-fridge').addEventListener('click', () => back('fridge'));
+  $('#to-journey').addEventListener('click', () => back('journey'));
+}
+
+// ───────── Scrittura e versioni «più difficili» ─────────
+const bgString = o => typeof o === 'string' && /[А-Яа-я]/.test(o);
+// Un'attività si può fare scrivendo se la risposta è una parola o frase bulgara.
+function canWrite(a) {
+  if (a.kind === 'order' || a.kind === 'letters') return true;
+  return (a.kind === 'choice' || a.kind === 'read') && !a.latinOptions && bgString(a.options?.[a.answer]);
+}
+function toWrite(a) {
+  if (!canWrite(a)) return a;
+  const answer = a.kind === 'order' ? a.answer.join(' ') : a.kind === 'letters' ? a.answer : a.options[a.answer];
+  return { ...a, kind: 'write', answer, from: a.kind, prompt: { it: a.prompt.it + ' ' + UI.it.writeIt, en: a.prompt.en + ' ' + UI.en.writeIt } };
+}
+// Versione più difficile per il ripasso degli errori a fine capitolo.
+function harder(a) {
+  const h = canWrite(a) ? toWrite(a) : { ...a };
+  return { ...h, phase: 2, isRetry: true, title: { it: '🔁 ' + a.title.it, en: '🔁 ' + a.title.en }, hideTr: true };
+}
 
 function openChapter(id) {
+  session = null;
   const p = chapterProgress(id);
   if (p.completed && !p.replay) S.progress[id] = { step: 0, done: 0, completed: true, replay: true };
   else S.progress[id] = p;
   save();
   current = { ch: id, step: S.progress[id].step };
+  if (!S.progress[id].step) { S.progress[id].started = Date.now(); S.progress[id].first = {}; S.progress[id].retry = []; runInChapter = 0; }
   S.lastCh = id; save();
   go('chapter');
 }
 function advance() {
-  const p = S.progress[current.ch];
+  const p = P();
   const steps = stepsFor(current.ch), st = steps[current.step];
   if (st.type === 'act') p.done = Math.max(p.done, st.i + 1);
   current.step = Math.min(current.step + 1, steps.length - 1);
@@ -744,7 +888,7 @@ function advance() {
 function goBack() {
   if (current.step === 0) return;
   current.step -= 1;
-  S.progress[current.ch].step = current.step; save();
+  P().step = current.step; save();
   go('chapter');
 }
 
@@ -752,7 +896,7 @@ function speakerHTML(who) {
   const key = who === 'guide' ? guideKey() : who;
   return `<div class="avatar">${avatars[key] || avatars.narrator}</div>`;
 }
-const trOpen = item => (S.showTr && current.ch <= 10 && !item?.hideTr ? 'open' : '');
+const trOpen = item => (S.showTr && !session && current.ch <= 10 && !item?.hideTr ? 'open' : '');
 function bubble(item) {
   // item: { who, bg, bgHelp|it/en }
   const tr = item.bgHelp ? help(item.bgHelp) : item[L()];
@@ -764,13 +908,13 @@ function bubble(item) {
 }
 
 function renderStep() {
-  const d = D(), c = CH(), prog = S.progress[current.ch];
+  const d = D(), c = CH(), prog = P();
   const st = stepsFor(current.ch)[current.step];
   const actIndex = st.type === 'act' ? st.i : st.type === 'teach' ? d.activities.findIndex(a => a.phase === st.phase) - 1 : null;
   const head = `<div class="ch-head">
       <button class="icon-btn" id="back-btn" aria-label="${T('prevStep')}" title="${T('prevStep')}" ${current.step === 0 ? 'disabled' : ''}>←</button>
-      <span class="ch-title">${c.id}. ${bg(c.bg)}</span>
-      <button class="icon-btn" id="help-btn" aria-label="${T('help')}" title="${T('help')}">💡</button>
+      <span class="ch-title">${session?.kind === 'review' ? '🔁 ' : session ? '🥇 ' : c.id + '. '}${bg(c.bg)}</span>
+      <button class="icon-btn" id="help-btn" ${session?.kind === 'mastery' ? 'hidden' : ''} aria-label="${T('help')}" title="${T('help')}">💡</button>
     </div>
     <div class="dots" aria-hidden="true">${d.activities.map((a, i) => `<i class="${i < (prog.done || 0) ? 'on' : ''} ${actIndex === i ? 'cur' : ''} p${a.phase}"></i>`).join('')}</div>`;
 
@@ -793,14 +937,30 @@ function renderStep() {
     $('.cont').addEventListener('click', advance);
   } else if (st.type === 'act') {
     renderActivity(head, st.i);
+  } else if (st.type === 'retryIntro') {
+    app.innerHTML = `${head}<section class="card teach">
+      <p class="phase-tag p2">🔁 ${T('retryTag')}</p>
+      <div class="speaker">${speakerHTML('guide')}<div class="bubble"><h2 class="g-title">${bg(guides[guideKey()].bgName)}</h2><p>${T('retryIntro')((prog.retry || []).length)}</p></div></div>
+      <button class="btn cont">${T('cont')}</button></section>`;
+    $('.cont').addEventListener('click', advance);
+  } else if (st.type === 'end') {
+    renderSessionEnd(head);
   } else {
     const p = prog;
     if (!S.magnets.includes(c.magnet)) S.magnets.push(c.magnet);
-    p.completed = true; p.done = 15; delete p.replay; save();
+    S.mem ||= {};
+    d.words.forEach((_, i) => mem.expose(S.mem, `${c.id}-${i}`)); // le parole del capitolo entrano nel ripasso
+    const firstOk = Object.values(p.first || {}).filter(Boolean).length, counted = Object.keys(p.first || {}).length || 15;
+    const pct = Math.round(firstOk / counted * 100), mins = p.started ? Math.max(1, Math.round((Date.now() - p.started) / 60000)) : null;
+    const label = pct >= 90 ? T('sumGreat') : pct >= 70 ? T('sumGood') : T('sumReview');
+    p.completed = true; p.done = 15; delete p.replay; p.retry = []; save();
     app.innerHTML = `${head}<section class="card reward">
       <h2>${T('reward')}</h2>
-      <div class="magnet big pop">${magnets[c.magnet]}</div>
+      <div class="magnet big pop ${(S.gold || []).includes(c.magnet) ? 'gold' : ''}">${magnets[c.magnet]}</div>
       <p>${bg(c.magnetBg)} · ${esc(c[L()])}</p>
+      <div class="summary"><p class="sum-label">${label}</p>
+        <ul class="sum-list"><li><b>${pct}%</b> ${T('sumFirst')}</li><li><b>${d.words.length}</b> ${T('sumWords')}</li>${mins ? `<li><b>${mins}</b> ${T('sumMin')}</li>` : ''}</ul></div>
+      ${(S.gold || []).includes(c.magnet) ? `<p class="ok">🥇 ${T('goldHave')}</p>` : `<button class="btn ghost" id="mastery">🥇 ${T('goldTry')}</button><p class="muted small">${T('goldNote')}</p>`}
       ${chapterData[c.id + 1] ? `<button class="btn" id="next-ch">${T('nextCh')} ${c.id + 1} →</button>` : ''}
       <div class="row"><button class="btn" id="to-fridge">${T('toFridge')}</button><button class="btn ghost" id="to-journey">${T('toJourney')}</button></div>
     </section>`;
@@ -808,6 +968,7 @@ function renderStep() {
     $('#to-fridge').addEventListener('click', () => go('fridge'));
     $('#to-journey').addEventListener('click', () => go('journey'));
     $('#next-ch')?.addEventListener('click', () => openChapter(c.id + 1));
+    $('#mastery')?.addEventListener('click', () => startMastery(c.id));
   }
   $('#back-btn').addEventListener('click', goBack);
   $('#help-btn').addEventListener('click', () => {
@@ -864,11 +1025,16 @@ function startAuto(el, left = AUTO_SECONDS, running = true) {
 
 // ───────── Attività ─────────
 function renderActivity(head, i) {
-  const a = D().activities[i];
-  const top = `<p class="phase-tag p${a.phase}">${T('activity')} ${i + 1} ${T('of')} 15 · ${help(phases[a.phase])}</p>
+  const orig = D().activities[i], total = D().activities.length;
+  const mastery = session?.kind === 'mastery';
+  // «Più difficile»: banco di parole sostituito dalla scrittura (sempre nella prova senza aiuti). La scelta è ricordata.
+  const a = (S.hard || mastery) && orig.kind !== 'write' ? toWrite(orig) : orig;
+  const tag = orig.isRetry ? `🔁 ${T('retryTag')}` : session?.kind === 'review' ? `🔁 ${T('activity')} ${i + 1} ${T('of')} ${total}` : `${T('activity')} ${i + 1} ${T('of')} ${session ? total : 15} · ${help(phases[a.phase])}`;
+  const top = `<p class="phase-tag p${a.phase}">${tag}</p>
+    ${canWrite(orig) && !mastery && !orig.isRetry ? `<button class="link-btn hard-toggle" id="hard-toggle">${S.hard ? '🧩 ' + T('easier') : '✍ ' + T('harderBtn')}</button>` : ''}
     <h2>${esc(help(a.title))}</h2>`;
   const ctx = a.bg && a.who ? bubble(a) : a.who === 'guide' ? `<div class="speaker">${speakerHTML('guide')}</div>` : '';
-  app.innerHTML = `${head}<section class="card act kind-${a.kind} ${a.noTl ? 'no-tl' : ''}">
+  app.innerHTML = `${head}<section class="card act kind-${a.kind} ${a.noTl || mastery || a.kind === 'write' ? 'no-tl' : ''} ${mastery ? 'no-help' : ''}">
     ${top}${a.kind === 'listen' ? '' : ctx}
     <p class="prompt">${rich(a.prompt)}</p>
     <div class="hint-box" hidden></div>
@@ -877,9 +1043,26 @@ function renderActivity(head, i) {
   </section>`;
   const work = $('.work'), fb = $('.feedback');
   let tries = 0;
+  $('#hard-toggle')?.addEventListener('click', () => { S.hard = !S.hard; save(); go('chapter'); });
 
   const success = (title = T('correct'), extra = '') => {
     sfx.ok();
+    const firstTry = tries === 0, prog = P();
+    if (a.kind !== 'free') {
+      S.mem ||= {};
+      mem.wordsIn(mem.activityText(orig)).forEach(id => mem.record(S.mem, id, firstTry));
+      if (session) session.results.push(firstTry);
+      else {
+        if (i < 15) (prog.first ||= {})[i] = firstTry;
+        if (!firstTry && !orig.isRetry && i < 15 && !(prog.retry ||= []).includes(i)) prog.retry.push(i);
+      }
+      runInChapter = firstTry ? runInChapter + 1 : 0;
+      if (runInChapter >= 3) title += ` · ${T('inARow')(runInChapter)}`;
+    }
+    const events = habit.onActivity(S, a.kind === 'free' ? null : firstTry);
+    save();
+    if (events.includes('goals')) setTimeout(() => toast('🧶 ' + T('goalsDone')), 400);
+    if (events.includes('seasonal')) setTimeout(() => { toast('🎁 ' + T('seasonalWon')); sfx.magnet(); }, 1600);
     work.querySelectorAll('button').forEach(b => { if (!b.classList.contains('speak')) b.disabled = true; });
     fb.className = 'feedback good';
     // Avanti automatico solo dopo una risposta giusta al primo colpo (niente dopo errori o nel messaggio libero).
@@ -901,8 +1084,8 @@ function renderActivity(head, i) {
     box.hidden = false;
   } };
   const fail = (kindHints = []) => {
-    sfx.no(); tries++;
-    const levels = [guideTip, ...kindHints];
+    sfx.no(); tries++; runInChapter = 0;
+    const levels = mastery ? [] : [guideTip, ...kindHints]; // nella prova senza aiuti non ci sono aiuti
     const next = levels.slice(hintsUsed).find(h => h.ok());
     fb.className = 'feedback bad';
     fb.innerHTML = `<p class="fb-title">${T('notYet')}</p>${next ? `<button class="btn ghost small" id="together">🤝 ${T('together')}</button>` : ''}`;
@@ -915,7 +1098,8 @@ function renderActivity(head, i) {
   if (a.kind === 'choice' || a.kind === 'read' || a.kind === 'listen') {
     let pre = '';
     if (a.kind === 'listen') {
-      const can = S.audioOn && S.voiceOn && voice.hasSpeech();
+      const paused15 = Date.now() < (S.noListenUntil || 0);
+      const can = S.audioOn && S.voiceOn && voice.hasSpeech() && !paused15;
       pre = `<div class="speaker">${speakerHTML(a.who)}<div class="bubble">
           <div class="listen-row" ${can ? '' : 'hidden'}>
             <button class="btn listen-btn" data-say="${esc(a.say)}" data-who="${a.who || ''}">🔊 ${T('listen')}</button>
@@ -923,7 +1107,7 @@ function renderActivity(head, i) {
             <button class="icon-btn" id="l-stop" disabled aria-label="${T('lStop')}" title="${T('lStop')}">⏹</button>
           </div>
           <details class="tr" ${can ? '' : 'open'}><summary>${T('showText')}</summary><p class="bg-line">${bg(a.say)}</p><p class="muted">${esc(help(a.bgHelp))}</p></details>
-          ${can ? '' : `<p class="note small">${T('noVoice')}</p>`}
+          ${can ? `<button class="link-btn" id="no-listen">🙉 ${T('noListen')}</button>` : `<p class="note small">${paused15 ? T('noListenOn') : T('noVoice')}</p>`}
         </div></div>`;
     }
     if (a.sign) pre += `<div class="sign ${a.signStyle || ''}">${bg(a.sign)}</div>`;
@@ -934,6 +1118,7 @@ function renderActivity(head, i) {
       return `<div class="opt-wrap"><button class="opt" data-k="${k}">${label}</button>${typeof o === 'string' && !a.latinOptions ? speakBtn(o) : ''}</div>`;
     }).join('')}</div>`;
     if (a.kind === 'listen') setTimeout(bindListenControls, 0);
+    setTimeout(() => $('#no-listen')?.addEventListener('click', () => { S.noListenUntil = Date.now() + 15 * 60000; save(); go('chapter'); }), 0);
     work.querySelectorAll('.opt').forEach(b => b.addEventListener('click', () => {
       if (+b.dataset.k === a.answer) { b.classList.add('is-right'); success(); }
       else {
@@ -1016,6 +1201,59 @@ function renderActivity(head, i) {
     };
     const refocus = sel => (work.querySelector(sel) || $('#check'))?.focus();
     draw();
+  }
+
+  if (a.kind === 'speak') {
+    const words = fillName(a.say).split(/\s+/);
+    work.innerHTML = `
+      <p class="bg-line speak-line">${words.map((w, k) => `<span class="sw" data-w="${k}" lang="bg">${esc(w)}</span>`).join(' ')} ${speakBtn(a.say)}</p>
+      <p class="tl-preview" aria-hidden="true">${esc(toLatin(fillName(a.say)))}</p>
+      <div class="row wrap"><button class="btn" id="mic">🎤 ${T('speakNow')}</button><button class="link-btn" id="no-speak">🤐 ${T('noSpeak')}</button></div>
+      <p class="muted small">${T('speakPrivacy')}</p>`;
+    const want = words.map(w => mem.normBg(w));
+    const mark = heard => { const got = mem.normBg(heard).split(' '); work.querySelectorAll('.sw').forEach((el, k) => el.classList.toggle('heard', got.some(g => checkWritten(g, want[k]).ok))); return work.querySelectorAll('.sw.heard').length === want.length; };
+    $('#no-speak').addEventListener('click', () => { S.noSpeakUntil = Date.now() + 15 * 60000; save(); stopAuto(); advance(); });
+    $('#mic').addEventListener('click', () => {
+      const R = window.SpeechRecognition || window.webkitSpeechRecognition;
+      const rec = new R(); rec.lang = 'bg-BG'; rec.interimResults = true; rec.maxAlternatives = 3;
+      const btn = $('#mic'); btn.disabled = true; btn.textContent = '👂 ' + T('listening');
+      let done = false;
+      rec.onresult = e => {
+        const txt = [...e.results].map(r => [...r].map(x => x.transcript).join(' ')).join(' ');
+        if (mark(txt) && !done) { done = true; rec.stop(); success(); }
+      };
+      rec.onerror = rec.onend = () => { if (!done && btn.isConnected) { btn.disabled = false; btn.textContent = '🎤 ' + T('speakAgain'); fail([{ ok: () => true, run: () => voice.speak(a.say, { voiceURI: S.voiceURI, rate: 0.6, volume: S.voiceVol / 100 }) }]); done = true; } };
+      try { rec.start(); } catch { btn.disabled = false; }
+    });
+  }
+
+  if (a.kind === 'write') {
+    const answers = [fillName(a.answer)];
+    work.innerHTML = `
+      <label class="field"><span>${T('yourAnswer')}</span><input id="w-in" lang="bg" class="bg-input w-in" autocomplete="off" autocapitalize="off" spellcheck="false"></label>
+      <p class="tl-preview" id="w-tl" aria-hidden="true"></p>
+      <button class="link-btn kb-toggle" aria-expanded="false">⌨ ${T('keyboard')}</button>
+      <div class="kb-slot"></div>
+      <button class="btn" id="check" disabled>${T('check')}</button>`;
+    const inp = $('#w-in');
+    inp.addEventListener('input', () => { $('#check').disabled = !inp.value.trim(); $('#w-tl').textContent = /[а-я]/i.test(inp.value) ? toLatin(inp.value) : ''; });
+    inp.addEventListener('keydown', e => { if (e.key === 'Enter' && inp.value.trim()) { e.preventDefault(); $('#check').click(); } });
+    attachKeyboard($('.kb-toggle'), $('.kb-slot'), inp);
+    if (!S.screenReader) setTimeout(() => inp.focus({ preventScroll: true }), 50);
+    $('#check').addEventListener('click', () => {
+      const r = checkWritten(inp.value, answers), right = esc(r.right);
+      if (r.ok) {
+        inp.disabled = true; $('.kb-slot').innerHTML = '';
+        const note = r.kind === 'latin' ? T('wLatin')(right) : r.kind === 'small' ? T('wSmall')(right)
+          : r.kind === 'confusion' ? T('wConf')(esc(r.confusion.right), esc(r.confusion.given), right) : '';
+        success(r.kind === 'exact' ? T('correct') : T('almost'), note ? `<p class="w-note" lang="${L()}">${note}</p>` : '');
+      } else {
+        fail([
+          { ok: () => true, run: () => { inp.value = [...answers[0]][0]; inp.dispatchEvent(new Event('input')); inp.focus(); } },
+          { ok: () => true, run: () => { const box = $('.hint-box'); box.hidden = false; box.insertAdjacentHTML('beforeend', `<p>🔤 ${esc(toLatin(answers[0]))} · ${[...answers[0]].length} ${T('letters')}</p>`); } }
+        ]);
+      }
+    });
   }
 
   if (a.kind === 'free') {

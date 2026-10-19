@@ -301,3 +301,28 @@
   ogni attività (140 aiuti) e una deviazione per capitolo, 10 calamite, nessun errore, nessuno sconfinamento.
   content/music/audio test passano. **Non ancora pubblicato** (in attesa di «pubblica»).
 - 2026-10-19 — Pubblicato su GitHub Pages su richiesta di Mario («pubblica»): programma di miglioramenti, passi 1–11.
+
+## 2026-10-19 — Idee clean room, passi 12–18 (Mario: «Falle tutte»)
+
+Fonte: `idee-zdravey.md` e `duolingo-spec.md` della sessione clean room; nessuna altra fonte, nessun nome o grafica
+di terzi; niente vite, negozio o classifiche.
+- 12 · `js/memory.js`: emivita per parola (p = 2^(−Δ/h), h = 2^(θ·x) con pesi fissi), aggiornata dalle attività e a
+  fine capitolo; «🔁 Ripasso di 5 minuti» (viaggio, frigo) con 10 attività generate dalle parole meno ricordate
+  (scelta, scelta inversa, scrittura, ascolto, lettere, ripeti); 3 tacche di freschezza nella lista delle parole.
+- 13 · Le attività sbagliate al primo colpo tornano prima del finale («🔁 Di nuovo, più difficile»): scelte con
+  risposta bulgara, frasi e lettere da riordinare diventano da scrivere.
+- 14 · `js/check.js`: correzione tollerante (maiuscole/punteggiatura ignorate; lettere latine accettate con avviso;
+  piccolo errore su parole lunghe; confusioni ъ/а, и/й, щ/шт, е/ѐ evidenziate). Nuovo tipo «scrivi» e interruttore
+  «✍ Più difficile: scrivo io / 🧩 Più facile», ricordato. `tests/check.test.mjs`.
+- 15–16 · `js/habit.js`: fili della Мартеница (giorni di fila, 2 riposi gratuiti al mese, calendario), 3 obiettivi del
+  giorno (3 attività, 5 giuste di fila, un ripasso) → nappina; sfida del mese (10 giorni) → calamita di stagione
+  (12 disegni originali del calendario bulgaro).
+- 17 · Riepilogo a fine capitolo (giuste al primo colpo, parole nuove, minuti, etichetta), «N di fila» nel titolo del
+  riscontro, «🥇 Prova senza aiuti» (dal premio o dal viaggio): niente traslitterazione, traduzioni né aiuti,
+  risposte scritte; con al massimo 2 errori → calamita dorata.
+- 18 · «Ripeti ad alta voce» nel ripasso (riconoscimento vocale del browser, parole colorate quando riconosciute),
+  «🤐 Ora non posso parlare» e «🙉 Ora non posso ascoltare» per 15 minuti; avviso privacy (Chrome → Google).
+- Verificato nel browser: capitolo 1 con 4 errori voluti → 4 ritorni (2 da scrivere) → riepilogo; ripasso completo
+  (scrittura in lettere latine accettata) → obiettivi completati; prova senza aiuti → calamita dorata nel frigo;
+  calendario; ripasso interrotto e ripreso. Corretto: niente «Torna all'esercizio» sulle schermate finali.
+  Il riconoscimento vocale vero va provato da Mario sul telefono (qui non c'è microfono). Solo in locale.
