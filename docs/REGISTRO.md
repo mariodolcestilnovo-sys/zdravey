@@ -174,3 +174,14 @@
   Bulgaro corretto; 13 piccole correzioni (soprattutto spiegazioni italiane, 4 testi IT che presuppongono
   un giocatore maschio, «улица Витоша» → «булевард Витоша»), miglioramenti facoltativi e 16 dubbi per un madrelingua.
   File `js` non modificati: le correzioni le applica la sessione principale.
+
+## 2026-10-19 — Correzioni dalla revisione AI dei capitoli 2–10
+
+- Applicate le 13 correzioni di [REVISIONE-AI-cap2-10.md](REVISIONE-AI-cap2-10.md) e la stessa del cap. 1:
+  testi italiani che presupponevano un giocatore maschio («Bravo», «invitato», «viaggiatore») resi neutri;
+  «булевард Витоша»; «завивам надясно»; БАНКА al posto di БАНЯ (lettera Я non ancora vista); «quasi sempre»
+  per il genere (eccezione баща); «uno dei simboli» per la rosa; accento su «Еди́н»; piccole frasi italiane.
+- Non applicati (facoltativi, da decidere con Mario): ciliegie al mercato in inverno, cicogna già il 1° marzo.
+- `REVIEW` = controllato con AI per tutti i capitoli; avviso nel gioco aggiornato. I 16 dubbi restano per
+  il madrelingua.
+- Verificato: content.test, audio.test (2 frasi riregistrate), partita automatica dei 10 capitoli senza errori.

@@ -21,8 +21,8 @@ export default {
       en: 'The rules: feminine [[-та]] ([[къщата]], the house); neuter [[-то]] ([[кафето]], the coffee); plural [[-те]] ([[доматите]], the tomatoes). Masculine: [[-ът]] when the word is the subject ([[Хлябът е топъл]]), [[-а]] otherwise ([[Ям хляба]], I eat the bread). Some words take [[-ят]]: [[чаят]], the tea.'
     },
     {
-      it: 'Anche gli aggettivi cambiano: [[топъл хляб]], [[топла супа]], [[топло мляко]] (caldo, calda). [[студен]] = freddo, [[вкусен]] = buono (da mangiare). [[Много е вкусно!]] = è buonissimo! La rosa è il simbolo della Bulgaria: [[розово масло]] = olio di rosa, dalla Valle delle Rose.',
-      en: 'Adjectives change too: [[топъл хляб]], [[топла супа]], [[топло мляко]] (warm). [[студен]] = cold, [[вкусен]] = tasty. [[Много е вкусно!]] = it’s delicious! The rose is Bulgaria’s symbol: [[розово масло]] = rose oil, from the Valley of Roses.'
+      it: 'Anche gli aggettivi cambiano: [[топъл хляб]], [[топла супа]], [[топло мляко]] (caldo, calda). [[студен]] = freddo, [[вкусен]] = buono (da mangiare). [[Много е вкусно!]] = è buonissimo! La rosa è uno dei simboli della Bulgaria: [[розово масло]] = olio di rosa, dalla Valle delle Rose.',
+      en: 'Adjectives change too: [[топъл хляб]], [[топла супа]], [[топло мляко]] (warm). [[студен]] = cold, [[вкусен]] = tasty. [[Много е вкусно!]] = it’s delicious! The rose is one of Bulgaria’s symbols: [[розово масло]] = rose oil, from the Valley of Roses.'
     }
   ],
   activities: [

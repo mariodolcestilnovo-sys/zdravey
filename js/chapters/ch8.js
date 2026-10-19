@@ -116,8 +116,8 @@ export default {
     { phase: 2, kind: 'free',
       title: t('Come arrivi', 'How you get there'),
       prompt: t('Scrivi a Mila come arrivi a casa sua: mezzo, ora e direzione.', 'Write to Mila how you’re getting to her place: transport, time and direction.'),
-      example: 'Взимам автобуса в девет часа. После вървя направо и надясно.',
-      explain: t('Messaggio da viaggiatore esperto! Questa prova non viene corretta e il testo non viene salvato.', 'A seasoned traveller’s message! This task is not marked and the text is not saved.') }
+      example: 'Взимам автобуса в девет часа. После вървя направо и завивам надясно.',
+      explain: t('Un messaggio perfetto per viaggiare! Questa prova non viene corretta e il testo non viene salvato.', 'A seasoned traveller’s message! This task is not marked and the text is not saved.') }
   ],
   words: [
     ['Автога́ра', 'avtogára', t('Stazione degli autobus', 'Bus station')],
@@ -125,7 +125,7 @@ export default {
     ['Маршру́тка', 'marshrútka', t('Minibus', 'Minibus')],
     ['Влак', 'vlak', t('Treno', 'Train')],
     ['Такси́', 'taksí', t('Taxi', 'Taxi')],
-    ['Един биле́т до…', 'edin bilét do…', t('Un biglietto per…', 'A ticket to…')],
+    ['Еди́н биле́т до…', 'edín bilét do…', t('Un biglietto per…', 'A ticket to…')],
     ['В ко́лко ча́са?', 'v kólko chása?', t('A che ora?', 'At what time?')],
     ['Тръ́гва / присти́га', 'trágva / pristíga', t('Parte / arriva', 'Leaves / arrives')],
     ['И полови́на', 'i polovína', t('E mezza', 'Half past')],

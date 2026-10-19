@@ -3,7 +3,7 @@ const t = (it, en) => ({ it, en });
 
 export default {
   intro: [
-    { who: 'narrator', it: 'Oggi è il compleanno di Mila! Ti ha invitato a casa sua, con tutta la famiglia.', en: 'Today is Mila’s birthday! She has invited you to her place, with the whole family.' },
+    { who: 'narrator', it: 'Oggi è il compleanno di Mila! Ti invita a casa sua, con tutta la famiglia.', en: 'Today is Mila’s birthday! She has invited you to her place, with the whole family.' },
     { who: 'mila', bg: 'Влизай! Това е моето семейство.', it: 'Entra! Questa è la mia famiglia.', en: 'Come in! This is my family.' }
   ],
   outro: [

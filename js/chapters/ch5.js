@@ -17,8 +17,8 @@ export default {
       en: '[[Това е…]] = this is… [[Това е кухнята]] = this is the kitchen. The rooms: [[кухня]] (kitchen), [[баня]] (bathroom), [[спалня]] (bedroom), [[хол]] (living room).'
     },
     {
-      it: 'Ogni parola ha un genere, e si capisce dalla fine. Consonante = maschile: [[стол]] (sedia), [[ключ]] (chiave) → [[той]]. [[-а]] o [[-я]] = femminile: [[маса]] (tavolo), [[врата]] (porta) → [[тя]]. [[-о]] o [[-е]] = neutro: [[легло]] (letto), [[кафе]] → [[то]].',
-      en: 'Every word has a gender, and you can tell from the ending. Consonant = masculine: [[стол]] (chair), [[ключ]] (key) → [[той]]. [[-а]] or [[-я]] = feminine: [[маса]] (table), [[врата]] (door) → [[тя]]. [[-о]] or [[-е]] = neuter: [[легло]] (bed), [[кафе]] → [[то]].'
+      it: 'Ogni parola ha un genere, e quasi sempre si capisce dalla fine. Consonante = maschile: [[стол]] (sedia), [[ключ]] (chiave) → [[той]]. [[-а]] o [[-я]] = femminile: [[маса]] (tavolo), [[врата]] (porta) → [[тя]]. [[-о]] o [[-е]] = neutro: [[легло]] (letto), [[кафе]] → [[то]]. (Qualche eccezione: [[баща]], papà, è maschile anche se finisce in -а.)',
+      en: 'Every word has a gender, and you can almost always tell from the ending. Consonant = masculine: [[стол]] (chair), [[ключ]] (key) → [[той]]. [[-а]] or [[-я]] = feminine: [[маса]] (table), [[врата]] (door) → [[тя]]. [[-о]] or [[-е]] = neuter: [[легло]] (bed), [[кафе]] → [[то]]. (A few exceptions: [[баща]], dad, is masculine even though it ends in -а.)'
     },
     {
       it: '[[Има]] = c’è / ci sono. [[Няма]] = non c’è. [[В хола има телевизор]] = in soggiorno c’è la TV. [[Къде е ключът?]] = dov’è la chiave? [[Тук]] = qui, [[там]] = lì. [[на масата]] = sul tavolo.',
@@ -99,7 +99,7 @@ export default {
       title: t('Il biglietto di Mila', 'Mila’s note'),
       prompt: t('Mila ti lascia un biglietto sul frigo. Che cosa manca in bagno?', 'Mila leaves you a note on the fridge. What’s missing in the bathroom?'),
       options: [t('Il sapone', 'Soap'), t('La chiave', 'The key'), t('Il tavolo', 'The table')], answer: 0,
-      explain: t('[[няма]] = non c’è. [[сапун]] = sapone: si somiglia!', '[[няма]] = there isn’t. [[сапун]] = soap.') },
+      explain: t('[[няма]] = non c’è. [[сапун]] = sapone: somiglia all’italiano!', '[[няма]] = there isn’t. [[сапун]] = soap.') },
 
     { phase: 2, kind: 'choice',
       title: t('Niente TV', 'No TV'),

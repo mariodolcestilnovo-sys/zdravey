@@ -8,7 +8,7 @@ export default {
     { who: 'mila', bg: 'Хайде да четем табелите заедно!', it: 'Dai, leggiamo i cartelli insieme!', en: 'Come on, let’s read the signs together!' }
   ],
   outro: [
-    { who: 'mila', bg: 'Браво! Вече четеш на кирилица!', it: 'Bravo! Leggi già in cirillico!', en: 'Well done! You can already read Cyrillic!' },
+    { who: 'mila', bg: 'Браво! Вече четеш на кирилица!', it: 'Complimenti! Leggi già in cirillico!', en: 'Well done! You can already read Cyrillic!' },
     { who: 'narrator', it: 'Hai conquistato la calamita della metro di Sofia.', en: 'You’ve won the Sofia metro magnet.' }
   ],
   teaching: [
@@ -62,13 +62,13 @@ export default {
       title: t('Scrivi «metro»', 'Spell “metro”'),
       prompt: t('Componi la parola «metro» con le lettere bulgare.', 'Build the word “metro” with Bulgarian letters.'),
       answer: 'МЕТРО', pool: ['Т', 'О', 'М', 'П', 'Р', 'Е', 'Н'],
-      explain: t('[[М-Е-Т-Р-О]]: due lettere amiche (М, Т) e una falsa amica (Р).', '[[М-Е-Т-Р-О]]: friendly letters plus one false friend (Р).') },
+      explain: t('[[М-Е-Т-Р-О]]: quattro lettere amiche (М, Е, Т, О) e una falsa amica (Р).', '[[М-Е-Т-Р-О]]: friendly letters plus one false friend (Р).') },
 
     { phase: 1, kind: 'match', noTl: true,
       title: t('Lettere nuove', 'New letters'),
       prompt: t('Abbina ogni lettera nuova al suo suono.', 'Match each new letter with its sound.'),
       pairs: [['Б', t('b', 'b')], ['Г', t('g', 'g')], ['Д', t('d', 'd')], ['Л', t('l', 'l')]],
-      explain: t('[[Б Г Д Л]] = b, g, d, l. Ora leggi [[БАНЯ]], [[ГАРА]], [[ДОМ]].', '[[Б Г Д Л]] = b, g, d, l. Now you can read [[БАНЯ]], [[ГАРА]], [[ДОМ]].') },
+      explain: t('[[Б Г Д Л]] = b, g, d, l. Ora leggi [[БАНКА]], [[ГАРА]], [[ДОМ]].', '[[Б Г Д Л]] = b, g, d, l. Now you can read [[БАНКА]], [[ГАРА]], [[ДОМ]].') },
 
     { phase: 1, kind: 'read', sign: 'ЛЕТИЩЕ СОФИЯ',
       title: t('Un cartello lungo', 'A long sign'),
@@ -116,7 +116,7 @@ export default {
     { phase: 2, kind: 'free',
       title: t('Il tuo indirizzo', 'Your address'),
       prompt: t('Scrivi in cirillico il nome della tua città o della tua via, con la tastiera fonetica.', 'Write the name of your city or street in Cyrillic, using the phonetic keyboard.'),
-      example: 'София, улица Витоша',
+      example: 'София, булевард Витоша',
       explain: t('Hai scritto in cirillico da solo! Questa prova non viene corretta e il testo non viene salvato.', 'You wrote in Cyrillic on your own! This task is not marked and the text is not saved.') }
   ],
   words: [

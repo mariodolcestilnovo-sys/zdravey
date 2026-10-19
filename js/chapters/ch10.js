@@ -38,7 +38,7 @@ export default {
       title: t('Le parole della primavera', 'Spring words'),
       prompt: t('Abbina ogni parola al suo significato.', 'Match each word with its meaning.'),
       pairs: [['мартеница', t('braccialetto bianco e rosso', 'white and red bracelet')], ['щъркел', t('cicogna', 'stork')], ['пролет', t('primavera', 'spring')], ['здраве', t('salute', 'health')]],
-      explain: t('La [[мартеница]] si porta fino all’arrivo della primavera: la prima [[щъркел]] è il segnale.', 'The [[мартеница]] is worn until spring arrives: the first [[щъркел]] is the sign.') },
+      explain: t('La [[мартеница]] si porta fino all’arrivo della primavera: la prima cicogna ([[щъркел]]) è il segnale.', 'The [[мартеница]] is worn until spring arrives: the first [[щъркел]] is the sign.') },
 
     { phase: 0, kind: 'choice',
       title: t('Un augurio a Ivaylo', 'A wish for Ivaylo'),
@@ -102,7 +102,7 @@ export default {
       options: ['първи март', 'едно март', 'първа март'], answer: 0,
       explain: t('Le date usano l’ordinale: [[първи март]], [[втори март]].', 'Dates use ordinals: [[първи март]] (the first of March), [[втори март]].') },
 
-    { phase: 2, kind: 'choice', who: 'ruzha', bg: 'Хладилникът е пълен! Браво, {name}!', bgHelp: t('Il frigo è pieno! Bravo, {name}!', 'The fridge is full! Well done, {name}!'), hideTr: true,
+    { phase: 2, kind: 'choice', who: 'ruzha', bg: 'Хладилникът е пълен! Браво, {name}!', bgHelp: t('Il frigo è pieno! Complimenti, {name}!', 'The fridge is full! Well done, {name}!'), hideTr: true,
       title: t('Il frigo', 'The fridge'),
       prompt: t('Nonna Ruzha guarda il frigo. Com’è?', 'Granny Ruzha looks at the fridge. What’s it like?'),
       options: [t('Pieno', 'Full'), t('Vuoto', 'Empty'), t('Rotto', 'Broken')], answer: 0,

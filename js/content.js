@@ -13,7 +13,7 @@ import ch9 from './chapters/ch9.js';
 import ch10 from './chapters/ch10.js';
 
 // Stato di revisione per capitolo: pending → ai-checked → native-approved
-export const REVIEW = { 1: 'ai-checked', 2: 'pending', 3: 'pending', 4: 'pending', 5: 'pending', 6: 'pending', 7: 'pending', 8: 'pending', 9: 'pending', 10: 'pending' };
+export const REVIEW = { 1: 'ai-checked', 2: 'ai-checked', 3: 'ai-checked', 4: 'ai-checked', 5: 'ai-checked', 6: 'ai-checked', 7: 'ai-checked', 8: 'ai-checked', 9: 'ai-checked', 10: 'ai-checked' };
 // Stato complessivo mostrato nel gioco: il più basso tra i capitoli.
 export const REVIEW_STATUS = Object.values(REVIEW).includes('pending') ? 'pending' : Object.values(REVIEW).includes('ai-checked') ? 'ai-checked' : 'native-approved';
 
@@ -102,7 +102,7 @@ export const intro1 = [
 ];
 
 export const outro1 = [
-  { who: 'mila', bg: 'Браво, {name}! Това е първият магнит за твоя хладилник.', it: 'Bravo, {name}! Questa è la prima calamita per il tuo frigo.', en: 'Well done, {name}! This is the first magnet for your fridge.' },
+  { who: 'mila', bg: 'Браво, {name}! Това е първият магнит за твоя хладилник.', it: 'Complimenti, {name}! Questa è la prima calamita per il tuo frigo.', en: 'Well done, {name}! This is the first magnet for your fridge.' },
   { who: 'narrator', it: 'Hai conquistato la calamita di Sofia. Il frigo comincia a riempirsi!', en: 'You’ve won the Sofia magnet. The fridge is starting to fill up!' }
 ];
 

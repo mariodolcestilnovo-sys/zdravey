@@ -1,6 +1,6 @@
 # Frasi bulgare da controllare
 
-Stato per capitolo (`REVIEW` in `js/content.js`): cap. 1 **controllato con AI** · cap. 2 **da controllare** · cap. 3 **da controllare** · cap. 4 **da controllare** · cap. 5 **da controllare** · cap. 6 **da controllare** · cap. 7 **da controllare** · cap. 8 **da controllare** · cap. 9 **da controllare** · cap. 10 **da controllare**.
+Stato per capitolo (`REVIEW` in `js/content.js`): cap. 1 **controllato con AI** · cap. 2 **controllato con AI** · cap. 3 **controllato con AI** · cap. 4 **controllato con AI** · cap. 5 **controllato con AI** · cap. 6 **controllato con AI** · cap. 7 **controllato con AI** · cap. 8 **controllato con AI** · cap. 9 **controllato con AI** · cap. 10 **controllato con AI**.
 Passaggi previsti: da controllare → controllata da AI (sessione separata) → approvata da madrelingua (facoltativo, prima della pubblicazione).
 
 File generato con `node tools/list-bulgarian.mjs`: non modificarlo a mano. Le correzioni vanno in `js/content.js` (capitolo 1) e `js/chapters/` (capitoli 2–10).
@@ -97,7 +97,7 @@ Il nome del giocatore è mostrato come «Марио».
 | Cap. 1 · Attività 14 opzione | Добро утро! |  | |
 | Cap. 1 · Attività 14 opzione | Как се казваш? |  | |
 | Cap. 1 · Attività 15 (esempio) | Здравей! Аз съм Марио. Благодаря, Мила! |  | |
-| Cap. 1 · Finale 1 | Браво, Марио! Това е първият магнит за твоя хладилник. | Bravo, {name}! Questa è la prima calamita per il tuo frigo. | |
+| Cap. 1 · Finale 1 | Браво, Марио! Това е първият магнит за твоя хладилник. | Complimenti, {name}! Questa è la prima calamita per il tuo frigo. | |
 | Cap. 1 · Parole (accento e traslitterazione) | Здраве́й — zdravéy | Ciao (a una persona) | |
 | Cap. 1 · Parole (accento e traslitterazione) | Здраве́йте — zdravéyte | Salve / Buongiorno (cortese o a più persone) | |
 | Cap. 1 · Parole (accento e traslitterazione) | Да — da | Sì | |
@@ -173,7 +173,7 @@ Il nome del giocatore è mostrato come «Марио».
 | Cap. 2 · Attività 5 | Х |  | |
 | Cap. 2 · Attività 6 | М-Е-Т-Р-О |  | |
 | Cap. 2 · Attività 7 | Б Г Д Л |  | |
-| Cap. 2 · Attività 7 | БАНЯ |  | |
+| Cap. 2 · Attività 7 | БАНКА |  | |
 | Cap. 2 · Attività 7 | ГАРА |  | |
 | Cap. 2 · Attività 7 | ДОМ |  | |
 | Cap. 2 · Attività 7 (abbinamento) | Б | b | |
@@ -204,8 +204,8 @@ Il nome del giocatore è mostrato come «Марио».
 | Cap. 2 · Attività 13 | Ч |  | |
 | Cap. 2 · Attività 14 (cartello) | Следваща спирка: Сердика |  | |
 | Cap. 2 · Attività 14 | Следваща спирка |  | |
-| Cap. 2 · Attività 15 (esempio) | София, улица Витоша |  | |
-| Cap. 2 · Finale 1 | Браво! Вече четеш на кирилица! | Bravo! Leggi già in cirillico! | |
+| Cap. 2 · Attività 15 (esempio) | София, булевард Витоша |  | |
+| Cap. 2 · Finale 1 | Браво! Вече четеш на кирилица! | Complimenti! Leggi già in cirillico! | |
 | Cap. 2 · Parole (accento e traslitterazione) | Метро́ — metró | Metro | |
 | Cap. 2 · Parole (accento e traslitterazione) | Ста́нция — stántsia | Stazione | |
 | Cap. 2 · Parole (accento e traslitterazione) | Спи́рка — spírka | Fermata | |
@@ -434,6 +434,7 @@ Il nome del giocatore è mostrato come «Марио».
 | Cap. 5 · Spiegazione fase 2 | легло |  | |
 | Cap. 5 · Spiegazione fase 2 | кафе |  | |
 | Cap. 5 · Spiegazione fase 2 | то |  | |
+| Cap. 5 · Spiegazione fase 2 | баща |  | |
 | Cap. 5 · Spiegazione fase 3 | Има |  | |
 | Cap. 5 · Spiegazione fase 3 | Няма |  | |
 | Cap. 5 · Spiegazione fase 3 | В хола има телевизор |  | |
@@ -785,7 +786,7 @@ Il nome del giocatore è mostrato come «Марио».
 | Cap. 8 · Attività 14 opzione giusta | Благодаря, приятен ден! |  | |
 | Cap. 8 · Attività 14 opzione | Един билет, моля! |  | |
 | Cap. 8 · Attività 14 opzione | В колко часа? |  | |
-| Cap. 8 · Attività 15 (esempio) | Взимам автобуса в девет часа. После вървя направо и надясно. |  | |
+| Cap. 8 · Attività 15 (esempio) | Взимам автобуса в девет часа. После вървя направо и завивам надясно. |  | |
 | Cap. 8 · Finale 1 | Добре дошли в Пловдив! | Benvenuti a Plovdiv! | |
 | Cap. 8 · Finale 2 | Пловдив е един от най-старите градове в Европа! | Plovdiv è una delle città più antiche d’Europa! | |
 | Cap. 8 · Parole (accento e traslitterazione) | Автога́ра — avtogára | Stazione degli autobus | |
@@ -793,7 +794,7 @@ Il nome del giocatore è mostrato come «Марио».
 | Cap. 8 · Parole (accento e traslitterazione) | Маршру́тка — marshrútka | Minibus | |
 | Cap. 8 · Parole (accento e traslitterazione) | Влак — vlak | Treno | |
 | Cap. 8 · Parole (accento e traslitterazione) | Такси́ — taksí | Taxi | |
-| Cap. 8 · Parole (accento e traslitterazione) | Един биле́т до… — edin bilét do… | Un biglietto per… | |
+| Cap. 8 · Parole (accento e traslitterazione) | Еди́н биле́т до… — edín bilét do… | Un biglietto per… | |
 | Cap. 8 · Parole (accento e traslitterazione) | В ко́лко ча́са? — v kólko chása? | A che ora? | |
 | Cap. 8 · Parole (accento e traslitterazione) | Тръ́гва / присти́га — trágva / pristíga | Parte / arriva | |
 | Cap. 8 · Parole (accento e traslitterazione) | И полови́на — i polovína | E mezza | |
@@ -972,7 +973,7 @@ Il nome del giocatore è mostrato come «Марио».
 | Cap. 10 · Attività 12 opzione giusta | първи март |  | |
 | Cap. 10 · Attività 12 opzione | едно март |  | |
 | Cap. 10 · Attività 12 opzione | първа март |  | |
-| Cap. 10 · Attività 13 | Хладилникът е пълен! Браво, Марио! | Il frigo è pieno! Bravo, {name}! | |
+| Cap. 10 · Attività 13 | Хладилникът е пълен! Браво, Марио! | Il frigo è pieno! Complimenti, {name}! | |
 | Cap. 10 · Attività 13 | пълен |  | |
 | Cap. 10 · Attività 13 | празен |  | |
 | Cap. 10 · Attività 14 | Благодаря! Честита Баба Марта! |  | |
