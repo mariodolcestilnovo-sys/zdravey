@@ -206,6 +206,7 @@ $('#nav').addEventListener('click', e => { const b = e.target.closest('button[da
 function go(v) {
   voice.stop();
   view = v; applyPrefs();
+  music.setTheme(music.themeFor(v, current.ch)); // ogni ambiente ha il suo tema
   ({ journey: renderJourney, fridge: renderFridge, words: renderWords, settings: renderSettings, chapter: renderStep })[v]();
   window.scrollTo(0, 0);
   const h = $('h1, h2', app); if (h) { h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); }
@@ -467,7 +468,7 @@ function renderSettings() {
         <p>🔒 ${T('sDataNote')}</p>
         <button class="btn small danger" id="s-reset">${T('sReset')}</button>
       </fieldset>
-      <p class="muted small">⚠ ${reviewText()}</p>
+      ${REVIEW_STATUS === 'native-approved' ? '' : `<p class="muted small">⚠ ${reviewText()}</p>`}
     </section>`;
   app.querySelectorAll('[data-setlang]').forEach(b => b.addEventListener('click', () => { S.lang = b.dataset.setlang; save(); go('settings'); }));
   app.querySelectorAll('[data-setguide]').forEach(b => b.addEventListener('click', () => { S.guide = b.dataset.setguide; save(); go('settings'); }));

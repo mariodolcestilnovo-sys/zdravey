@@ -208,3 +208,18 @@
   (non funzionavano con la voce e avrebbero fatto suonare la musica in silenzioso).
 - Verificato (Mac): parte al primo clic, ♫ la spegne e riaccende, nessun errore. **Ascolto e giudizio
   sul suono: Mario.**
+
+## 2026-10-19 — Testi approvati da Mario · cinque temi musicali
+
+- Mario ha controllato i testi e annullato la revisione del madrelingua: `REVIEW` = approvato per tutti i
+  capitoli; l'avviso «in revisione» non compare più. Elenco frasi aggiornato (stato «approvato da Mario»).
+- Musica: 5 temi originali, uno per ambiente, tutti con la struttura chiesta da Mario
+  intro → A → B → bridge → controtema → bridge → A → B → conclusione (che torna alla tonica e si lega all'intro):
+  Пътят (menu/viaggio, лесно 3+2+2, кавал) · Градът (cap. 1–3, ръченица 2+2+3, гайда) ·
+  Домът (cap. 4, 5, 7, право хоро 2/4, кавал e гъдулка) · Пазарът (cap. 6, 8, пайдушко 2+3, гайда) ·
+  Празникът (cap. 9, 10, копаница 2+2+3+2+2, гайда e гъдулка). Intro con кавал, bridge con тамбура
+  pizzicata, controtema con lo strumento secondario, тъпан sempre in ritmo; bordone continuo.
+  Cambio di ambiente: dissolvenza e ripartenza dall'intro del nuovo tema.
+- `tests/music.test.mjs`: ogni battuta ha la durata giusta, conclusione sulla tonica, 5 temi usati.
+- Verificato nel browser: cambio tema tra Viaggio e capitoli 1, 4, 6, 9; giro completo del tema della città
+  nell'ordine esatto, poi di nuovo intro. Nessun errore. Ascolto: Mario.

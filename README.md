@@ -3,8 +3,7 @@
 Gioco web per imparare il bulgaro (A1), con aiuti in italiano o inglese.
 Progetto separato da Dolce Stilnovo, ispirato alle meccaniche del suo Prototipo 2.
 
-**Stato:** percorso A1.1 completo e giocabile in locale: 10 capitoli, 150 attività. Testi bulgari **da far controllare a un madrelingua**
-([elenco](docs/DA-CONTROLLARE.md)). Non pubblicato online.
+**Stato:** percorso A1.1 completo e giocabile in locale: 10 capitoli, 150 attività. Testi bulgari controllati con l'AI e approvati da Mario ([elenco](docs/DA-CONTROLLARE.md)). Non pubblicato online.
 
 ## Cosa c'è
 - Benvenuto: lingua degli aiuti, nome (anche in cirillico, con tastiera fonetica QWERTY sullo schermo), scelta della guida.
@@ -18,8 +17,9 @@ Progetto separato da Dolce Stilnovo, ispirato alle meccaniche del suo Prototipo 
 - Cirillico: font Sofia Sans (OFL) con forme classiche predefinite e forme bulgare moderne a scelta;
   traslitterazione ufficiale (Aa, accesa di default); traduzioni aperte nei capitoli 1–10;
   voce bulgara del dispositivo quando c'è.
-- Musica di sottofondo originale in stile tradizionale bulgaro (ръченица 7/8, гайда, кавал, тъпан),
-  generata dal browser (`js/music.js`): nessun file e nessun diritto di terzi. Pulsante ♫ e volume.
+- Musica di sottofondo originale in stile tradizionale bulgaro, generata dal browser (`js/music.js`):
+  5 temi per ambiente (Пътят, Градът, Домът, Пазарът, Празникът) in 7/8, 2/4, 5/8 e 11/8, ognuno
+  intro–A–B–bridge–controtema–bridge–A–B–conclusione. Nessun file e nessun diritto di terzi.
 - Salvataggio solo nel browser (`localStorage`). Nessun account, nessun dato inviato.
 
 ## Provare in locale
@@ -48,6 +48,7 @@ Nota: la cartella `espeak-ng-data` deve stare in un percorso corto (es. `~/.cach
 ```sh
 node tests/content.test.mjs        # struttura dei contenuti e traslitterazione
 node tools/list-bulgarian.mjs      # rigenera docs/DA-CONTROLLARE.md
+node tests/music.test.mjs          # battute e struttura dei 5 temi
 ```
 
 ## File

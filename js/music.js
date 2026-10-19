@@ -1,23 +1,90 @@
 // Musica di sottofondo ORIGINALE in stile tradizionale bulgaro, generata dal browser (Web Audio).
-// Nessuna registrazione né melodia di terzi: composizione nuova del progetto, quindi niente diritti da pagare.
-// Ritmo di ръченица (7/8 = 2+2+3), scala con 2ª abbassata e 3ª alzata, гайда con bordone, кавал e тъпан.
+// Cinque temi composti per il gioco (nessuna melodia o registrazione di terzi: niente diritti da pagare).
+// Ogni tema: intro → A → B → bridge → controtema → bridge → A → B → conclusione, che porta di nuovo all'intro.
 
-const EIGHTH = 0.15; // secondi per ottavo (battuta di 7/8 ≈ 1,05 s)
-// Nota MIDI: re = 62. Ogni battuta = 7 ottavi. [nota, durata in ottavi]; 0 = pausa.
-const D = 62, Eb = 63, Fs = 66, G = 67, A = 69, Bb = 70, C = 72, D5 = 74;
-const TUNE = [
-  // A
-  [[A, 2], [Bb, 2], [A, 3]], [[G, 1], [Fs, 1], [G, 2], [A, 3]], [[Bb, 2], [A, 1], [G, 1], [Fs, 3]], [[Eb, 2], [Fs, 2], [D, 3]],
-  // A'
-  [[A, 2], [Bb, 2], [C, 3]], [[Bb, 1], [A, 1], [G, 2], [A, 3]], [[Bb, 2], [A, 1], [G, 1], [Fs, 1], [G, 2]], [[A, 7]],
-  // B
-  [[D5, 2], [C, 2], [Bb, 3]], [[C, 1], [Bb, 1], [A, 2], [Bb, 3]], [[A, 2], [G, 2], [Fs, 1], [G, 2]], [[A, 4], [G, 1], [A, 2]],
-  // B'
-  [[D5, 2], [C, 2], [Bb, 1], [C, 2]], [[Bb, 1], [A, 1], [G, 2], [Fs, 3]], [[G, 1], [Fs, 1], [Eb, 2], [Fs, 3]], [[D, 7]]
-];
+// Scale (semitoni dalla tonica)
+const HIJAZ = [0, 1, 4, 5, 7, 8, 10];      // 2ª bassa, 3ª alta: il colore «balcanico»
+const DORIAN = [0, 2, 3, 5, 7, 9, 10];
+const MIXO = [0, 2, 4, 5, 7, 9, 10];
+const HARM_MINOR = [0, 2, 3, 5, 7, 8, 11];
+
+// Notazione delle battute: "grado:ottavi", spazi tra le note. Grado 0 = tonica, 7 = ottava sopra, -1 = sotto.
+export const ORDER = ['intro', 'A', 'B', 'bridge', 'C', 'bridge', 'A', 'B', 'coda'];
+
+export const THEMES = {
+  // Пътят — La strada (menu, viaggio, frigo): лесно 3+2+2, lento, кавал.
+  road: {
+    name: 'Пътят', groups: [3, 2, 2], eighth: 0.2, tonic: 62, scale: DORIAN, lead: 'kaval', counter: 'gadulka',
+    intro: ['0:7', '4:3 3:2 2:2'],
+    A: ['4:3 5:2 4:2', '3:3 2:2 1:2', '2:3 3:2 4:2', '0:7'],
+    B: ['7:3 6:2 5:2', '4:3 5:2 6:2', '5:3 4:2 3:2', '4:7'],
+    bridge: ['2:3 1:2 0:2', '1:3 2:2 3:2'],
+    C: ['4:3 4:2 5:2', '6:3 7:2 6:2', '5:3 4:2 2:2', '3:7'],
+    coda: ['2:3 1:2 2:2', '1:3 -1:2 0:2']
+  },
+  // Градът — La città (cap. 1–3): ръченица 2+2+3, гайда.
+  city: {
+    name: 'Градът', groups: [2, 2, 3], eighth: 0.15, tonic: 62, scale: HIJAZ, lead: 'gaida', counter: 'kaval',
+    intro: ['4:7', '2:2 1:2 0:3'],
+    A: ['4:2 5:2 4:3', '3:1 2:1 3:2 4:3', '5:2 4:1 3:1 2:3', '1:2 2:2 0:3'],
+    B: ['7:2 6:2 5:3', '6:1 5:1 4:2 5:3', '4:2 3:2 2:1 3:2', '4:4 3:1 4:2'],
+    bridge: ['0:2 2:2 4:3', '3:2 2:2 1:3'],
+    C: ['4:4 5:3', '6:2 5:2 4:3', '3:4 2:3', '4:7'],
+    coda: ['5:2 4:2 3:3', '2:2 1:2 0:3']
+  },
+  // Домът — La casa (cap. 4, 5, 7): право хоро 2+2, caldo, кавал e гъдулка.
+  home: {
+    name: 'Домът', groups: [2, 2], eighth: 0.18, tonic: 67, scale: MIXO, lead: 'kaval', counter: 'gadulka',
+    intro: ['0:4', '4:2 2:2'],
+    A: ['0:1 2:1 4:2', '5:2 4:2', '3:1 2:1 1:2', '0:4', '0:1 2:1 4:2', '5:1 6:1 7:2', '6:2 5:2', '4:4'],
+    B: ['7:2 6:2', '5:2 4:2', '5:1 4:1 3:2', '2:4', '4:2 5:2', '6:2 5:1 4:1', '3:2 1:2', '0:4'],
+    bridge: ['0:2 4:2', '3:2 1:2'],
+    C: ['2:4', '4:3 3:1', '2:2 1:2', '0:4', '5:4', '4:3 2:1', '3:2 2:2', '1:4'],
+    coda: ['2:2 1:2', '-1:2 0:2']
+  },
+  // Пазарът — Il mercato e il viaggio (cap. 6, 8): пайдушко 2+3, saltellante, гайда.
+  market: {
+    name: 'Пазарът', groups: [2, 3], eighth: 0.14, tonic: 69, scale: HARM_MINOR, lead: 'gaida', counter: 'kaval',
+    intro: ['0:5', '4:2 3:3'],
+    A: ['4:2 5:3', '4:2 3:1 2:2', '3:2 2:1 1:2', '0:5', '4:2 5:3', '6:2 7:3', '6:1 5:1 4:3', '4:5'],
+    B: ['7:2 8:3', '7:2 6:1 5:2', '6:2 5:3', '4:5', '3:2 4:3', '5:2 4:1 3:2', '2:2 1:3', '0:5'],
+    bridge: ['0:2 2:3', '4:2 2:3'],
+    C: ['2:5', '3:2 4:3', '5:5', '4:2 2:3', '3:5', '2:2 1:3', '-1:5', '0:5'],
+    coda: ['2:2 1:3', '-1:2 0:3']
+  },
+  // Празникът — La festa (cap. 9, 10): копаница 2+2+3+2+2, veloce e festosa.
+  feast: {
+    name: 'Празникът', groups: [2, 2, 3, 2, 2], eighth: 0.12, tonic: 64, scale: HIJAZ, lead: 'gaida', counter: 'gadulka',
+    intro: ['0:11', '4:2 3:2 2:3 1:2 0:2'],
+    A: ['4:2 5:2 4:3 3:2 4:2', '5:2 4:2 3:3 2:2 1:2', '2:2 3:2 4:3 5:2 4:2', '0:11'],
+    B: ['7:2 6:2 5:3 6:2 7:2', '6:2 5:2 4:3 3:2 4:2', '5:2 4:2 3:3 2:2 3:2', '4:11'],
+    bridge: ['0:2 0:2 4:3 0:2 0:2', '3:2 3:2 2:3 1:2 1:2'],
+    C: ['4:4 5:3 4:4', '3:4 2:3 1:4', '2:4 3:3 4:4', '5:11'],
+    coda: ['4:2 3:2 2:3 1:2 2:2', '1:4 -1:3 0:4']
+  }
+};
+
+// Quale tema per quale ambiente
+export function themeFor(view, chapter) {
+  if (view !== 'chapter') return 'road';
+  if (chapter <= 3) return 'city';
+  if ([4, 5, 7].includes(chapter)) return 'home';
+  if ([6, 8].includes(chapter)) return 'market';
+  return 'feast';
+}
+
+const parseBar = str => str.trim().split(/\s+/).map(tok => { const [d, l] = tok.split(':'); return [+d, +l]; });
+export const barLength = theme => theme.groups.reduce((a, b) => a + b, 0);
 const hz = m => 440 * 2 ** ((m - 69) / 12);
+const midiOf = (theme, deg) => theme.tonic + theme.scale[((deg % 7) + 7) % 7] + 12 * Math.floor(deg / 7);
 
-let ctx, master, duckGain, timer, nextTime = 0, bar = 0, round = 0, playing = false, volume = 0.2;
+// Sequenza completa di battute di un tema, con la sezione di ognuna
+function sequence(theme) {
+  return ORDER.flatMap(sec => theme[sec].map(b => ({ sec, notes: parseBar(b) })));
+}
+
+let ctx, master, duckGain, timer, nextTime = 0, playing = false, volume = 0.12;
+let current = 'road', seq = sequence(THEMES.road), idx = 0, drones = [], pending = null;
 
 function setup() {
   if (ctx) return;
@@ -27,32 +94,54 @@ function setup() {
   master.connect(duckGain).connect(ctx.destination);
 }
 
-// Гайда: onda a dente di sega filtrata, vibrato leggero, piccolo abbellimento prima della nota.
+// ── Strumenti ──
+function env(g, t, dur, peak, attack = 0.01, release = 0.03) {
+  g.gain.setValueAtTime(0.0001, t); g.gain.linearRampToValueAtTime(peak, t + attack);
+  g.gain.setValueAtTime(peak, Math.max(t + attack, t + dur - release)); g.gain.linearRampToValueAtTime(0.0001, t + dur);
+}
+// Гайда: dente di sega filtrato, vibrato leggero, abbellimento prima della nota lunga.
 function gaida(t, midi, dur, grace) {
   const o = ctx.createOscillator(), f = ctx.createBiquadFilter(), g = ctx.createGain(), vib = ctx.createOscillator(), vg = ctx.createGain();
   o.type = 'sawtooth'; f.type = 'lowpass'; f.frequency.value = 2200; f.Q.value = 2;
   vib.frequency.value = 5.5; vg.gain.value = 3; vib.connect(vg).connect(o.frequency);
   if (grace) { o.frequency.setValueAtTime(hz(midi + 2), t); o.frequency.setValueAtTime(hz(midi), t + 0.035); }
   else o.frequency.setValueAtTime(hz(midi), t);
-  g.gain.setValueAtTime(0.0001, t); g.gain.linearRampToValueAtTime(0.16, t + 0.01);
-  g.gain.setValueAtTime(0.16, t + dur - 0.03); g.gain.linearRampToValueAtTime(0.0001, t + dur);
+  env(g, t, dur, 0.15);
   o.connect(f).connect(g).connect(master);
   o.start(t); vib.start(t); o.stop(t + dur + 0.02); vib.stop(t + dur + 0.02);
 }
-// Кавал: sinusoide morbida con un soffio di rumore.
+// Кавал: suono morbido, un'ottava sopra, con un soffio.
 function kaval(t, midi, dur) {
-  const o = ctx.createOscillator(), g = ctx.createGain();
+  const o = ctx.createOscillator(), g = ctx.createGain(), vib = ctx.createOscillator(), vg = ctx.createGain();
   o.type = 'triangle'; o.frequency.setValueAtTime(hz(midi + 12), t);
-  g.gain.setValueAtTime(0.0001, t); g.gain.linearRampToValueAtTime(0.13, t + 0.04);
-  g.gain.setValueAtTime(0.13, t + dur - 0.05); g.gain.linearRampToValueAtTime(0.0001, t + dur);
-  o.connect(g).connect(master); o.start(t); o.stop(t + dur + 0.02);
-  noise(t, Math.min(dur, 0.12), 0.025, 2500, 'bandpass');
+  vib.frequency.value = 4.5; vg.gain.value = 4; vib.connect(vg).connect(o.frequency);
+  env(g, t, dur, 0.14, 0.05, 0.06);
+  o.connect(g).connect(master); o.start(t); vib.start(t); o.stop(t + dur + 0.02); vib.stop(t + dur + 0.02);
+  noise(t, Math.min(dur, 0.12), 0.02, 2500, 'bandpass');
 }
-// Тъпан: colpo grave (mazza) e colpo secco (bacchetta).
-function bass(t, accent) {
+// Гъдулка: archetto, più vibrato e un po' di ruvidezza.
+function gadulka(t, midi, dur) {
+  const o = ctx.createOscillator(), o2 = ctx.createOscillator(), f = ctx.createBiquadFilter(), g = ctx.createGain(), vib = ctx.createOscillator(), vg = ctx.createGain();
+  o.type = 'sawtooth'; o2.type = 'square'; o.frequency.setValueAtTime(hz(midi), t); o2.frequency.setValueAtTime(hz(midi) * 1.003, t);
+  f.type = 'lowpass'; f.frequency.value = 1500; f.Q.value = 4;
+  vib.frequency.value = 6.2; vg.gain.value = 5; vib.connect(vg).connect(o.frequency); vib.connect(vg).connect(o2.frequency);
+  env(g, t, dur, 0.09, 0.06, 0.05);
+  o.connect(f); o2.connect(f); f.connect(g).connect(master);
+  [o, o2, vib].forEach(x => { x.start(t); x.stop(t + dur + 0.02); });
+}
+// Тамбура: corde pizzicate, per gli accompagnamenti.
+function pluck(t, midi, level = 0.1) {
+  const o = ctx.createOscillator(), f = ctx.createBiquadFilter(), g = ctx.createGain();
+  o.type = 'triangle'; o.frequency.setValueAtTime(hz(midi), t);
+  f.type = 'lowpass'; f.frequency.setValueAtTime(3000, t); f.frequency.exponentialRampToValueAtTime(600, t + 0.3);
+  g.gain.setValueAtTime(level, t); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.45);
+  o.connect(f).connect(g).connect(master); o.start(t); o.stop(t + 0.5);
+}
+// Тъпан: mazza (grave) e bacchetta (secca).
+function bass(t, level) {
   const o = ctx.createOscillator(), g = ctx.createGain();
   o.type = 'sine'; o.frequency.setValueAtTime(95, t); o.frequency.exponentialRampToValueAtTime(48, t + 0.18);
-  g.gain.setValueAtTime(accent ? 0.5 : 0.32, t); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.25);
+  g.gain.setValueAtTime(level, t); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.25);
   o.connect(g).connect(master); o.start(t); o.stop(t + 0.3);
 }
 function noise(t, dur, level, freq, type = 'highpass') {
@@ -62,37 +151,62 @@ function noise(t, dur, level, freq, type = 'highpass') {
   s.buffer = buf; f.type = type; f.frequency.value = freq; g.gain.value = level;
   s.connect(f).connect(g).connect(master); s.start(t);
 }
-// Bordone: re e la gravi, sempre accesi finché suona la musica.
-let drones = [];
-function startDrone(t) {
-  drones = [D - 24, A - 24].map((m, i) => {
+// Bordone (tonica e quinta gravi), continuo per tutto il tema.
+function startDrone(theme, t) {
+  stopDrone(t);
+  drones = [theme.tonic - 24, theme.tonic - 17].map((m, i) => {
     const o = ctx.createOscillator(), f = ctx.createBiquadFilter(), g = ctx.createGain();
     o.type = 'sawtooth'; o.frequency.value = hz(m); f.type = 'lowpass'; f.frequency.value = 700;
-    g.gain.setValueAtTime(0.0001, t); g.gain.linearRampToValueAtTime(i ? 0.035 : 0.05, t + 1);
+    g.gain.setValueAtTime(0.0001, t); g.gain.linearRampToValueAtTime(i ? 0.03 : 0.045, t + 1.2);
     o.connect(f).connect(g).connect(master); o.start(t);
-    return o;
+    return { o, g };
   });
 }
-function stopDrone(t) { drones.forEach(o => { try { o.stop(t); } catch { /* già fermo */ } }); drones = []; }
+function stopDrone(t) {
+  drones.forEach(({ o, g }) => { try { g.gain.setTargetAtTime(0.0001, t, 0.15); o.stop(t + 0.8); } catch { /* già fermo */ } });
+  drones = [];
+}
 
+// ── Una battuta, secondo la sezione ──
 function scheduleBar(t) {
-  const notes = TUNE[bar];
-  const useKaval = round % 2 === 1;
+  const th = THEMES[current], { sec, notes } = seq[idx];
+  const E = th.eighth, starts = []; let acc = 0;
+  th.groups.forEach(g => { starts.push(acc); acc += g; });
+  const longest = Math.max(...th.groups);
+
+  // Melodia
   let pos = 0;
-  notes.forEach(([m, len], i) => {
-    const start = t + pos * EIGHTH, dur = len * EIGHTH;
-    if (m) (useKaval ? kaval : gaida)(start, m, dur, !useKaval && i === 0 && len >= 2);
+  notes.forEach(([deg, len], i) => {
+    const start = t + pos * E, dur = len * E, midi = midiOf(th, deg);
+    if (sec === 'intro') kaval(start, midi, dur);
+    else if (sec === 'bridge') pluck(start, midi, 0.12);
+    else if (sec === 'C') (th.counter === 'gadulka' ? gadulka : th.counter === 'gaida' ? gaida : kaval)(start, midi, dur, false);
+    else (th.lead === 'gaida' ? gaida : kaval)(start, midi, dur, th.lead === 'gaida' && i === 0 && len >= 2);
     pos += len;
   });
-  // ръченица: 2 + 2 + 3 → colpi gravi su 0, 2, 4 (accento sul lungo), bacchetta sugli altri ottavi
-  [0, 2, 4].forEach(e => bass(t + e * EIGHTH, e === 4));
-  [1, 3, 5, 6].forEach(e => noise(t + e * EIGHTH, 0.04, 0.05, 6000));
-  bar = (bar + 1) % TUNE.length;
-  if (bar === 0) round++;
+
+  // Accompagnamento: тамбура sugli inizi dei gruppi nel controtema e nel secondo giro
+  if (sec === 'C' || (sec !== 'intro' && idx > seq.length / 2)) starts.forEach((s, k) => pluck(t + s * E, th.tonic - 12 + (k % 2 ? 7 : 0), 0.05));
+
+  // Тъпан: grave su ogni gruppo (accento sul gruppo lungo), bacchetta sugli altri ottavi; leggero nell'intro
+  const soft = sec === 'intro' || sec === 'coda' ? 0.5 : 1;
+  starts.forEach((s, k) => bass(t + s * E, (th.groups[k] === longest ? 0.45 : 0.3) * soft));
+  if (sec !== 'intro') for (let e = 0; e < acc; e++) if (!starts.includes(e)) noise(t + e * E, 0.035, 0.045 * soft, 6000);
+
+  idx = (idx + 1) % seq.length;
+  return acc * E;
 }
 
 function tick() {
-  while (nextTime < ctx.currentTime + 0.4) { scheduleBar(nextTime); nextTime += 7 * EIGHTH; }
+  while (nextTime < ctx.currentTime + 0.4) {
+    nextTime += scheduleBar(nextTime);
+  }
+}
+
+function begin(name) {
+  current = name; seq = sequence(THEMES[name]); idx = 0;
+  nextTime = ctx.currentTime + 0.15;
+  startDrone(THEMES[name], nextTime);
 }
 
 export function start() {
@@ -100,11 +214,10 @@ export function start() {
   if (playing) return;
   playing = true;
   ctx.resume?.();
-  nextTime = ctx.currentTime + 0.1;
   master.gain.cancelScheduledValues(ctx.currentTime);
   master.gain.setValueAtTime(0, ctx.currentTime);
   master.gain.linearRampToValueAtTime(volume, ctx.currentTime + 1.5);
-  startDrone(nextTime);
+  begin(current);
   tick(); timer = setInterval(tick, 100);
 }
 export function stop() {
@@ -113,11 +226,32 @@ export function stop() {
   master.gain.cancelScheduledValues(ctx.currentTime);
   master.gain.setValueAtTime(master.gain.value, ctx.currentTime);
   master.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.4);
-  stopDrone(ctx.currentTime + 0.45);
+  stopDrone(ctx.currentTime + 0.3);
+}
+// Cambia ambiente: dissolvenza e ripartenza dall'intro del nuovo tema.
+export function setTheme(name) {
+  if (!THEMES[name] || name === current) return;
+  if (!ctx || !playing) { current = name; seq = sequence(THEMES[name]); idx = 0; return; }
+  clearInterval(timer);
+  const now = ctx.currentTime;
+  master.gain.cancelScheduledValues(now);
+  master.gain.setValueAtTime(master.gain.value, now);
+  master.gain.linearRampToValueAtTime(0.0001, now + 0.6);
+  stopDrone(now + 0.5);
+  clearTimeout(pending);
+  pending = setTimeout(() => {
+    pending = null;
+    if (!playing) return;
+    begin(name);
+    master.gain.cancelScheduledValues(ctx.currentTime);
+    master.gain.setValueAtTime(0.0001, ctx.currentTime);
+    master.gain.linearRampToValueAtTime(volume, ctx.currentTime + 1.2);
+    tick(); timer = setInterval(tick, 100);
+  }, 700);
 }
 export function setVolume(v) {
   volume = Math.max(0, Math.min(1, v)) * 0.6;
-  if (ctx && playing) master.gain.setTargetAtTime(volume, ctx.currentTime, 0.1);
+  if (ctx && playing && !pending) master.gain.setTargetAtTime(volume, ctx.currentTime, 0.1);
 }
 // Abbassa la musica mentre parla la voce.
 export function duck(on) {
@@ -126,3 +260,5 @@ export function duck(on) {
 }
 export const isPlaying = () => playing;
 export const wasStarted = () => !!ctx;
+export const currentTheme = () => current;
+export const currentSection = () => (seq[(idx - 1 + seq.length) % seq.length] || {}).sec;

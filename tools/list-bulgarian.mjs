@@ -29,10 +29,10 @@ C.chapters.forEach(c => add(`Titolo capitolo ${c.id}`, c.bg, c.it));
 
 const seen = new Set();
 const unique = rows.filter(r => { const k = r[0].split(' (')[0] + r[1]; if (seen.has(k)) return false; seen.add(k); return true; });
-const md = `# Frasi bulgare da controllare
+const md = `# Frasi bulgare del gioco
 
-Stato per capitolo (\`REVIEW\` in \`js/content.js\`): ${Object.entries(C.REVIEW).map(([k, v]) => `cap. ${k} **${{ pending: 'da controllare', 'ai-checked': 'controllato con AI', 'native-approved': 'approvato da madrelingua' }[v]}**`).join(' · ')}.
-Passaggi previsti: da controllare → controllata da AI (sessione separata) → approvata da madrelingua (facoltativo, prima della pubblicazione).
+Stato per capitolo (\`REVIEW\` in \`js/content.js\`): ${Object.entries(C.REVIEW).map(([k, v]) => `cap. ${k} **${{ pending: 'da controllare', 'ai-checked': 'controllato con AI', 'native-approved': 'approvato da Mario' }[v]}**`).join(' · ')}.
+Passaggi seguiti: da controllare → controllata da AI (sessione separata) → approvata da Mario (19/10/2026; revisione del madrelingua annullata da Mario).
 
 File generato con \`node tools/list-bulgarian.mjs\`: non modificarlo a mano. Le correzioni vanno in \`js/content.js\` (capitolo 1) e \`js/chapters/\` (capitoli 2–10).
 Il nome del giocatore è mostrato come «Марио».

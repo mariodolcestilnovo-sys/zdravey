@@ -1,7 +1,7 @@
-# Frasi bulgare da controllare
+# Frasi bulgare del gioco
 
-Stato per capitolo (`REVIEW` in `js/content.js`): cap. 1 **controllato con AI** · cap. 2 **controllato con AI** · cap. 3 **controllato con AI** · cap. 4 **controllato con AI** · cap. 5 **controllato con AI** · cap. 6 **controllato con AI** · cap. 7 **controllato con AI** · cap. 8 **controllato con AI** · cap. 9 **controllato con AI** · cap. 10 **controllato con AI**.
-Passaggi previsti: da controllare → controllata da AI (sessione separata) → approvata da madrelingua (facoltativo, prima della pubblicazione).
+Stato per capitolo (`REVIEW` in `js/content.js`): cap. 1 **approvato da Mario** · cap. 2 **approvato da Mario** · cap. 3 **approvato da Mario** · cap. 4 **approvato da Mario** · cap. 5 **approvato da Mario** · cap. 6 **approvato da Mario** · cap. 7 **approvato da Mario** · cap. 8 **approvato da Mario** · cap. 9 **approvato da Mario** · cap. 10 **approvato da Mario**.
+Passaggi seguiti: da controllare → controllata da AI (sessione separata) → approvata da Mario (19/10/2026; revisione del madrelingua annullata da Mario).
 
 File generato con `node tools/list-bulgarian.mjs`: non modificarlo a mano. Le correzioni vanno in `js/content.js` (capitolo 1) e `js/chapters/` (capitoli 2–10).
 Il nome del giocatore è mostrato come «Марио».

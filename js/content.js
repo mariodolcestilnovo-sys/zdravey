@@ -12,8 +12,9 @@ import ch8 from './chapters/ch8.js';
 import ch9 from './chapters/ch9.js';
 import ch10 from './chapters/ch10.js';
 
-// Stato di revisione per capitolo: pending → ai-checked → native-approved
-export const REVIEW = { 1: 'ai-checked', 2: 'ai-checked', 3: 'ai-checked', 4: 'ai-checked', 5: 'ai-checked', 6: 'ai-checked', 7: 'ai-checked', 8: 'ai-checked', 9: 'ai-checked', 10: 'ai-checked' };
+// Stato di revisione per capitolo: pending → ai-checked → native-approved (approvato)
+// 19/10/2026: Mario ha controllato e approvato tutti i testi; revisione del madrelingua annullata.
+export const REVIEW = { 1: 'native-approved', 2: 'native-approved', 3: 'native-approved', 4: 'native-approved', 5: 'native-approved', 6: 'native-approved', 7: 'native-approved', 8: 'native-approved', 9: 'native-approved', 10: 'native-approved' };
 // Stato complessivo mostrato nel gioco: il più basso tra i capitoli.
 export const REVIEW_STATUS = Object.values(REVIEW).includes('pending') ? 'pending' : Object.values(REVIEW).includes('ai-checked') ? 'ai-checked' : 'native-approved';
 
